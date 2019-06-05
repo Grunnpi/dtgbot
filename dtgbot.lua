@@ -446,7 +446,7 @@ function on_msg_receive (msg)
 
     SlashPos=string.find(ReceivedText, "/")
     if(SlashPos ~= 1) then
-      print("******** no /, no chocolat")
+      --print("******** no /, no chocolat")
       return
     end
 
@@ -455,14 +455,20 @@ function on_msg_receive (msg)
 
     SpacePos = string.find(ReceivedText, "% ")
     if(SpacePos==nil) then
-      print("********* no bot name + command, NO WAY")
+      --print("********* no bot name + command, NO WAY")
+      return
     else
       botPrefix = string.sub(ReceivedText,1,SpacePos-1)
       ReceivedText = string.sub(ReceivedText,SpacePos+1,string.len(ReceivedText))
 
-      print("********* You want BOT="..botPrefix.." to process CMD="..ReceivedText)
+      --print("********* You want BOT="..botPrefix.." to process CMD="..ReceivedText)
+      if ( botPrefix == 'all' or botPrefix == TelegramBotName ) then
+          --print("************ OKAYYYYYYY, bot / command")
+      else
+          --print("************ Not the good BOT, neither ALL stuff")
+          return
+      end
     end
-
   end
 
 
@@ -477,7 +483,7 @@ function on_msg_receive (msg)
       channelmsg = true
     end
     if msg.text then   -- check if message is text
-      ReceivedText = msg.text
+      --ReceivedText = msg.text -- I dont read it again
       if HandleCommand(ReceivedText, tostring(msg_from), tostring(grp_from), msg_id, channelmsg) == 1 then
         print_to_log(0,"Succesfully handled incoming request")
       else
