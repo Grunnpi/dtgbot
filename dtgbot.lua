@@ -84,6 +84,7 @@ BotLuaScriptPath = domoticzdata("BotLuaScriptPath")
 BotBashScriptPath = domoticzdata("BotBashScriptPath")
 TelegramBotToken = domoticzdata("TelegramBotToken")
 TBOName = domoticzdata("TelegramBotOffset")
+
 -- -------------------------------------------------------
 
 -- Constants derived from environment variables
@@ -245,6 +246,13 @@ function dtgbot_initialise()
     end
   end
 
+  TelegramBotNameIdx = idx_from_variable_name("TelegramBotName")
+  if TelegramBotNameIdx ~= nil then
+    TelegramBotName = get_variable_value(TelegramBotNameIdx)
+  else
+    TelegramBotName = "bot"
+  end
+
   return
 end
 
@@ -322,6 +330,7 @@ function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
   end
   if command_prefix ~= "" then
     if parsed_command[1] ~= command_prefix then -- command prefix has not been found so ignore message
+      print("**** ignore this command "..parsed_command[1])
       return 1 -- not a command so successful but nothing done
     end
   end
@@ -430,6 +439,33 @@ function on_msg_receive (msg)
   if msg.out then
     return
   end
+
+-- filter command for bot only
+  if msg.text then
+    ReceivedText = msg.text
+
+    SlashPos=string.find(ReceivedText, "/")
+    if(SlashPos ~= 1) then
+      print("******** no /, no chocolat")
+      return
+    end
+
+    -- remove slash
+    ReceivedText = string.sub(ReceivedText,2,string.len(ReceivedText))
+
+    SpacePos = string.find(ReceivedText, "% ")
+    if(SpacePos==nil) then
+      print("********* no bot name + command, NO WAY")
+    else
+      botPrefix = string.sub(ReceivedText,1,SpacePos-1)
+      ReceivedText = string.sub(ReceivedText,SpacePos+1,string.len(ReceivedText))
+
+      print("********* You want BOT="..botPrefix.." to process CMD="..ReceivedText)
+    end
+
+  end
+
+
 
 --Check to see if id is whitelisted, if not record in log and exit
   if id_check(msg.from.id) then
