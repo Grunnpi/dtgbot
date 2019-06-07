@@ -413,6 +413,42 @@ function send_msg(SendTo, Message, MessageId, replymarkup)
   return
 end
 
+
+
+function id_check_for_function(SendTo, FunctionName)
+  FunctionWhiteList = 'TelegramWhiteListFor'..FunctionName
+
+  -- Retrieve id white list
+  FunctionWhiteListIdx = idx_from_variable_name(FunctionWhiteList)
+  if FunctionWhiteListIdx == nil then
+    print_to_log(0,FunctionWhiteList..' user variable does not exist in Domoticz')
+    print_to_log(0,'So will allow any id to use the bot')
+  else
+    print_to_log(0,'FunctionWhiteListIdx '..FunctionWhiteListIdx)
+    FunctionWhiteListName = get_variable_value(FunctionWhiteListIdx)
+    print_to_log(0,'FunctionWhiteListValue: '..FunctionWhiteListName)
+    FunctionWhiteListValue = get_names_from_variable(FunctionWhiteListName)
+  end
+
+  --Check if whitelist empty then let any message through
+  if FunctionWhiteListValue == nil then
+    return true
+  else
+    SendTo = tostring(SendTo)
+    --Check id against whitelist
+    for i = 1, #FunctionWhiteListValue do
+      print_to_log(0,'WhiteList: '..FunctionWhiteListValue[i])
+      if SendTo == FunctionWhiteListValue[i] then
+        return true
+      end
+    end
+    -- Checked WhiteList no match
+    print_to_log(0,'Not on WhiteList: '..SendTo)
+    return false
+  end
+end
+
+
 function id_check(SendTo)
   --Check if whitelist empty then let any message through
   if WhiteList == nil then
