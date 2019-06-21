@@ -72,18 +72,24 @@ function get_variable_value(idx)
     return ""
   end
   t = server_url.."/json.htm?type=command&param=getuservariable&idx="..tostring(idx)
-  print_to_log(1,"JSON request <"..t..">");
+  print_to_log(1,"get_variable_value: JSON request <"..t..">");
   jresponse, status = http.request(t)
-  decoded_response = JSON:decode(jresponse)
-  print_to_log(0,'Decoded '..decoded_response["result"][1]["Value"])
-  return decoded_response["result"][1]["Value"]
+  returnValue = ""
+  if ( jresponse ~= nil ) then
+    decoded_response = JSON:decode(jresponse)
+    returnValue = decoded_response["result"][1]["Value"]
+    print_to_log(1,'get_variable_value: Decoded '..returnValue)
+  else
+    print_error_to_log(0,'get_variable_value('..idx..') return nil value. Assume empty value')
+  end
+  return returnValue
 end
 
 function set_variable_value(idx, name, Type, value)
   -- store the value of a user variable
   local t, jresponse, decoded_response
   t = server_url.."/json.htm?type=command&param=updateuservariable&idx="..idx.."&vname="..name.."&vtype="..Type.."&vvalue="..tostring(value)
-  print_to_log(1,"JSON request <"..t..">");
+  print_to_log(1,"set_variable_value: JSON request <"..t..">");
   jresponse, status = http.request(t)
   return
 end
@@ -101,7 +107,7 @@ function get_names_from_variable(DividedString)
   Names = {}
   for Name in string.gmatch(DividedString, "[^|]+") do
     Names[#Names + 1] = Name
-    print_to_log(1,'Name :'..Name)
+    print_to_log(1,'get_names_from_variable: Name ='..Name)
   end
   if Names == {} then
     Names = nil

@@ -13,7 +13,46 @@
 -- -------------------------------------------------------
 
 -- print to log with time and date
-function print_to_log(loglevel, logmessage, ...)
+function print_to_console(logType, loglevel, logmessage, ...)
+  -- when only one parameter is provided => set the loglevel to 0 and assume the parameter is the messagetext
+  if tonumber(loglevel) == nil or logmessage == nil then
+    logmessage = loglevel
+    loglevel=0
+  end
+  if loglevel > 0 and logType == ' INFO' then
+    logType = 'DEBUG'
+  end
+  if loglevel <= dtgbotLogLevel then
+    logcount = #{...}
+    if logcount > 0 then
+      for i, v in pairs({...}) do
+        logmessage = logmessage ..' ('..tostring(i)..') '..tostring(v)
+      end
+      logmessage=tostring(logmessage):gsub(" (.+) nil","")
+    end
+    print(os.date("%Y-%m-%d %H:%M:%S")..' - ['..logType..':'..loglevel..'] '..tostring(logmessage))
+  end
+end
+
+-- print to log with time and date
+function print_to_log(loglevel, logmessage, ...) -- #########################################################
+  print_to_console(" INFO",loglevel,logmessage, ...)
+end
+
+function print_error_to_log(loglevel, logmessage, ...) -- #########################################################
+  print_to_console("ERROR",loglevel,logmessage, ...)
+end
+
+function print_warning_to_log(loglevel, logmessage, ...) -- #########################################################
+  print_to_console(" WARN",loglevel,logmessage, ...)
+end
+
+function errorHandling(err)
+  print_error_to_log(0, err)
+end
+
+-- print to log with time and date
+function print_to_log_old(loglevel, logmessage, ...)
   -- when only one parameter is provided => set the loglevel to 0 and assume the parameter is the messagetext
   if tonumber(loglevel) == nil or logmessage == nil then
     logmessage = loglevel
@@ -30,6 +69,7 @@ function print_to_log(loglevel, logmessage, ...)
     print(os.date("%Y-%m-%d %H:%M:%S")..' - '..tostring(logmessage))
   end
 end
+
 -- print Telegram exchange to a separate debug log
 function print_to_debuglog(loglevel, logmessage, ...)
   -- when only one parameter is provided => set the loglevel to 0 and assume the parameter is the messagetext
@@ -221,17 +261,17 @@ function dtgbot_initialise()
     end
   end
 
-  print_to_log(0,' dtgbotLogLevel set to: '..tostring(dtgbotLogLevel))
+  print_to_log(0,'** dtgbotLogLevel set to: '..tostring(dtgbotLogLevel)..' (0 is minimum / 2 is usually max)')
 
   print_to_log(0,"Loading command modules...")
   for i, m in ipairs(command_modules) do
-    print_to_log(0,"Loading module <"..m..">");
+    print_to_log(2,"* Loading module <"..m..">");
     t = assert(loadfile(BotLuaScriptPath..m..".lua"))();
     cl = t:get_commands();
     for c, r in pairs(cl) do
-      print_to_log(0,"found command <"..c..">");
+      print_to_log(1,"** found command ["..m.."]::<"..c..">");
       commands[c] = r;
-      print_to_log(2,commands[c].handler);
+      --print_to_log(2,commands[c].handler); -- what the point of this line ?
     end
   end
 
@@ -272,11 +312,13 @@ function timedifference(s)
 end
 
 function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
+
   if channelmsg then
-    print_to_log(0,"Handle command function started with " .. cmd .. " and " .. SendTo .. "  Group:"..Group.."   channelmsg:true" )
+    channelmsgString = 'true'
   else
-    print_to_log(0,"Handle command function started with " .. cmd .. " and " .. SendTo .. "  Group:"..Group.."   channelmsg:False")
+    channelmsgString = 'false'
   end
+  print_to_log(0,"HandleCommand: started with [" .. cmd .. "] sendTo[" .. SendTo .. "] Group["..Group.."] channelmsg:"..channelmsgString )
   --- parse the command
   if command_prefix == "" then
     -- Command prefix is not needed, as can be enforced by Telegram api directly
@@ -457,13 +499,14 @@ function id_check(SendTo)
     SendTo = tostring(SendTo)
     --Check id against whitelist
     for i = 1, #WhiteList do
-      print_to_log(0,'WhiteList: '..WhiteList[i])
+      print_to_log(2,'id_check: WhiteList['..WhiteList[i]..'] ?')
       if SendTo == WhiteList[i] then
+        print_to_log(1,'id_check: WhiteList['..WhiteList[i]..'] ok ')
         return true
       end
     end
     -- Checked WhiteList no match
-    print_to_log(0,'Not on WhiteList: '..SendTo)
+    print_warning_to_log(0,'id_check: WhiteList['..SendTo..'] not allowed')
     return false
   end
 end
@@ -605,32 +648,32 @@ if dtgbotLogLevelidx ~= nil then
     dtgbotLogLevel=0
   end
 end
-print_to_log(0,' dtgbotLogLevel set to: '..tostring(dtgbotLogLevel))
+print_to_log(0,'* dtgbotLogLevel set to: '..tostring(dtgbotLogLevel))
 
 -- Retrieve id white list
 WLidx = idx_from_variable_name(WLName)
 if WLidx == nil then
-  print_to_log(0,WLName..' user variable does not exist in Domoticz')
-  print_to_log(0,'So will allow any id to use the bot')
+  print_warning_to_log(0,WLName..' user variable does not exist in Domoticz')
+  print_warning_to_log(0,'So will allow any id to use the bot')
 else
-  print_to_log(0,'WLidx '..WLidx)
+  print_to_log(1,'idx_from_variable_name: WLidx '..WLidx)
   WLString = get_variable_value(WLidx)
-  print_to_log(0,'WLString: '..WLString)
+  print_to_log(1,'idx_from_variable_name: WLString: '..WLString)
   WhiteList = get_names_from_variable(WLString)
 end
 
 -- Get the updates
-print_to_log(0,'Getting '..TBOName..' the previous Telegram bot message offset from Domoticz')
+print_to_log(0,'Getting ['..TBOName..'] the previous Telegram bot message offset from Domoticz')
 TBOidx = idx_from_variable_name(TBOName)
 if TBOidx == nil then
-  print_to_log(0,TBOName..' user variable does not exist in Domoticz so can not continue')
+  print_error_to_log(0,TBOName..' user variable does not exist in Domoticz so can not continue')
   os.exit()
 else
-  print_to_log(1,'TBOidx '..TBOidx)
+  print_to_log(2,'['..TBOName..']>idx(TBOidx)='..TBOidx)
 end
 TelegramBotOffset=get_variable_value(TBOidx)
-print_to_log(1,'TBO '..TelegramBotOffset)
-print_to_log(1,telegram_url)
+print_to_log(2,'['..TBOName..']>TBO='..TelegramBotOffset)
+print_to_log(2,'TelegramUrl=['..telegram_url..']')
 telegram_connected = false
 --Update monitorfile before loop
 os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. TempFileDir .. "/dtgloop.txt")
@@ -638,13 +681,13 @@ while file_exists(dtgbot_pid) do
   response, status = https.request(telegram_url..'getUpdates?timeout=60&offset='..TelegramBotOffset)
   if status == 200 then
     if not telegram_connected then
-      print_to_log(0,'')
-      print_to_log(0,'### In contact with Telegram servers')
+      print_to_log(0,'########################################')
+      print_to_log(0,'### In contact with Telegram servers ###')
+      print_to_log(0,'########################################')
       telegram_connected = true
     end
     if response ~= nil then
       io.write('.')
-      print_to_log(1,"")
       print_to_log(1,response)
       decoded_response = JSON:decode(response)
       result_table = decoded_response['result']
@@ -652,9 +695,9 @@ while file_exists(dtgbot_pid) do
       for i = 1, tc do
         print_to_log(1,'Message: '..i)
         tt = table.remove(result_table,1)
-        print_to_log(1,'update_id ',tt.update_id)
+        print_to_log(1,'update_id: ',tt.update_id)
         TelegramBotOffset = tt.update_id + 1
-        print_to_log(1,'TelegramBotOffset '..TelegramBotOffset)
+        print_to_log(1,'TelegramBotOffset: '..TelegramBotOffset)
         set_variable_value(TBOidx,TBOName,0,TelegramBotOffset)
         -- get message from Json result
         msg = tt['message']

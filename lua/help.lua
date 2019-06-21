@@ -2,6 +2,7 @@ local help_module = {};
 local http = require "socket.http";
 --JSON = assert(loadfile "JSON.lua")() -- one-time load of the routines
 
+
 --- the handler for the list commands. a module can have more than one handler. in this case the same handler handles two commands
 function help_module.handler(parsed_cli)
 	local response = "", status;
@@ -25,7 +26,14 @@ function help_module.handler(parsed_cli)
   end
   HelpText = string.sub(HelpText,1,-3)..'\nHelp Command - gives usage information, i.e. Help On \n\n'
 --  send_msg(SendTo,HelpText,ok_cb,false)
-  local Functions = io.popen("ls " .. UserScriptPath)
+  local status, err, file = xpcall(io.popen('dir', 'rw'),errorHandling)
+  if ( status ) then
+    cmdListDir = 'ls'
+  else
+    cmdListDir = 'dir /B'
+  end
+
+  local Functions = io.popen(cmdListDir.." ".. UserScriptPath)
   HelpText = HelpText..'⚠️ Available Shell commands ⚠️ \n'
   for line in Functions:lines() do
     print_to_log(line)
