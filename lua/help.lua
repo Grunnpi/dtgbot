@@ -32,6 +32,8 @@ function help_module.handler(parsed_cli)
   else
     cmdListDir = 'dir /B'
   end
+	
+  cmdListDir = 'ls'
 
   local Functions = io.popen(cmdListDir.." ".. UserScriptPath)
   HelpText = HelpText..'⚠️ Available Shell commands ⚠️ \n'
