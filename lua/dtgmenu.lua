@@ -612,12 +612,12 @@ function ChkInTable(itab,idev)
     for dev in string.gmatch(itab, "[^|,]+") do
       cnt=cnt+1
       if dev == idev then
-        print_to_log(2, "-< ChkInTable found: "..idev,cnt,itab)
+        print_to_log(3, "-< ChkInTable found: "..idev,cnt,itab)
         return true,cnt
       end
     end
   end
-  print_to_log(2, "-< ChkInTable not found: "..idev,cnt,itab)
+  print_to_log(3, "-< ChkInTable not found: "..idev,cnt,itab)
   return false,0
 end
 -- SCAN through provided delimited string for the second parameter

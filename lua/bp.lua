@@ -55,7 +55,7 @@ function nflick_module.handler(parsed_cli)
 end
 
 local nflick_commands = {
-			["bp"] = {handler=nflick_module.handler, description="bp helper"}
+			["bp"] = {handler=nflick_module.handler, description="bp - helper for BankPerfect"}
 		      }
 
 function nflick_module.get_commands()

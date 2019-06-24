@@ -12,6 +12,8 @@
 -- shared between the two bots.
 -- -------------------------------------------------------
 
+dtgbot_version = 'v0.7'
+
 -- print to log with time and date
 function print_to_console(logType, loglevel, logmessage, ...)
   -- when only one parameter is provided => set the loglevel to 0 and assume the parameter is the messagetext
@@ -293,6 +295,19 @@ function dtgbot_initialise()
     TelegramBotName = "bot"
   end
 
+  TelegramBotLuaExcludeIdx = idx_from_variable_name("TelegramBotLuaExclude")
+  if TelegramBotLuaExcludeIdx ~= nil then
+    TelegramBotLuaExclude = get_variable_value(TelegramBotLuaExcludeIdx)
+  else
+    TelegramBotLuaExclude = ""
+  end
+  TelegramBotBashExcludeIdx = idx_from_variable_name("TelegramBotBashExclude")
+  if TelegramBotBashExcludeIdx ~= nil then
+    TelegramBotBashExclude = get_variable_value(TelegramBotBashExcludeIdx)
+  else
+    TelegramBotBashExclude = ""
+  end
+
   return
 end
 
@@ -523,34 +538,54 @@ function on_msg_receive (msg)
   if msg.text then
     ReceivedText = msg.text
 
+    -- start with a /
     SlashPos=string.find(ReceivedText, "/")
     if(SlashPos ~= 1) then
-      --print("******** no /, no chocolat")
       return
     end
 
     -- remove slash
     ReceivedText = string.sub(ReceivedText,2,string.len(ReceivedText))
+    ReceivedTextFull = ReceivedText
 
+    commandValidated = false
+    -- command with "/bot cmd option" style
     SpacePos = string.find(ReceivedText, "% ")
     if(SpacePos==nil) then
-      --print("********* no bot name + command, NO WAY")
-      return
+      print_to_log(3,'Received['..ReceivedText..'] not with [botName<space>]')
     else
       botPrefix = string.sub(ReceivedText,1,SpacePos-1)
       ReceivedText = string.sub(ReceivedText,SpacePos+1,string.len(ReceivedText))
-
-      --print("********* You want BOT="..botPrefix.." to process CMD="..ReceivedText)
       if ( botPrefix == 'all' or botPrefix == TelegramBotName ) then
-          --print("************ OKAYYYYYYY, bot / command")
+          print_to_log(3,'Received['..ReceivedText..'] okay with ['..botPrefix..']')
+          commandValidated = true
       else
-          --print("************ Not the good BOT, neither ALL stuff")
-          return
+          print_to_log(3,'Received['..ReceivedText..'] not good bot name ['..botPrefix..']')
       end
     end
+
+    if ( not commandValidated ) then
+      ReceivedText = ReceivedTextFull
+      SpacePos = string.find(ReceivedText, "%_")
+      if(SpacePos==nil) then
+        print_to_log(3,'Received['..ReceivedText..'] not with [botName_]')
+      else
+        botPrefix = string.sub(ReceivedText,1,SpacePos-1)
+        ReceivedText = string.sub(ReceivedText,SpacePos+1,string.len(ReceivedText))
+        if ( botPrefix == 'all' or botPrefix == TelegramBotName ) then
+          ReceivedText = string.gsub (ReceivedText, "_", " ")
+          print_to_log(3,'Received['..ReceivedText..'] okay with ['..botPrefix..']')
+          commandValidated = true
+        else
+          print_to_log(3,'Received['..ReceivedText..'] not good bot name ['..botPrefix..']')
+        end
+      end
+    end
+
+    if ( not commandValidated ) then
+      return
+    end
   end
-
-
 
 --Check to see if id is whitelisted, if not record in log and exit
   if id_check(msg.from.id) then
@@ -639,16 +674,6 @@ end
 function on_binlog_replay_end ()
   started = 1
 end
-
--- get the require loglevel
-dtgbotLogLevelidx = idx_from_variable_name("TelegramBotLoglevel")
-if dtgbotLogLevelidx ~= nil then
-  dtgbotLogLevel = tonumber(get_variable_value(dtgbotLogLevelidx))
-  if dtgbotLogLevel == nil then
-    dtgbotLogLevel=0
-  end
-end
-print_to_log(0,'* dtgbotLogLevel set to: '..tostring(dtgbotLogLevel))
 
 -- Retrieve id white list
 WLidx = idx_from_variable_name(WLName)

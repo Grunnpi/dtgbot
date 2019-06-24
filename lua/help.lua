@@ -11,36 +11,63 @@ function help_module.handler(parsed_cli)
   if (command ~= "" and command ~= nil) then
     command_dispatch = commands[string.lower(command)];
     if command_dispatch then
-      response = command_dispatch.description;
+      if ( ChkInTable(TelegramBotLuaExclude,command)) then
+          response = command..' filtered in your list of command'
+      else
+          response = command_dispatch.description;
+      end
     else
       response = command..' was not found - check spelling and capitalisation - Help for list of commands'
     end
+    print_to_log(0,'[help:specific]='..response)
     return status, response
   end
   local DotPos = 0
-  HelpText='⚠️ Available Lua commands ⚠️ \n'
+
+  HelpText = 'Version='..dtgbot_version..'\n'
+  HelpText = HelpText..'⚠️ Available Lua commands ⚠️ \n'
   for i,help in pairs(commands) do
-    print_to_log(help.description)
-   --send_msg(SendTo,help,ok_cb,false)
-    HelpText = HelpText.."/"..string.gmatch(help.description, "%S+")[[1]]..', '
+    newCommand = string.gmatch(help.description, "%S+")[[1]]..''
+    -- filter TelegramBotBashExclude
+    if ( ChkInTable(TelegramBotLuaExclude,newCommand)) then
+        print_to_log(2,'WARN help::list lua command:'..newCommand..' filtered')
+    else
+        newCommandHelper = TelegramBotName..'_'..newCommand
+        print_to_log(2,'help::list lua command:'..newCommandHelper)
+        HelpText = HelpText.."/"..newCommandHelper..'\n'
+    end
   end
+
   HelpText = string.sub(HelpText,1,-3)..'\nHelp Command - gives usage information, i.e. Help On \n\n'
---  send_msg(SendTo,HelpText,ok_cb,false)
-  local status, err, file = xpcall(io.popen('dir', 'rw'),errorHandling)
-  if ( status ) then
-    cmdListDir = 'ls'
-  else
-    cmdListDir = 'dir /B'
-  end
+
+    current_dir=io.popen"cd":read'*l'
+    current_dir = string.sub(current_dir,2,2)
+--    print_error_to_log('Dir = '..current_dir)
+    if ( current_dir == ':' ) then
+        cmdListDir = 'dir /B'
+    else
+        cmdListDir = 'ls'
+    end
+  --cmdListDir = 'ls'
 
   local Functions = io.popen(cmdListDir.." ".. UserScriptPath)
   HelpText = HelpText..'⚠️ Available Shell commands ⚠️ \n'
   for line in Functions:lines() do
-    print_to_log(line)
     DotPos=string.find(line, "%.")
-    HelpText = HelpText .. "-" .. "/"..string.sub(line,0,DotPos-1).."\n"
+    newCommand = string.sub(line,0,DotPos-1)
+
+    -- filter TelegramBotBashExclude
+    if ( ChkInTable(TelegramBotBashExclude,newCommand)) then
+        print_to_log(2,'WARN help::list bash command:'..newCommand..' filtered')
+    else
+        newCommandHelper = TelegramBotName..'_'..newCommand
+        print_to_log(2,'help::list bash command:'..newCommandHelper)
+        HelpText = HelpText.."/"..newCommandHelper..'\n'
+    end
   end
-	return status, HelpText;
+
+  print_to_log(1,'[help:global]='..HelpText)
+  return status, HelpText;
 end
 
 local help_commands = {
