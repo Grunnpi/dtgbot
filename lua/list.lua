@@ -46,8 +46,8 @@ function list_module.handler(parsed_cli)
 end
 
 local list_commands = {
-			["list"] = {handler=list_module.handler, description="List devices, either all or specific type"},
-			["dump"] = {handler=list_module.handler, description="List all information about devices, either all or specific type"}
+			["list"] = {handler=list_module.handler, description="list devices, either all or specific type"},
+			["dump"] = {handler=list_module.handler, description="list all information about devices, either all or specific type"}
 		      }
 
 function list_module.get_commands()
