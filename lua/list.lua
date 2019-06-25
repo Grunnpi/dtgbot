@@ -24,23 +24,22 @@ function list_module.handler(parsed_cli)
     if (jresponse ~= nil) then
         decoded_response = JSON:decode(jresponse)
         for k, record in pairs(decoded_response) do
-            print_to_log(k, type(record))
+            print_info_to_log(1,"list.lua",k, type(record))
             if type(record) == "table" then
                 for k1, v1 in pairs(record) do
                     if string.find(string.lower(v1.Type), match_type) then
                         response = response .. list_device_attr(v1, mode) .. "\n";
                     end
-                    --				print_to_log(k1, v1)
                 end
             else
-                print_to_log(record)
+                print_info_to_log(1, "list.lua/record:"..record)
             end
         end
     else
         print_warning_to_log(0, 'list.lua/No devices detected')
     end
 
-    print_to_log('list.lua/response:[' .. response .. ']')
+    print_info_to_log(1, 'list.lua/response:[' .. response .. ']')
     return status, response;
 end
 

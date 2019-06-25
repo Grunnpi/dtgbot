@@ -3,17 +3,29 @@ local http = require "socket.http";
 --JSON = assert(loadfile "JSON.lua")() -- one-time load of the routines
 
 function DevicesScenes(DeviceType, qualifier)
-    local response = "", ItemNumber, result, decoded_response, record, k;
-    print_to_log(qualifier)
+    local response = ""
+    local ItemNumber
+    local result
+    local decoded_response
+    local record
+    local k
+
+    if ( qualifier ~= nil ) then
+        print_info_to_log(1,"devices.lua/Qualifier:"..qualifier)
+    else
+        print_info_to_log(1,"devices.lua/Qualifier:nil")
+    end
     if qualifier ~= nil then
         response = 'All ' .. DeviceType .. ' starting with ' .. qualifier
-        qaulifier = string.lower(qualifier)
+        qualifier = string.lower(qualifier)
         quallength = string.len(qualifier)
     else
         response = 'All available ' .. DeviceType
     end
+
     decoded_response = device_list(DeviceType)
     result = decoded_response["result"]
+    print_info_to_log(1,"devices.lua/Devices["..DeviceType.."]:size="..tostring(#result))
     StoredType = DeviceType
     StoredList = {}
     ItemNumber = 0
@@ -46,8 +58,7 @@ function DevicesScenes(DeviceType, qualifier)
 end
 
 function devices_module.handler(parsed_cli)
-    local response = ""
-    response = DevicesScenes(string.lower(parsed_cli[2]), parsed_cli[3])
+    local response = DevicesScenes(string.lower(parsed_cli[2]), parsed_cli[3])
     return status, response;
 end
 

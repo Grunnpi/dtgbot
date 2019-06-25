@@ -104,7 +104,7 @@ function temperature_module.handler(parsed_cli)
                 else
                     status = tostring(record.Status)
                 end
-                print_to_log(1, " !!!! found temp device", record.Name, record.Type, status)
+                print_info_to_log(1, " !!!! found temp device", record.Name, record.Type, status)
             end
             response = response .. record.Name .. ":" .. status .. '\n'
         end

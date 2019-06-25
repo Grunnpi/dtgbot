@@ -25,18 +25,18 @@ function variable_list()
     -- Domoticz seems to take a while to respond to getuservariables after start-up
     -- So just keep trying after 1 second sleep
     while (jresponse == nil) do
-        print_to_log(1, "JSON request <" .. t .. ">");
+        print_info_to_log(1, "JSON request <" .. t .. ">");
         jresponse, status = http.request(t)
         if (jresponse == nil) then
             socket.sleep(1)
             domoticz_tries = domoticz_tries + 1
             if domoticz_tries > 20 then
-                print_to_log(0, 'Domoticz not sending back user variable list')
+                print_info_to_log(0, 'Domoticz not sending back user variable list')
                 break
             end
         end
     end
-    print_to_log(0, 'Domoticz returned getuservariables after ' .. domoticz_tries .. ' attempts')
+    print_info_to_log(0, 'Domoticz returned getuservariables after ' .. domoticz_tries .. ' attempts')
     if jresponse ~= nil then
         decoded_response = JSON:decode(jresponse)
     else
@@ -72,13 +72,13 @@ function get_variable_value(idx)
         return ""
     end
     t = server_url .. "/json.htm?type=command&param=getuservariable&idx=" .. tostring(idx)
-    print_to_log(1, "get_variable_value: JSON request <" .. t .. ">");
+    print_info_to_log(1, "get_variable_value: JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     returnValue = ""
     if (jresponse ~= nil) then
         decoded_response = JSON:decode(jresponse)
         returnValue = decoded_response["result"][1]["Value"]
-        print_to_log(1, 'get_variable_value: Decoded ' .. returnValue)
+        print_info_to_log(1, 'get_variable_value: Decoded ' .. returnValue)
     else
         print_error_to_log(0, 'get_variable_value(' .. idx .. ') return nil value. Assume empty value')
     end
@@ -89,7 +89,7 @@ function set_variable_value(idx, name, Type, value)
     -- store the value of a user variable
     local t, jresponse, decoded_response
     t = server_url .. "/json.htm?type=command&param=updateuservariable&idx=" .. idx .. "&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
-    print_to_log(1, "set_variable_value: JSON request <" .. t .. ">");
+    print_info_to_log(1, "set_variable_value: JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     return
 end
@@ -98,7 +98,7 @@ function create_variable(name, Type, value)
     -- creates user variable
     local t, jresponse, decoded_response
     t = server_url .. "/json.htm?type=command&param=saveuservariable&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
-    print_to_log(1, "JSON request <" .. t .. ">");
+    print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     return
 end
@@ -107,7 +107,7 @@ function get_names_from_variable(DividedString)
     Names = {}
     for Name in string.gmatch(DividedString, "[^|]+") do
         Names[#Names + 1] = Name
-        print_to_log(1, 'get_names_from_variable: Name =' .. Name)
+        print_info_to_log(1, 'get_names_from_variable: Name =' .. Name)
     end
     if Names == {} then
         Names = nil
@@ -119,13 +119,14 @@ end
 function device_list(DeviceType)
     local t, jresponse, status, decoded_response
     t = server_url .. "/json.htm?type=" .. DeviceType .. "&order=name&used=true"
-    print_to_log(1, "JSON request <" .. t .. ">");
+    print_info_to_log(1, "device_list:JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     if jresponse ~= nil then
         decoded_response = JSON:decode(jresponse)
     else
+        print_info_to_log(3, "device_list:nil assume empty table");
         decoded_response = {}
-        decoded_response["result"] = "{}"
+        decoded_response["result"] = {}
     end
     return decoded_response
 end
@@ -154,7 +155,7 @@ function device_list_names_idxs(DeviceType)
             end
         end
     else
-        print_to_log(0, " !!!! device_list_names_idxs(): nothing found for ", DeviceType)
+        print_info_to_log(0, " !!!! device_list_names_idxs(): nothing found for ", DeviceType)
     end
     return devices, devicesproperties
 end
@@ -173,7 +174,7 @@ end
 function retrieve_status(idx, DeviceType)
     local t, jresponse, status, decoded_response
     t = server_url .. "/json.htm?type=" .. DeviceType .. "&rid=" .. tostring(idx)
-    print_to_log(2, "JSON request <" .. t .. ">");
+    print_info_to_log(2, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     if jresponse ~= nil then
         decoded_response = JSON:decode(jresponse)
@@ -201,7 +202,7 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
         if DeviceName ~= "" then
             idx = idx_from_name(DeviceName, 'devices')
         end
-        print_to_log(2, "==> start devinfo_from_name", idx, DeviceName)
+        print_info_to_log(2, "==> start devinfo_from_name", idx, DeviceName)
         if idx ~= nil then
             tvar = retrieve_status(idx, "devices")['result']
             if tvar == nil then
@@ -209,7 +210,7 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
             else
                 record = tvar[1]
                 if record ~= nil and record.Name ~= nil and record.idx ~= nil then
-                    print_to_log(2, 'device ', DeviceName, record.Name, idx, record.idx)
+                    print_info_to_log(2, 'device ', DeviceName, record.Name, idx, record.idx)
                 end
                 if type(record) == "table" then
                     ridx = record.idx
@@ -222,20 +223,20 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
                     if LevelNames == nil then LevelNames = "" end
                     -- as default simply use the status field
                     -- use the dtgbot_type_status to retrieve the status from the "other devices" field as defined in the table.
-                    print_to_log(2, 'Type ', Type)
+                    print_info_to_log(2, 'Type ', Type)
                     if dtgbot_type_status[Type] ~= nil then
-                        print_to_log(2, 'dtgbot_type_status[Type] ', dtgbot_type_status[Type])
+                        print_info_to_log(2, 'dtgbot_type_status[Type] ', dtgbot_type_status[Type])
                         if dtgbot_type_status[Type].Status ~= nil then
                             status = ''
                             CurrentStatus = dtgbot_type_status[Type].Status
-                            print_to_log(2, 'CurrentStatus ', CurrentStatus)
+                            print_info_to_log(2, 'CurrentStatus ', CurrentStatus)
                             for i = 1, #CurrentStatus do
                                 if status ~= '' then
                                     status = status .. ' - '
                                 end
                                 cindex, csuffix = next(CurrentStatus[i])
                                 status = status .. tostring(record[cindex]) .. tostring(csuffix)
-                                print_to_log(2, 'status ', status)
+                                print_info_to_log(2, 'status ', status)
                             end
                         end
                     else
@@ -243,21 +244,21 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
                         -- Check for encoded selector LevelNames
                         if SwitchType == "Selector" then
                             if string.find(LevelNames, "[|,]+") then
-                                print_to_log(2, "--  < 4.9700 selector switch levelnames: ", LevelNames)
+                                print_info_to_log(2, "--  < 4.9700 selector switch levelnames: ", LevelNames)
                             else
                                 LevelNames = mime.unb64(LevelNames)
-                                print_to_log(2, "--  >= 4.9700  decoded selector switch levelnames: ", LevelNames)
+                                print_info_to_log(2, "--  >= 4.9700  decoded selector switch levelnames: ", LevelNames)
                             end
                         end
                         MaxDimLevel = record.MaxDimLevel
                         status = tostring(record.Status)
                     end
                     found = 1
-                    --~         print_to_log(2," !!!! found device",record.Name,rDeviceName,record.idx,ridx)
+                    --~         print_info_to_log(2," !!!! found device",record.Name,rDeviceName,record.idx,ridx)
                 end
             end
         end
-        --~     print_to_log(2," !!!! found device",rDeviceName,ridx)
+        --~     print_info_to_log(2," !!!! found device",rDeviceName,ridx)
     end
     -- Check for Scenes
     if found == 0 then
@@ -283,7 +284,7 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
         Type = "command"
         SwitchType = "command"
     end
-    print_to_log(2, " --< devinfo_from_name:", found, ridx, rDeviceName, DeviceType, Type, SwitchType, status, LevelNames, LevelInt)
+    print_info_to_log(2, " --< devinfo_from_name:", found, ridx, rDeviceName, DeviceType, Type, SwitchType, status, LevelNames, LevelInt)
     return ridx, rDeviceName, DeviceType, Type, SwitchType, MaxDimLevel, status, LevelNames, LevelInt
 end
 
@@ -297,9 +298,9 @@ function SwitchID(DeviceName, idx, DeviceType, state, SendTo)
         return "state must be on or off!";
     end
     t = server_url .. "/json.htm?type=command&param=switch" .. DeviceType .. "&idx=" .. idx .. "&switchcmd=" .. state;
-    print_to_log(1, "JSON request <" .. t .. ">");
+    print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
-    print_to_log(1, "raw jason", jresponse)
+    print_info_to_log(1, "raw jason", jresponse)
     response = 'Switched ' .. DeviceName .. ' ' .. command
     return response
 end
@@ -324,26 +325,47 @@ function sSwitchName(DeviceName, DeviceType, SwitchType, idx, state)
         else
             return "state must be on, off or Set Level!";
         end
-        print_to_log(3, "JSON request <" .. t .. ">");
+        print_info_to_log(3, "JSON request <" .. t .. ">");
         jresponse, status = http.request(t)
-        print_to_log(3, "JSON feedback: ", jresponse)
+        print_info_to_log(3, "JSON feedback: ", jresponse)
         response = dtgmenu_lang[language].text["Switched"] .. ' ' .. DeviceName .. ' => ' .. state
     end
-    print_to_log(0, "   -< sSwitchName:", DeviceName, idx, status, response)
+    print_info_to_log(0, "   -< sSwitchName:", DeviceName, idx, status, response)
     return response, status
 end
 
--- other functions
-function file_exists(name)
-    local f = io.open(name, "r")
-    if f ~= nil then io.close(f) return true else return false end
+
+-- Original XMPP function to list device properties
+function list_device_attr(dev, mode)
+    local result = "";
+    local exclude_flag;
+    -- Don't dump these fields as they are boring. Name data and idx appear anyway to exclude them
+    local exclude_fields = { "Name", "Data", "idx", "SignalLevel", "CustomImage", "Favorite", "HardwareID", "HardwareName", "HaveDimmer", "HaveGroupCmd", "HaveTimeout", "Image", "IsSubDevice", "Notifications", "PlanID", "Protected", "ShowNotifications", "StrParam1", "StrParam2", "SubType", "SwitchType", "SwitchTypeVal", "Timers", "TypeImg", "Unit", "Used", "UsedByCamera", "XOffset", "YOffset" };
+    result = "<" .. dev.Name .. ">, Data: " .. dev.Data .. ", Idx: " .. dev.idx;
+    if mode == "full" then
+        for k, v in pairs(dev) do
+            exclude_flag = 0;
+            for i, k1 in ipairs(exclude_fields) do
+                if k1 == k then
+                    exclude_flag = 1;
+                    break;
+                end
+            end
+            if exclude_flag == 0 then
+                result = result .. k .. "=" .. tostring(v) .. ", ";
+            else
+                exclude_flag = 0;
+            end
+        end
+    end
+    return result;
 end
 
 function domoticz_language()
     local t, jresponse, status, decoded_response
     t = server_url .. "/json.htm?type=command&param=getlanguage"
     jresponse = nil
-    print_to_log(1, "JSON request <" .. t .. ">");
+    print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     if jresponse ~= nil then
         decoded_response = JSON:decode(jresponse)
@@ -358,3 +380,4 @@ function domoticz_language()
         return 'en'
     end
 end
+

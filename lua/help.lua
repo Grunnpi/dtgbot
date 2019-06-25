@@ -1,7 +1,5 @@
 local help_module = {};
-local http = require "socket.http";
---JSON = assert(loadfile "JSON.lua")() -- one-time load of the routines
-
+--local http = require "socket.http";
 
 --- the handler for the list commands. a module can have more than one handler. in this case the same handler handles two commands
 function help_module.handler(parsed_cli)
@@ -19,7 +17,7 @@ function help_module.handler(parsed_cli)
         else
             response = command .. ' was not found - check spelling and capitalisation - Help for list of commands'
         end
-        print_to_log(0, '[help:specific]=' .. response)
+        print_info_to_log(0, '[help:specific]=' .. response)
         return status, response
     end
     local DotPos = 0
@@ -30,31 +28,23 @@ function help_module.handler(parsed_cli)
         newCommand = string.gmatch(help.description, "%S+") [[1]] .. ''
         -- filter TelegramBotBashExclude
         if (ChkInTable(TelegramBotLuaExclude, newCommand)) then
-            print_to_log(2, 'WARN help::list lua command:' .. newCommand .. ' filtered')
+            print_info_to_log(2, 'WARN help::list lua command:' .. newCommand .. ' filtered')
         else
             newCommandHelper = TelegramBotName .. '_' .. newCommand
-            print_to_log(2, 'help::list lua command:' .. newCommandHelper)
+            print_info_to_log(2, 'help::list lua command:' .. newCommandHelper)
             HelpText = HelpText .. "/" .. newCommandHelper .. '\n'
         end
     end
 
-    HelpText = string.sub(HelpText, 1, -3) .. '\nHelp Command - gives usage information, i.e. Help On \n\n'
+    HelpText = string.sub(HelpText, 1, -2) .. '\n<help command> - gives usage information, i.e. "help list" \n\n'
 
-    current_dir = io.popen "cd":read '*l'
-    if (current_dir == nil) then
-        current_dir = ''
-    else
-        current_dir = string.sub(current_dir, 2, 2)
-    end
-    --    print_error_to_log('Dir = '..current_dir)
-    if (current_dir == ':') then
+    if (TelegramBotIsOnWindows) then
         cmdListDir = 'dir /B'
     else
         cmdListDir = 'ls'
     end
-    --cmdListDir = 'ls'
 
-    local Functions = io.popen(cmdListDir .. " " .. UserScriptPath)
+    local Functions = io.popen(cmdListDir .. " " .. BotBashScriptPath)
     HelpText = HelpText .. '⚠️ Available Shell commands ⚠️ \n'
     for line in Functions:lines() do
         DotPos = string.find(line, "%.")
@@ -62,15 +52,15 @@ function help_module.handler(parsed_cli)
 
         -- filter TelegramBotBashExclude
         if (ChkInTable(TelegramBotBashExclude, newCommand)) then
-            print_to_log(2, 'WARN help::list bash command:' .. newCommand .. ' filtered')
+            print_info_to_log(2, 'WARN help::list bash command:' .. newCommand .. ' filtered')
         else
             newCommandHelper = TelegramBotName .. '_' .. newCommand
-            print_to_log(2, 'help::list bash command:' .. newCommandHelper)
+            print_info_to_log(2, 'help::list bash command:' .. newCommandHelper)
             HelpText = HelpText .. "/" .. newCommandHelper .. '\n'
         end
     end
 
-    print_to_log(1, '[help:global]=' .. HelpText)
+    print_info_to_log(1, '[help:global]=['.. HelpText..']')
     return status, HelpText;
 end
 
