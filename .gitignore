@@ -45,3 +45,5 @@ Temporary Items
 /dtgbot-user.cfg
 /lua/dtgmenu-user.cfg
 /.vs*
+
+.idea/workspace.xml
