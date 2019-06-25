@@ -22,14 +22,16 @@ mime   = require("mime")
 -- version
 dtgbot_version = 'v0.8.0'
 
--- log/debug function
-support = assert(loadfile("dtglib_log.lua"))();
--- utilz
-support = assert(loadfile("dtglib_utils.lua"))();
--- telegram related
-support = assert(loadfile("dtglib_telegram.lua"))();
--- main bot function
-support = assert(loadfile("dtglib_bot.lua"))();
+function environmentVariableDomoticz(envvar)
+    -- loads get environment variable and prints in log
+    localvar = os.getenv(envvar)
+    if localvar ~= nil then
+        print_info_to_log(0,envvar .. ": " .. localvar)
+    else
+        print_info_to_log(0,envvar .. " not found check /etc/profile.d/DomoticzData.sh")
+    end
+    return localvar
+end
 
 -- set default loglevel which will be retrieve later from the domoticz user variable TelegramBotLoglevel
 dtgbotLogLevel = 0
@@ -45,6 +47,17 @@ BotLuaScriptPath  = environmentVariableDomoticz("BotLuaScriptPath")
 BotBashScriptPath = environmentVariableDomoticz("BotBashScriptPath")
 TelegramBotToken  = environmentVariableDomoticz("TelegramBotToken")
 TBOName           = environmentVariableDomoticz("TelegramBotOffset")
+
+-- log/debug function
+support = assert(loadfile(BotHomePath .. "dtglib_log.lua"))();
+-- utilz
+support = assert(loadfile(BotHomePath .. "dtglib_utils.lua"))();
+-- telegram related
+support = assert(loadfile(BotHomePath .. "dtglib_telegram.lua"))();
+-- main bot function
+support = assert(loadfile(BotHomePath .. "dtglib_bot.lua"))();
+
+
 
 -- -------------------------------------------------------
 

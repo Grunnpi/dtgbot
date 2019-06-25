@@ -1,14 +1,5 @@
 -- other functions
-function environmentVariableDomoticz(envvar)
-    -- loads get environment variable and prints in log
-    localvar = os.getenv(envvar)
-    if localvar ~= nil then
-        print_info_to_log(0,envvar .. ": " .. localvar)
-    else
-        print_info_to_log(0,envvar .. " not found check /etc/profile.d/DomoticzData.sh")
-    end
-    return localvar
-end
+
 
 function checkpath(envpath)
     if string.sub(envpath, -1, -1) ~= "/" then
