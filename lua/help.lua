@@ -41,7 +41,11 @@ function help_module.handler(parsed_cli)
   HelpText = string.sub(HelpText,1,-3)..'\nHelp Command - gives usage information, i.e. Help On \n\n'
 
     current_dir=io.popen"cd":read'*l'
-    current_dir = string.sub(current_dir,2,2)
+    if ( current_dir == nil ) then
+       current_dir = ''
+    else
+        current_dir = string.sub(current_dir,2,2)
+    end 
 --    print_error_to_log('Dir = '..current_dir)
     if ( current_dir == ':' ) then
         cmdListDir = 'dir /B'
