@@ -10,7 +10,7 @@ local _M = {
 
 
 function mockHttp(u)
-	print("**MOCK** https.get["..u.."]")
+	print(os.date("%Y-%m-%d %H:%M:%S")..' - [DEBUG:9] **MOCK** http.get['..u..']')
 		
     --local code, headers, status = socket.skip(1, trequest(reqt))
 	local code = 200
@@ -18,9 +18,13 @@ function mockHttp(u)
 	local headers = ""
 	
 	if ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=0' ) then
-		jsonString = '{ 	"ok": true, 	"result": [{ 		"update_id": 1, 		"message": { 			"message_id": 2, 			"from": { 				"id": 123456, 				"first_name": "Moi", 				"last_name": "X", 				"username": "UserID" 			}, 			"chat": { 				"id": 987654, 				"first_name": "NotMe", 				"last_name": "Y", 				"username": "UserIdChat" 			}, 			"date": 1, 			"text": "/bob bp" 		} 		}] 	}'
-	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=1' ) then
-		jsonString = nil
+		jsonString = '{ "ok": true, "result": [{ "update_id": 1, "message": { "message_id": 10, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 421, "text": "/nope bp" } }]}'
+	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/sendMessage?chat_id=987654&reply_to_message_id=10&text=Device+name+must+be+given%21' ) then
+		jsonString = '{ "ok": true, "result": []}'
+--		jsonString = nil
+	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=2' ) then
+		jsonString = '{ "ok": true, "result": [{ "update_id": 2, "message": { "message_id": 20, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 666, "text": "/bob_help" } }]}'
+--		jsonString = nil
 	else
 		jsonString = nil
 		os.exit(-666)
