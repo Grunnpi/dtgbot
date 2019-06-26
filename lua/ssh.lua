@@ -131,11 +131,11 @@ local ssh_commands = {
 
     ["ssh_bil_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - stop bil bot" },
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
-    ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - start bil bot" },
+    ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
 
     ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
-    ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" }
+    ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" }
 }
 
 function ssh_module.get_commands()
