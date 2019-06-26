@@ -51,18 +51,27 @@ function ssh_module.handler(parsed_cli)
                 status = 1
                 response = "‼️ missing parameter(s) : ssh <host> <commands>"
             end
+
         elseif ( this_command == 'ssh_bil_bot_start' ) then
             ssh_host_parameter = 'bil'
             ssh_command = 'sudo service dtgbot start'
+        elseif ( this_command == 'ssh_bil_bot_pull' ) then
+            ssh_host_parameter = 'bil'
+            ssh_command = 'cd dtgbot;git pull'
         elseif ( this_command == 'ssh_bil_bot_stop' ) then
             ssh_host_parameter = 'bil'
             ssh_command = 'sudo service dtgbot stop'
+
         elseif ( this_command == 'ssh_bob_bot_start' ) then
             ssh_host_parameter = 'bob'
             ssh_command = 'sudo service dtgbot start'
+        elseif ( this_command == 'ssh_bob_bot_pull' ) then
+            ssh_host_parameter = 'bob'
+            ssh_command = 'cd dtgbot;git pull'
         elseif ( this_command == 'ssh_bob_bot_stop' ) then
             ssh_host_parameter = 'bob'
             ssh_command = 'sudo service dtgbot stop'
+
         else
             ssh_host_parameter = "paf"
             ssh_command = "zob"
@@ -124,7 +133,7 @@ local ssh_commands = {
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - start bil bot" },
 
-    ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
+    ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
     ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" }
 }
