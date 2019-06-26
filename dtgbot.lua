@@ -48,8 +48,8 @@ g_dtgbotLogLevel = 0
 -- All these values are set in /etc/profile.d/DomoticzData.sh
 local DomoticzIP        = environmentVariableDomoticz("DomoticzIP")
 local DomoticzPort      = environmentVariableDomoticz("DomoticzPort")
-local TempFileDir       = environmentVariableDomoticz("TempFileDir")
 local TelegramBotToken  = environmentVariableDomoticz("TelegramBotToken")
+g_BotTempFileDir        = environmentVariableDomoticz("TempFileDir")
 g_BotHomePath           = environmentVariableDomoticz("BotHomePath")
 g_BotLuaScriptPath      = environmentVariableDomoticz("BotLuaScriptPath")
 g_BotBashScriptPath     = environmentVariableDomoticz("BotBashScriptPath")
@@ -94,6 +94,10 @@ g_DomoticzLanguage = 'UK'
 
 g_BotStarted = 0
 g_TelegramMenuStatus = ""
+g_TelegramBotIsOnWindows = false
+
+g_TelegramBotLuaExclude = ""
+g_TelegramBotBashExclude = ""
 
 -- Main bot init full variables
 dtgbot_initialise()
@@ -105,7 +109,7 @@ dtgbot_initialise()
 --Update monitorfile before loop
 local telegram_connected = false
 
-os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. TempFileDir .. "/dtgloop.txt")
+os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. g_BotTempFileDir .. "/dtgloop.txt")
 while file_exists(dtgbot_pid) do
     local response
     local status
@@ -163,6 +167,6 @@ while file_exists(dtgbot_pid) do
         os.execute("sleep 5")
     end
     --Update monitorfile each loop
-    os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. TempFileDir .. "/dtgloop.txt")
+    os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. g_BotTempFileDir .. "/dtgloop.txt")
 end
 print_error_to_log(0, dtgbot_pid .. ' does not exist, so exiting')

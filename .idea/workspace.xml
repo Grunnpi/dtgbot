@@ -3,28 +3,23 @@
   <component name="ChangeListManager">
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="" />
     <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/lua/dtgmenu-bob.cfg" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/bash/bouton_garage_1.sh" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/bash/bouton_garage_2.sh" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/lua/ssh.lua" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/bash/checkdomoticzupdate.sh" afterPath="$PROJECT_DIR$/bash/checkdomoticzupdate.sh" />
+      <change beforePath="$PROJECT_DIR$/bash/photo.sh" afterPath="$PROJECT_DIR$/bash/photo.sh" />
+      <change beforePath="$PROJECT_DIR$/bash/reboot.sh" afterPath="$PROJECT_DIR$/bash/reboot.sh" />
+      <change beforePath="$PROJECT_DIR$/bash/smiliesoverview.sh" afterPath="$PROJECT_DIR$/bash/smiliesoverview.sh" />
+      <change beforePath="$PROJECT_DIR$/bash/systemstatus.sh" afterPath="$PROJECT_DIR$/bash_example/systemstatus.sh" />
+      <change beforePath="$PROJECT_DIR$/bash/temperature.sh" afterPath="$PROJECT_DIR$/bash_example/temperature.sh" />
       <change beforePath="$PROJECT_DIR$/dtgbot.cfg" afterPath="$PROJECT_DIR$/dtgbot.cfg" />
       <change beforePath="$PROJECT_DIR$/dtgbot.lua" afterPath="$PROJECT_DIR$/dtgbot.lua" />
       <change beforePath="$PROJECT_DIR$/dtglib_bot.lua" afterPath="$PROJECT_DIR$/dtglib_bot.lua" />
-      <change beforePath="$PROJECT_DIR$/dtglib_domoticz.lua" afterPath="$PROJECT_DIR$/dtglib_domoticz.lua" />
-      <change beforePath="$PROJECT_DIR$/dtglib_log.lua" afterPath="$PROJECT_DIR$/dtglib_log.lua" />
       <change beforePath="$PROJECT_DIR$/dtglib_telegram.lua" afterPath="$PROJECT_DIR$/dtglib_telegram.lua" />
-      <change beforePath="$PROJECT_DIR$/dtglib_useless.lua" afterPath="$PROJECT_DIR$/dtglib_useless.lua" />
       <change beforePath="$PROJECT_DIR$/dtglib_utils.lua" afterPath="$PROJECT_DIR$/dtglib_utils.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/battery.lua" afterPath="$PROJECT_DIR$/lua/battery.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/bp.lua" afterPath="$PROJECT_DIR$/lua/bp.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/devices.lua" afterPath="$PROJECT_DIR$/lua/devices.lua" />
       <change beforePath="$PROJECT_DIR$/lua/dtgmenu.lua" afterPath="$PROJECT_DIR$/lua/dtgmenu.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/flick.lua" afterPath="$PROJECT_DIR$/lua/flick.lua" />
       <change beforePath="$PROJECT_DIR$/lua/help.lua" afterPath="$PROJECT_DIR$/lua/help.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/list.lua" afterPath="$PROJECT_DIR$/lua/list.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/nflick.lua" afterPath="$PROJECT_DIR$/lua/nflick.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/on.lua" afterPath="$PROJECT_DIR$/lua/on.lua" />
-      <change beforePath="$PROJECT_DIR$/lua/temperature.lua" afterPath="$PROJECT_DIR$/lua/temperature.lua" />
-      <change beforePath="$PROJECT_DIR$/test/lua/mime.lua" afterPath="$PROJECT_DIR$/test/lua/mime.lua" />
-      <change beforePath="$PROJECT_DIR$/test/lua/socket/http.lua" afterPath="$PROJECT_DIR$/test/lua/socket/http.lua" />
       <change beforePath="$PROJECT_DIR$/test/lua/ssl/https.lua" afterPath="$PROJECT_DIR$/test/lua/ssl/https.lua" />
     </list>
     <ignored path=".idea/workspace.xml" />
@@ -39,12 +34,72 @@
     <favorites_list name="dtgbot" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="dtgbot.cfg" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dtgbot.cfg">
+    <leaf>
+      <file leaf-file-name="dtgbot.lua" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dtgbot.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+            <state relative-caret-position="333">
+              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dtglib_bot.lua" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dtglib_bot.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="292" column="22" lean-forward="false" selection-start-line="292" selection-start-column="22" selection-end-line="292" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dtglib_utils.lua" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dtglib_utils.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="42" column="25" lean-forward="false" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="smiliesoverview.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bash/smiliesoverview.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ssh.lua" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lua/ssh.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="127" column="22" lean-forward="false" selection-start-line="127" selection-start-column="6" selection-end-line="127" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.lua" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lua/list.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-54">
+              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dtglib_domoticz.lua" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dtglib_domoticz.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="68" column="27" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -54,49 +109,38 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>id_check</find>
-      <find>command_dispatch</find>
-      <find>commandFound</find>
-      <find>WLName</find>
+      <find>send_msg</find>
+      <find>telegram_Send</find>
+      <find>channelmsg</find>
+      <find>SendToRe</find>
+      <find>SendTo</find>
+      <find>telegramMsg_ReplyToId</find>
+      <find>ReplyTo</find>
+      <find>Group</find>
+      <find>channelmsgString</find>
+      <find>SendMsgTo</find>
+      <find>nflick_module</find>
+      <find>nflick_commands</find>
+      <find>response</find>
+      <find>g_TelegramBotLuaExclude</find>
+      <find>ChkInTable</find>
+      <find>Message sent status</find>
+      <find>dtgbot:no menu activated..</find>
+      <find>telegram:msg</find>
+      <find>stuff</find>
+      <find>print</find>
       <find>parsed_command</find>
-      <find>ignore this command</find>
-      <find>command_prefix</find>
-      <find>command_pr</find>
-      <find>INC0804556</find>
-      <find>realdevicename</find>
-      <find>LevelNames</find>
-      <find>Define LastCommand</find>
-      <find>call_</find>
-      <find>mock_TelegramBotOffset</find>
-      <find>buttons</find>
-      <find>Succesfully handled incoming request</find>
-      <find>Show main menu</find>
-      <find>g_TelegramMenuStatus</find>
-      <find>dtgmenu.cfg</find>
-      <find>botName</find>
-      <find>g_TelegramBotName</find>
-      <find>dtgmenu</find>
-      <find>Using DTGMENU config</find>
-      <find>PopulateMenuTab</find>
-      <find>Using DTGMENU confi</find>
-      <find>dtgmen</find>
-      <find>g_commandsLua</find>
-      <find>Using DTGMENU con</find>
-      <find>dtgbot: Start</find>
-      <find>found regular lua command and param was given.</find>
+      <find>for</find>
+      <find>for idx = 1, #tables do</find>
+      <find>Temp</find>
+      <find>TempFileDir</find>
+      <find>isWin</find>
+      <find>g_TelegramBotIsOnWindows</find>
+      <find>file_e</find>
+      <find>file_ex</find>
+      <find>ssh_host_parameter</find>
     </findStrings>
     <replaceStrings>
-      <replace>g_TBOffsetName</replace>
-      <replace>g_TBotOffsetName</replace>
-      <replace>g_DomoticzServeUrl</replace>
-      <replace>g_TelegramApiUrl</replace>
-      <replace>g_commandsLua</replace>
-      <replace>g_DomoticzVariablelist</replace>
-      <replace>g_DomoticzDevicelist</replace>
-      <replace>g_DomoticzScenelist</replace>
-      <replace>g_DomoticzSceneProperties</replace>
-      <replace>g_DomoticzRoomList</replace>
-      <replace>g_DomoticzLanguage</replace>
       <replace>g_DomoticzVariableList</replace>
       <replace>g_DomoticzDeviceList</replace>
       <replace>g_DomoticzSceneList</replace>
@@ -116,6 +160,17 @@
       <replace>handleCommandReplyMarkup</replace>
       <replace>g_TelegramBotWhiteListedIDs</replace>
       <replace>commandLua_dispatchHandler</replace>
+      <replace>telegramMsg_From</replace>
+      <replace>telegramMsg_ChatId</replace>
+      <replace>telegramMsg_FromId</replace>
+      <replace>telegramMsg_MsgId</replace>
+      <replace>telegramMsg_IsChannel</replace>
+      <replace>telegram_SendMsg</replace>
+      <replace>telegramUserId</replace>
+      <replace>ReplyTo</replace>
+      <replace>ssh_module</replace>
+      <replace>g_BotTempFileDir</replace>
+      <replace>ssh_commands</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -135,10 +190,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/test/project_to_lua.bat" />
         <option value="$PROJECT_DIR$/test/lua_to_project.bat" />
-        <option value="$PROJECT_DIR$/bash/smiliesoverview.sh" />
         <option value="$PROJECT_DIR$/bash/systemstatus.sh" />
         <option value="$PROJECT_DIR$/bash/temperature.sh" />
-        <option value="$PROJECT_DIR$/bash/checkdomoticzupdate.sh" />
         <option value="$PROJECT_DIR$/dtg_domoticz.lua" />
         <option value="$PROJECT_DIR$/lua/bp.lua" />
         <option value="$PROJECT_DIR$/lua/flick.lua" />
@@ -147,21 +200,28 @@
         <option value="$PROJECT_DIR$/lua/utility.lua" />
         <option value="$PROJECT_DIR$/dtgbot_useless.lua" />
         <option value="$PROJECT_DIR$/dtgbot_lib.lua" />
-        <option value="$PROJECT_DIR$/lua/help.lua" />
         <option value="$PROJECT_DIR$/dtglib_domoticz.lua" />
         <option value="$PROJECT_DIR$/lua/on.lua" />
         <option value="$PROJECT_DIR$/lua/battery.lua" />
         <option value="$PROJECT_DIR$/lua/list.lua" />
         <option value="$PROJECT_DIR$/lua/devices.lua" />
         <option value="$PROJECT_DIR$/dtglib_log.lua" />
-        <option value="$PROJECT_DIR$/dtglib_utils.lua" />
         <option value="$PROJECT_DIR$/test/lua/mime.lua" />
-        <option value="$PROJECT_DIR$/dtglib_telegram.lua" />
-        <option value="$PROJECT_DIR$/dtgbot.lua" />
-        <option value="$PROJECT_DIR$/dtglib_bot.lua" />
-        <option value="$PROJECT_DIR$/lua/dtgmenu.lua" />
         <option value="$PROJECT_DIR$/lua/dtgmenu-bob.cfg" />
+        <option value="$PROJECT_DIR$/bash/smiliesoverview.sh" />
+        <option value="$PROJECT_DIR$/bash/checkdomoticzupdate.sh" />
+        <option value="$PROJECT_DIR$/bash/photo.sh" />
+        <option value="$PROJECT_DIR$/bash/reboot.sh" />
+        <option value="$PROJECT_DIR$/bash/bouton_garage_1.sh" />
+        <option value="$PROJECT_DIR$/bash/ssh_cmd.sh" />
         <option value="$PROJECT_DIR$/dtgbot.cfg" />
+        <option value="$PROJECT_DIR$/lua/dtgmenu.lua" />
+        <option value="$PROJECT_DIR$/dtglib_telegram.lua" />
+        <option value="$PROJECT_DIR$/lua/help.lua" />
+        <option value="$PROJECT_DIR$/dtgbot.lua" />
+        <option value="$PROJECT_DIR$/dtglib_utils.lua" />
+        <option value="$PROJECT_DIR$/dtglib_bot.lua" />
+        <option value="$PROJECT_DIR$/lua/ssh.lua" />
       </list>
     </option>
   </component>
@@ -187,7 +247,9 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -198,25 +260,32 @@
             <path>
               <item name="dtgbot" type="b2602c69:ProjectViewProjectNode" />
               <item name="dtgbot" type="462c0819:PsiDirectoryNode" />
-              <item name="lua" type="462c0819:PsiDirectoryNode" />
+              <item name="bash" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dtgbot" type="b2602c69:ProjectViewProjectNode" />
               <item name="dtgbot" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="lua" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dtgbot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dtgbot" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="lua" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="dtgbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Lua 5.3.5 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="dtgbot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Lua 5.3.5 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="stdlibrary" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -228,8 +297,12 @@
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Users\ei379\git\dtgbot\bash_example" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="P:\Users\ei379\git\dtgbot\lua" />
+      <recent name="P:\Users\ei379\git\dtgbot\bash" />
       <recent name="P:\Users\ei379\git\dtgbot\test" />
     </key>
   </component>
@@ -453,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561469031218</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="local variable and global variable cleanup">
+      <created>1561538974815</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1561538974815</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -473,14 +553,14 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3262317" sideWeight="0.29942694" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18508655" sideWeight="0.30659026" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27030626" sideWeight="0.6532951" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3262317" sideWeight="0.7005731" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38215712" sideWeight="0.64971346" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18508655" sideWeight="0.69340974" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.49713466" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17550144" sideWeight="0.4923664" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17765044" sideWeight="0.4923664" order="0" side_tool="false" content_ui="combo" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Tail" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32756326" sideWeight="0.491404" order="1" side_tool="false" content_ui="tabs" />
@@ -537,7 +617,8 @@
     <MESSAGE value="ignore workspace.xml" />
     <MESSAGE value="reformat + add .bat for local test setup" />
     <MESSAGE value="lua stuff, reformat" />
-    <option name="LAST_COMMIT_MESSAGE" value="lua stuff, reformat" />
+    <MESSAGE value="local variable and global variable cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="local variable and global variable cleanup" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -547,28 +628,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/img/Menu2.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Menu1.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/img/Inline.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testMe.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -645,14 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/bp.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lua/flick.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -669,98 +720,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/temperature.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2193">
-          <caret line="129" column="12" lean-forward="false" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/utility.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stopbot.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="64" lean-forward="false" selection-start-line="11" selection-start-column="64" selection-end-line="11" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/temperature.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="38" column="37" lean-forward="false" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/systemstatus.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="41" column="21" lean-forward="true" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/smiliesoverview.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="40" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/reboot.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/photo.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="102" lean-forward="true" selection-start-line="3" selection-start-column="76" selection-end-line="3" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/mode_mvt_msg.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/mode_mvt.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/mode_eteind.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bash/checkdomoticzupdate.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -772,66 +735,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lua/help.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="46" column="69" lean-forward="false" selection-start-line="46" selection-start-column="52" selection-end-line="46" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_PLUGINS_DIR$/Lua/stdlibrary/stdfuncs.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dtglib_useless.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dtglib_domoticz.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/on.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="28" lean-forward="false" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/battery.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/list.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lua/devices.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="28" column="37" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -852,14 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dtglib_utils.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/lua/mime.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -868,27 +767,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dtglib_telegram.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lua/dtgmenu.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="28" column="10" lean-forward="false" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dtglib_bot.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="146" column="30" lean-forward="false" selection-start-line="146" selection-start-column="30" selection-end-line="146" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -900,34 +782,242 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dtglib_useless.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash_example/systemstatus.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/reboot.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="131" lean-forward="false" selection-start-line="5" selection-start-column="131" selection-end-line="5" selection-end-column="131" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/mode_eteind.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/mode_mvt.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/mode_mvt_msg.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/photo.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="129" lean-forward="true" selection-start-line="6" selection-start-column="76" selection-end-line="6" selection-end-column="129" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash_example/temperature.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lua/dtgmenu_LastCommand.tbl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="2" lean-forward="true" selection-start-line="13" selection-start-column="2" selection-end-line="13" selection-end-column="2" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/devices.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="28" column="37" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/ssh_cmd.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="20" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/bp.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/on.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-159">
+          <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/temperature.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="129" column="12" lean-forward="false" selection-start-line="129" selection-start-column="12" selection-end-line="129" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/battery.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="36" column="52" lean-forward="true" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dtglib_telegram.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/utility.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="27" lean-forward="true" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/checkdomoticzupdate.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="32" column="4" lean-forward="false" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dtglib_domoticz.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="68" column="27" lean-forward="false" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/help.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="62" column="6" lean-forward="false" selection-start-line="62" selection-start-column="6" selection-end-line="62" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lua/dtgmenu.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="842" column="36" lean-forward="false" selection-start-line="842" selection-start-column="36" selection-end-line="842" selection-end-column="36" />
+        <state relative-caret-position="146">
+          <caret line="112" column="4" lean-forward="false" selection-start-line="112" selection-start-column="4" selection-end-line="112" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dtgbot.lua">
+    <entry file="file://$PROJECT_DIR$/bash/bouton_garage_2.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="84" column="13" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="13" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/bouton_garage_1.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="105" lean-forward="false" selection-start-line="2" selection-start-column="105" selection-end-line="2" selection-end-column="105" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dtgbot.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        <state relative-caret-position="323">
+          <caret line="19" column="31" lean-forward="true" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dtglib_utils.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="42" column="25" lean-forward="false" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/smiliesoverview.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/list.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-54">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dtgbot.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dtglib_bot.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="292" column="22" lean-forward="false" selection-start-line="292" selection-start-column="22" selection-end-line="292" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lua/ssh.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="127" column="22" lean-forward="false" selection-start-line="127" selection-start-column="6" selection-end-line="127" selection-end-column="22" />
           <folding />
         </state>
       </provider>

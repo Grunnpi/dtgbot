@@ -60,7 +60,7 @@ function help_module.handler(parsed_cli)
         end
     end
 
-    print_info_to_log(1, '[help:global]=['.. HelpText..']')
+    --print_info_to_log(1, '[help:global]=['.. HelpText..']')
     return status, HelpText;
 end
 

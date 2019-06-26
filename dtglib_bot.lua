@@ -70,6 +70,9 @@ function dtgbot_initialise()
     local TelegramBotLuaExcludeIdx = idx_from_variable_name("TelegramBotLuaExclude")
     if TelegramBotLuaExcludeIdx ~= nil then
         g_TelegramBotLuaExclude = get_variable_value(TelegramBotLuaExcludeIdx)
+        if ( g_TelegramBotLuaExclude == nil ) then
+            g_TelegramBotLuaExclude = ""
+        end
     else
         g_TelegramBotLuaExclude = ""
     end
@@ -77,6 +80,9 @@ function dtgbot_initialise()
     local TelegramBotBashExcludeIdx = idx_from_variable_name("TelegramBotBashExclude")
     if TelegramBotBashExcludeIdx ~= nil then
         g_TelegramBotBashExclude = get_variable_value(TelegramBotBashExcludeIdx)
+        if ( g_TelegramBotBashExclude == nil ) then
+            g_TelegramBotBashExclude = ""
+        end
     else
         g_TelegramBotBashExclude = ""
     end
@@ -122,22 +128,15 @@ end
 
 
 -- Main function to handle command and feedback
-function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
+function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
+    print_info_to_log(0,"HandleCommand: [" .. cmd .. "]")
 
     local text
-    local channelmsgString
     local handleCommandReplyMarkup -- HandleCommand return reply
     local commandLua_dispatchHandler
     local parsed_command = { "Stuff" } -- to make compatible with Hangbot with password
-
-    if channelmsg then
-        channelmsgString = 'true'
-    else
-        channelmsgString = 'false'
-    end
-    print_info_to_log(0, "HandleCommand: started with [" .. cmd .. "] sendTo[" .. SendTo .. "] Group[" .. Group .. "] channelmsg:" .. channelmsgString)
-
     local commandFound = 0
+
 
     ---------------------------------------------------------------------------
     -- Change for menu.lua option
@@ -152,16 +151,12 @@ function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
         -- send whole cmd line instead of first word
         commandLua_dispatchHandler = g_commandsLua["dtgmenu"];
         local status
-        status, text, handleCommandReplyMarkup, cmd = commandLua_dispatchHandler.handler(menu_cli, SendTo);
+        status, text, handleCommandReplyMarkup, cmd = commandLua_dispatchHandler.handler(menu_cli, ReplyTo);
         if status ~= 0 then
             -- stop the process when status is not 0
             if text ~= "" then
                 while string.len(text) > 0 do
-                    if Group ~= "" then
-                        send_msg(Group, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
-                    else
-                        send_msg(SendTo, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
-                    end
+                    telegram_SendMsg(ReplyTo, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
                     text = string.sub(text, 4000, -1)
                 end
             end
@@ -169,9 +164,9 @@ function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
             -- no need to process anything further
             return 1
         end
-        print_info_to_log(0, "dtgbot:continue regular processing. cmd =>", cmd)
+        print_info_to_log(1, "dtgbot:continue regular processing. cmd =>", cmd)
     else
-        print_info_to_log(0, "dtgbot:no menu activated...")
+        print_info_to_log(3, "dtgbot:no menu activated...")
     end
     ---------------------------------------------------------------------------
     -- End change for menu.lua option
@@ -189,7 +184,7 @@ function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
         local savereplymarkup = handleCommandReplyMarkup
         local status
         if commandLua_dispatchHandler then
-            status, text, handleCommandReplyMarkup = commandLua_dispatchHandler.handler(parsed_command, SendTo);
+            status, text, handleCommandReplyMarkup = commandLua_dispatchHandler.handler(parsed_command, ReplyTo);
             commandFound = 1
         else
             -- is this a BASH command ?
@@ -214,7 +209,7 @@ function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
                 print_info_to_log(0, "checking line " .. line)
                 if (line:match(cmda)) then
                     print_info_to_log(1, "line=["..line.."]")
-                    os.execute(g_BotBashScriptPath .. line .. ' ' .. SendTo .. ' ' .. stuff)
+                    os.execute(g_BotBashScriptPath .. line .. ' ' .. ReplyTo .. ' ' .. MessageId .. ' ' .. stuff)
                     commandFound = 1
                 end
             end
@@ -234,23 +229,11 @@ function HandleCommand(cmd, SendTo, Group, MessageId, channelmsg)
     -- final feedback status (ok or not)
     if text ~= "" then
         while string.len(text) > 0 do
-            if channelmsg then
-                send_msg(Group, string.sub(text, 1, 4000), MessageId) -- channel messages on support inline menus
-            elseif Group ~= "" then
-                send_msg(Group, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
-            else
-                send_msg(SendTo, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
-            end
+            telegram_SendMsg(ReplyTo, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
             text = string.sub(text, 4000, -1)
         end
     elseif handleCommandReplyMarkup ~= "" then
-        if channelmsg then
-            send_msg(Group, "done", MessageId)
-        elseif Group ~= "" then
-            send_msg(Group, "done", MessageId, handleCommandReplyMarkup)
-        else
-            send_msg(SendTo, "done", MessageId, handleCommandReplyMarkup)
-        end
+        telegram_SendMsg(ReplyTo, "done", MessageId, handleCommandReplyMarkup)
     end
     return commandFound
 end
@@ -307,7 +290,7 @@ function on_msg_receive(msg)
                 local botPrefix = string.sub(ReceivedText, 1, SpacePos - 1)
                 ReceivedText = string.sub(ReceivedText, SpacePos + 1, string.len(ReceivedText))
                 if (botPrefix == 'all' or botPrefix == g_TelegramBotName) then
-                    ReceivedText = string.gsub(ReceivedText, "_", " ")
+                    --ReceivedText = string.gsub(ReceivedText, "_", " ")
                     print_info_to_log(3, 'Received[' .. ReceivedText .. '] okay with [' .. botPrefix .. ']')
                     commandValidated = true
                 else
@@ -320,23 +303,36 @@ function on_msg_receive(msg)
         end
     end
 
+    ---------------------------------------------------------------------------
+    -- Reply back preparation to avoid duplicate logic
+    ---------------------------------------------------------------------------
+    local telegramMsg_FromId    = msg.from.id
+    local telegramMsg_ChatId    = msg.chat.id
+    local telegramMsg_MsgId     = msg.message_id
+    local telegramMsg_IsChannel = false
+    if msg.chat.type == "channel" then
+        telegramMsg_IsChannel = true
+    end
+
+    local telegramMsg_ReplyToId
+    if telegramMsg_IsChannel then
+        telegramMsg_ReplyToId = telegramMsg_ChatId
+    elseif telegramMsg_ChatId ~= "" then
+        telegramMsg_ReplyToId = telegramMsg_ChatId
+    else
+        telegramMsg_ReplyToId = telegramMsg_FromId
+    end
+
     --Check to see if id is whitelisted, if not record in log and exit
-    local msg_from   = msg.from.id
-    if id_check(msg_from) then
-        local grp_from   = msg.chat.id
-        local msg_id     = msg.message_id
-        local channelmsg = false
-        if msg.chat.type == "channel" then
-            channelmsg = true
-        end
+    if id_check(telegramMsg_FromId) then
 
         if msg.text then -- check if message is text
             --ReceivedText = msg.text -- I dont read it again
-            if HandleCommand(ReceivedText, tostring(msg_from), tostring(grp_from), msg_id, channelmsg) == 1 then
+            if HandleCommand(ReceivedText, tostring(telegramMsg_FromId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                 print_info_to_log(0, "Succesfully handled incoming request")
             else
-                print_info_to_log(0, "Invalid command received from:["..msg_from.."]")
-                send_msg(msg_from, '⚡️ INVALID COMMAND ⚡️', msg_id)
+                print_info_to_log(0, "Invalid command received from:["..telegramMsg_FromId.."]")
+                telegram_SendMsg(telegramMsg_FromId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
             end
             -- check for received voicefiles
         elseif msg.voice then -- check if message is voicefile
@@ -351,12 +347,12 @@ function on_msg_receive(msg)
                 local filelink = result["file_path"]
                 print_info_to_log(1, "filelink:", filelink)
                 ReceivedText = "voice " .. filelink
-                if HandleCommand(ReceivedText, tostring(msg_from), tostring(grp_from), msg_id, channelmsg) == 1 then
+                if HandleCommand(ReceivedText, tostring(telegramMsg_FromId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                     print_info_to_log(0, "Succesfully handled incoming voice request")
                 else
                     print_info_to_log(0, "Voice file received but voice.sh or lua not found to process it. skipping the message.")
-                    print_info_to_log(1, "msg_from:"..msg_from)
-                    send_msg(msg_from, '⚡️ INVALID COMMAND ⚡️', msg_id)
+                    print_info_to_log(1, "telegramMsg_FromId:"..telegramMsg_FromId)
+                    telegram_SendMsg(telegramMsg_FromId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
                 end
             end
         elseif msg.video_note then -- check if message is videofile
@@ -371,37 +367,37 @@ function on_msg_receive(msg)
                 local filelink = result["file_path"]
                 print_info_to_log(1, "filelink:", filelink)
                 ReceivedText = "video " .. filelink
-                if HandleCommand(ReceivedText, tostring(msg_from), tostring(grp_from), msg_id, channelmsg) == 1 then
+                if HandleCommand(ReceivedText, tostring(telegramMsg_FromId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                     print_info_to_log(0, "Succesfully handled incoming video request")
                 else
                     print_info_to_log(0, "Video file received but video_note.sh or lua not found to process it. Skipping the message.")
-                    print_info_to_log(0, "msg_from:"..msg_from)
-                    send_msg(msg_from, '⚡️ INVALID COMMAND ⚡️', msg_id)
+                    print_info_to_log(0, "telegramMsg_FromId:"..telegramMsg_FromId)
+                    telegram_SendMsg(telegramMsg_FromId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
                 end
             end
         end
     else
-        print_warning_to_log(0, 'id['..msg_from..'] not on white list, command ignored')
-        send_msg(msg_from, '⚡️ ID Not Recognised - Command Ignored ⚡️', msg_id)
+        print_warning_to_log(0, 'id['..telegramMsg_FromId..'] not on white list, command ignored')
+        telegram_SendMsg(telegramMsg_FromId, '⚡️ ID Not Recognised - Command Ignored ⚡️', telegramMsg_MsgId)
     end
 end
 
-function id_check(SendTo)
+function id_check(telegramUserId)
     --Check if whitelist empty then let any message through
     if g_TelegramBotWhiteListedIDs == nil then
         return true
     else
-        SendTo = tostring(SendTo)
+        telegramUserId = tostring(telegramUserId)
         --Check id against whitelist
         for i = 1, #g_TelegramBotWhiteListedIDs do
             print_info_to_log(2, 'id_check: WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ?')
-            if SendTo == g_TelegramBotWhiteListedIDs[i] then
+            if telegramUserId == g_TelegramBotWhiteListedIDs[i] then
                 print_info_to_log(1, 'id_check: WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ok ')
                 return true
             end
         end
         -- Checked WhiteList no match
-        print_warning_to_log(0, 'id_check: WhiteList[' .. SendTo .. '] not allowed')
+        print_warning_to_log(0, 'id_check: WhiteList[' .. telegramUserId .. '] not allowed')
         return false
     end
 end

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Settings
-SendMsgTo=$1
+ReplyTo=$1
+MessageId=$2
 
 # array of icons
 declare -a icons=("smiley 😀" "crying smiley 😢" "sleeping smiley 😴" "beer 🍺" "double beer 🍻"\
@@ -12,7 +13,6 @@ declare -a icons=("smiley 😀" "crying smiley 😢" "sleeping smiley 😴" "bee
 ## now loop through the above array of icons
 for icon in "${icons[@]}"
 do
-#   $TelegramScript msg $SendMsgTo "$icon"
-   curl --data 'chat_id='$SendMsgTo --data-urlencode 'text='"$icon" 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
+   curl --data 'chat_id='$ReplyTo --date 'reply_to_message_id='$MessageId --data-urlencode 'text='"$icon" 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
 done
 
