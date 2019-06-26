@@ -20,7 +20,7 @@ function list_module.handler(parsed_cli)
         match_type = "";
     end
 
-    jresponse, status = http.request(server_url .. "/json.htm?type=devices")
+    jresponse, status = http.request(g_DomoticzServeUrl .. "/json.htm?type=devices")
     if (jresponse ~= nil) then
         decoded_response = JSON:decode(jresponse)
         for k, record in pairs(decoded_response) do

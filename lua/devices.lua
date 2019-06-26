@@ -26,8 +26,8 @@ function DevicesScenes(DeviceType, qualifier)
     decoded_response = device_list(DeviceType)
     result = decoded_response["result"]
     print_info_to_log(1,"devices.lua/Devices["..DeviceType.."]:size="..tostring(#result))
-    StoredType = DeviceType
-    StoredList = {}
+    g_DomoticzDeviceOrSceneStoredType = DeviceType
+    g_DomoticzDeviceOrSceneStoredList = {}
     ItemNumber = 0
     for k, record in pairs(result) do
         if type(record) == "table" then
@@ -37,19 +37,19 @@ function DevicesScenes(DeviceType, qualifier)
                 if qualifier ~= nil then
                     if qualifier == string.lower(string.sub(DeviceName, 1, quallength)) then
                         ItemNumber = ItemNumber + 1
-                        table.insert(StoredList, DeviceName)
+                        table.insert(g_DomoticzDeviceOrSceneStoredList, DeviceName)
                     end
                 else
                     ItemNumber = ItemNumber + 1
-                    table.insert(StoredList, DeviceName)
+                    table.insert(g_DomoticzDeviceOrSceneStoredList, DeviceName)
                 end
             end
         end
     end
-    table.sort(StoredList)
-    if #StoredList ~= 0 then
-        for ItemNumber, DeviceName in ipairs(StoredList) do
-            response = response .. '\n' .. ItemNumber .. ' - ' .. StoredList[ItemNumber]
+    table.sort(g_DomoticzDeviceOrSceneStoredList)
+    if #g_DomoticzDeviceOrSceneStoredList ~= 0 then
+        for ItemNumber, DeviceName in ipairs(g_DomoticzDeviceOrSceneStoredList) do
+            response = response .. '\n' .. ItemNumber .. ' - ' .. g_DomoticzDeviceOrSceneStoredList[ItemNumber]
         end
     else
         response = response .. ' none found'

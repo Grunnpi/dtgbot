@@ -8,7 +8,7 @@ function get_battery_level(DeviceName)
         return DeviceName, -999, 0
     end
     -- Determine battery level
-    t = server_url .. "/json.htm?type=devices&rid=" .. idx
+    t = g_DomoticzServeUrl .. "/json.htm?type=devices&rid=" .. idx
     print_info_to_log(1,"JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     decoded_response = JSON:decode(jresponse)
@@ -43,8 +43,8 @@ function battery_module.handler(parsed_cli)
         status, response = battery(DeviceName)
     else
         -- Get list of all user variables
-        t = server_url .. "/json.htm?type=command&param=getuservariables"
-        --        	t = server_url.."/json.htm?type=devices"
+        t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getuservariables"
+        --        	t = g_DomoticzServeUrl.."/json.htm?type=devices"
         print_info_to_log(1,"JSON request <" .. t .. ">");
         jresponse, status = http.request(t)
         decoded_response = JSON:decode(jresponse)
@@ -63,7 +63,7 @@ function battery_module.handler(parsed_cli)
             return 1, 'User Variable DevicesWithBatteries not set in Domoticz'
         end
         -- Get user variable DevicesWithBatteries
-        t = server_url .. "/json.htm?type=command&param=getuservariable&idx=" .. idx
+        t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getuservariable&idx=" .. idx
         print_info_to_log(1,"JSON request <" .. t .. ">");
         jresponse, status = http.request(t)
         decoded_response = JSON:decode(jresponse)

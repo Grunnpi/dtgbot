@@ -71,7 +71,7 @@ function on_get_difference_end()
 end
 
 function on_binlog_replay_end()
-    started = 1
+    g_BotStarted = 1
 end
 
 

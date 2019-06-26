@@ -20,11 +20,11 @@ mime   = require("mime")
 
 
 -- version
-dtgbot_version = 'v0.8.0'
+g_dtgbot_version = 'v0.8.1'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
-    localvar = os.getenv(envvar)
+    local localvar = os.getenv(envvar)
     if localvar ~= nil then
         print(envvar .. ": " .. localvar)
     else
@@ -33,68 +33,67 @@ function environmentVariableDomoticz(envvar)
     return localvar
 end
 
+function checkpath(envpath)
+    if string.sub(envpath, -1, -1) ~= "/" then
+        envpath = envpath .. "/"
+    end
+    return envpath
+end
+
 -- set default loglevel which will be retrieve later from the domoticz user variable TelegramBotLoglevel
-dtgbotLogLevel = 0
+g_dtgbotLogLevel = 0
 -- loglevel 0 - Always shown
 -- loglevel 1 - only shown when TelegramBotLoglevel >= 1
 
 -- All these values are set in /etc/profile.d/DomoticzData.sh
-DomoticzIP        = environmentVariableDomoticz("DomoticzIP")
-DomoticzPort      = environmentVariableDomoticz("DomoticzPort")
-BotHomePath       = environmentVariableDomoticz("BotHomePath")
-TempFileDir       = environmentVariableDomoticz("TempFileDir")
-BotLuaScriptPath  = environmentVariableDomoticz("BotLuaScriptPath")
-BotBashScriptPath = environmentVariableDomoticz("BotBashScriptPath")
-TelegramBotToken  = environmentVariableDomoticz("TelegramBotToken")
-TBOName           = environmentVariableDomoticz("TelegramBotOffset")
+local DomoticzIP        = environmentVariableDomoticz("DomoticzIP")
+local DomoticzPort      = environmentVariableDomoticz("DomoticzPort")
+local TempFileDir       = environmentVariableDomoticz("TempFileDir")
+local TelegramBotToken  = environmentVariableDomoticz("TelegramBotToken")
+g_BotHomePath           = environmentVariableDomoticz("BotHomePath")
+g_BotLuaScriptPath      = environmentVariableDomoticz("BotLuaScriptPath")
+g_BotBashScriptPath     = environmentVariableDomoticz("BotBashScriptPath")
+g_TBotOffsetName        = environmentVariableDomoticz("TelegramBotOffset")
+
+-- Constants derived from environment variables
+g_DomoticzServeUrl      = "http://" .. DomoticzIP .. ":" .. DomoticzPort
+g_TelegramApiUrl        = "https://api.telegram.org/bot" .. TelegramBotToken .. "/"
+
+-- Check paths end in / and add if not present
+g_BotHomePath       = checkpath(g_BotHomePath)
+g_BotLuaScriptPath  = checkpath(g_BotLuaScriptPath)
+g_BotBashScriptPath = checkpath(g_BotBashScriptPath)
 
 -- log/debug function
-support = assert(loadfile(BotHomePath .. "dtglib_log.lua"))();
+local support = assert(loadfile(g_BotHomePath .. "dtglib_log.lua"))();
 -- utilz
-support = assert(loadfile(BotHomePath .. "dtglib_utils.lua"))();
+support = assert(loadfile(g_BotHomePath .. "dtglib_utils.lua"))();
 -- telegram related
-support = assert(loadfile(BotHomePath .. "dtglib_telegram.lua"))();
+support = assert(loadfile(g_BotHomePath .. "dtglib_telegram.lua"))();
 -- main bot function
-support = assert(loadfile(BotHomePath .. "dtglib_bot.lua"))();
-
-
+support = assert(loadfile(g_BotHomePath .. "dtglib_bot.lua"))();
+-- domoticz api
+support = assert(loadfile(g_BotHomePath .. "dtglib_domoticz.lua"))();
 
 -- -------------------------------------------------------
 
--- Constants derived from environment variables
-server_url        = "http://" .. DomoticzIP .. ":" .. DomoticzPort
-telegram_url      = "https://api.telegram.org/bot" .. TelegramBotToken .. "/"
-
--- Check paths end in / and add if not present
-BotHomePath       = checkpath(BotHomePath)
-BotLuaScriptPath  = checkpath(BotLuaScriptPath)
-BotBashScriptPath = checkpath(BotBashScriptPath)
-
-support           = assert(loadfile(BotHomePath .. "dtglib_domoticz.lua"))();
--- Should end up a library - require("dtglib_domoticz.lua")
-
--- GLOBAL VARIABLES
-
 -- Array to store device list rapid access via index number (lua:devices/scenes for usage in lua:on/off)
-StoredType = "None"
-StoredList = {}
+g_DomoticzDeviceOrSceneStoredType = "None"
+g_DomoticzDeviceOrSceneStoredList = {}
 
 -- Table to store functions for commands plus descriptions used by help function
-commands = {};
+g_commandsLua = {};
 
 -- Stuff from Domoticz
-Variablelist = {}
-Devicelist = {}
-Scenelist = {}
-Sceneproperties = {}
-Roomlist = {}
-language = 'ULK'
-telegram_connected = false
+g_DomoticzVariableList = {}
+g_DomoticzDeviceList = {}
+g_DomoticzSceneList = {}
+g_DomoticzSceneProperties = {}
+g_DomoticzRoomList = {}
+g_DomoticzLanguage = 'UK'
 
--- is bot ready to process msg
-started = 0
-
-
+g_BotStarted = 0
+g_TelegramMenuStatus = ""
 
 -- Main bot init full variables
 dtgbot_initialise()
@@ -104,9 +103,14 @@ dtgbot_initialise()
 --############################################################################################################
 
 --Update monitorfile before loop
+local telegram_connected = false
+
 os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. TempFileDir .. "/dtgloop.txt")
 while file_exists(dtgbot_pid) do
-    response, status = https.request(telegram_url .. 'getUpdates?timeout=60&offset=' .. TelegramBotOffset)
+    local response
+    local status
+
+    response, status = https.request(g_TelegramApiUrl .. 'getUpdates?timeout=60&offset=' .. g_TelegramBotOffset)
     if status == 200 then
         if not telegram_connected then
             print_info_to_log(0, '########################################')
@@ -117,19 +121,19 @@ while file_exists(dtgbot_pid) do
         if response ~= nil then
             io.write('.')
             print_info_to_log(1, "loop.response=["..response.."]")
-            decoded_response = JSON:decode(response)
-            result_table = decoded_response['result']
+            local decoded_response = JSON:decode(response)
+            local result_table = decoded_response['result']
             tc = #result_table
             for i = 1, tc do
                 print_info_to_log(1, 'Message:' .. i)
-                tt = table.remove(result_table, 1)
+                local tt = table.remove(result_table, 1)
                 print_info_to_log(1, 'update_id:', tt.update_id)
-                TelegramBotOffset = tt.update_id + 1
-                print_info_to_log(1, 'TelegramBotOffset:' .. TelegramBotOffset)
-                set_variable_value(TBOidx, TBOName, 0, TelegramBotOffset)
+                g_TelegramBotOffset = tt.update_id + 1
+                print_info_to_log(1, 'TelegramBotOffset:' .. g_TelegramBotOffset)
+                set_variable_value(g_TBotOffsetIdx, g_TBotOffsetName, 0, g_TelegramBotOffset)
 
                 -- get message from Json result
-                msg = tt['message']
+                local msg = tt['message']
                 -- checking for channel message
                 if tt['channel_post'] ~= nil then
                     print_info_to_log(3, '<== received channel message, reformating result to be able to process.')

@@ -1,26 +1,12 @@
 -- other functions
-
-
-function checkpath(envpath)
-    if string.sub(envpath, -1, -1) ~= "/" then
-        envpath = envpath .. "/"
-    end
-    return envpath
-end
-
 function isWindowsOS()
-    current_dir = io.popen "cd":read '*l'
+    local current_dir = io.popen "cd":read '*l'
     if (current_dir == nil) then
         current_dir = ''
     else
         current_dir = string.sub(current_dir, 2, 2)
     end
     return (current_dir == ':')
-end
-
-function file_exists(name)
-    local f = io.open(name, "r")
-    if f ~= nil then io.close(f) return true else return false end
 end
 
 function file_exists(name)

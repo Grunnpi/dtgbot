@@ -11,7 +11,7 @@ function get_temperature(DeviceName)
     Humidity = -999
     Pressure = -999
     -- Determine temperature
-    t = server_url .. "/json.htm?type=devices&rid=" .. idx
+    t = g_DomoticzServeUrl .. "/json.htm?type=devices&rid=" .. idx
     print("JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     decoded_response = JSON:decode(jresponse)

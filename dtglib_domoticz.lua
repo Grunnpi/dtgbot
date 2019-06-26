@@ -19,7 +19,7 @@ end
 -- allowing Domoticz time to start
 function variable_list()
     local t, jresponse, status, decoded_response
-    t = server_url .. "/json.htm?type=command&param=getuservariables"
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getuservariables"
     jresponse = nil
     domoticz_tries = 1
     -- Domoticz seems to take a while to respond to getuservariables after start-up
@@ -62,7 +62,7 @@ function variable_list_names_idxs()
 end
 
 function idx_from_variable_name(DeviceName)
-    return Variablelist[DeviceName]
+    return g_DomoticzVariableList[DeviceName]
 end
 
 -- returns the value of the variable from the idx
@@ -71,7 +71,7 @@ function get_variable_value(idx)
     if idx == nil then
         return ""
     end
-    t = server_url .. "/json.htm?type=command&param=getuservariable&idx=" .. tostring(idx)
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getuservariable&idx=" .. tostring(idx)
     print_info_to_log(1, "get_variable_value: JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     returnValue = ""
@@ -88,7 +88,7 @@ end
 function set_variable_value(idx, name, Type, value)
     -- store the value of a user variable
     local t, jresponse, decoded_response
-    t = server_url .. "/json.htm?type=command&param=updateuservariable&idx=" .. idx .. "&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=updateuservariable&idx=" .. idx .. "&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
     print_info_to_log(1, "set_variable_value: JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     return
@@ -97,7 +97,7 @@ end
 function create_variable(name, Type, value)
     -- creates user variable
     local t, jresponse, decoded_response
-    t = server_url .. "/json.htm?type=command&param=saveuservariable&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=saveuservariable&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
     print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     return
@@ -118,7 +118,7 @@ end
 -- returns a device table of Domoticz items based on type i.e. devices or scenes
 function device_list(DeviceType)
     local t, jresponse, status, decoded_response
-    t = server_url .. "/json.htm?type=" .. DeviceType .. "&order=name&used=true"
+    t = g_DomoticzServeUrl .. "/json.htm?type=" .. DeviceType .. "&order=name&used=true"
     print_info_to_log(1, "device_list:JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     if jresponse ~= nil then
@@ -163,17 +163,17 @@ end
 function idx_from_name(DeviceName, DeviceType)
     --returns a devcie idx based on its name
     if DeviceType == "devices" then
-        return Devicelist[string.lower(DeviceName)]
+        return g_DomoticzDeviceList[string.lower(DeviceName)]
     elseif DeviceType == "scenes" then
-        return Scenelist[string.lower(DeviceName)]
+        return g_DomoticzSceneList[string.lower(DeviceName)]
     else
-        return Roomlist[DeviceName]
+        return g_DomoticzRoomList[DeviceName]
     end
 end
 
 function retrieve_status(idx, DeviceType)
     local t, jresponse, status, decoded_response
-    t = server_url .. "/json.htm?type=" .. DeviceType .. "&rid=" .. tostring(idx)
+    t = g_DomoticzServeUrl .. "/json.htm?type=" .. DeviceType .. "&rid=" .. tostring(idx)
     print_info_to_log(2, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     if jresponse ~= nil then
@@ -268,12 +268,12 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
             DeviceName = idx_from_name(idx, 'scenes')
         end
         if idx ~= nil then
-            DeviceName = Scenelist[idx]
+            DeviceName = g_DomoticzSceneList[idx]
             DeviceType = "scenes"
             ridx = idx
             rDeviceName = DeviceName
-            SwitchType = Sceneproperties[tostring(idx)]['SwitchType']
-            Type = Sceneproperties[tostring(idx)]['Type']
+            SwitchType = g_DomoticzSceneProperties[tostring(idx)]['SwitchType']
+            Type = g_DomoticzSceneProperties[tostring(idx)]['Type']
             found = 1
         end
     end
@@ -297,7 +297,7 @@ function SwitchID(DeviceName, idx, DeviceType, state, SendTo)
     else
         return "state must be on or off!";
     end
-    t = server_url .. "/json.htm?type=command&param=switch" .. DeviceType .. "&idx=" .. idx .. "&switchcmd=" .. state;
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=switch" .. DeviceType .. "&idx=" .. idx .. "&switchcmd=" .. state;
     print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     print_info_to_log(1, "raw jason", jresponse)
@@ -316,19 +316,19 @@ function sSwitchName(DeviceName, DeviceType, SwitchType, idx, state)
         end
         if string.lower(state) == "on" then
             state = "On";
-            t = server_url .. "/json.htm?type=command&param=switch" .. subgroup .. "&idx=" .. idx .. "&switchcmd=" .. state;
+            t = g_DomoticzServeUrl .. "/json.htm?type=command&param=switch" .. subgroup .. "&idx=" .. idx .. "&switchcmd=" .. state;
         elseif string.lower(state) == "off" then
             state = "Off";
-            t = server_url .. "/json.htm?type=command&param=switch" .. subgroup .. "&idx=" .. idx .. "&switchcmd=" .. state;
+            t = g_DomoticzServeUrl .. "/json.htm?type=command&param=switch" .. subgroup .. "&idx=" .. idx .. "&switchcmd=" .. state;
         elseif string.lower(string.sub(state, 1, 9)) == "set level" then
-            t = server_url .. "/json.htm?type=command&param=switch" .. subgroup .. "&idx=" .. idx .. "&switchcmd=Set%20Level&level=" .. string.sub(state, 11)
+            t = g_DomoticzServeUrl .. "/json.htm?type=command&param=switch" .. subgroup .. "&idx=" .. idx .. "&switchcmd=Set%20Level&level=" .. string.sub(state, 11)
         else
             return "state must be on, off or Set Level!";
         end
         print_info_to_log(3, "JSON request <" .. t .. ">");
         jresponse, status = http.request(t)
         print_info_to_log(3, "JSON feedback: ", jresponse)
-        response = dtgmenu_lang[language].text["Switched"] .. ' ' .. DeviceName .. ' => ' .. state
+        response = dtgmenu_lang[g_DomoticzLanguage].text["Switched"] .. ' ' .. DeviceName .. ' => ' .. state
     end
     print_info_to_log(0, "   -< sSwitchName:", DeviceName, idx, status, response)
     return response, status
@@ -363,7 +363,7 @@ end
 
 function domoticz_language()
     local t, jresponse, status, decoded_response
-    t = server_url .. "/json.htm?type=command&param=getlanguage"
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getlanguage"
     jresponse = nil
     print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)

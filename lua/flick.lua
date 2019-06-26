@@ -31,7 +31,7 @@ function flick_module.handler(parsed_cli)
     end
 
     print("in flick_handler!");
-    t = server_url .. "/json.htm?type=command&param=switchlight&idx=" .. idx .. "&switchcmd=" .. state .. "&level=0";
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=switchlight&idx=" .. idx .. "&switchcmd=" .. state .. "&level=0";
     print("JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     print("raw jason", jresponse)

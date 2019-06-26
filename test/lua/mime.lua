@@ -12,8 +12,8 @@ local base = _G
 local _M = _G
 
 -- high level stuffing filter
-function _M.unb64(stuff)
-    return stuff
+function _M.unb64(blob)
+    return blob
 end
 
 return _M

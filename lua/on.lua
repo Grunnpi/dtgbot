@@ -9,9 +9,9 @@ function switch(parsed_cli)
         print_info_to_log(0,'Device Name: ' .. DeviceName)
         -- DeviceName can either be a device / group / scene name or a number refering to list previously generated
         if tonumber(DeviceName) ~= nil then
-            NewDeviceName = StoredList[tonumber(DeviceName)]
+            NewDeviceName = g_DomoticzDeviceOrSceneStoredList[tonumber(DeviceName)]
             if NewDeviceName == nil then
-                response = 'No ' .. StoredType .. ' with number ' .. DeviceName .. ' was found - please execute devices or scenes command with qualifier to generate list'
+                response = 'No ' .. g_DomoticzDeviceOrSceneStoredType .. ' with number ' .. DeviceName .. ' was found - please execute devices or scenes command with qualifier to generate list'
                 return status, response
             else
                 DeviceName = NewDeviceName
