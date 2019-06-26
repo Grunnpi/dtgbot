@@ -328,11 +328,11 @@ function on_msg_receive(msg)
 
         if msg.text then -- check if message is text
             --ReceivedText = msg.text -- I dont read it again
-            if HandleCommand(ReceivedText, tostring(telegramMsg_FromId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
+            if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                 print_info_to_log(0, "Succesfully handled incoming request")
             else
                 print_info_to_log(0, "Invalid command received from:["..telegramMsg_FromId.."]")
-                telegram_SendMsg(telegramMsg_FromId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
+                telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
             end
             -- check for received voicefiles
         elseif msg.voice then -- check if message is voicefile
@@ -347,12 +347,12 @@ function on_msg_receive(msg)
                 local filelink = result["file_path"]
                 print_info_to_log(1, "filelink:", filelink)
                 ReceivedText = "voice " .. filelink
-                if HandleCommand(ReceivedText, tostring(telegramMsg_FromId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
+                if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                     print_info_to_log(0, "Succesfully handled incoming voice request")
                 else
                     print_info_to_log(0, "Voice file received but voice.sh or lua not found to process it. skipping the message.")
                     print_info_to_log(1, "telegramMsg_FromId:"..telegramMsg_FromId)
-                    telegram_SendMsg(telegramMsg_FromId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
+                    telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
                 end
             end
         elseif msg.video_note then -- check if message is videofile
@@ -367,18 +367,18 @@ function on_msg_receive(msg)
                 local filelink = result["file_path"]
                 print_info_to_log(1, "filelink:", filelink)
                 ReceivedText = "video " .. filelink
-                if HandleCommand(ReceivedText, tostring(telegramMsg_FromId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
+                if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                     print_info_to_log(0, "Succesfully handled incoming video request")
                 else
                     print_info_to_log(0, "Video file received but video_note.sh or lua not found to process it. Skipping the message.")
                     print_info_to_log(0, "telegramMsg_FromId:"..telegramMsg_FromId)
-                    telegram_SendMsg(telegramMsg_FromId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
+                    telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
                 end
             end
         end
     else
         print_warning_to_log(0, 'id['..telegramMsg_FromId..'] not on white list, command ignored')
-        telegram_SendMsg(telegramMsg_FromId, '⚡️ ID Not Recognised - Command Ignored ⚡️', telegramMsg_MsgId)
+        telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ ID Not Recognised - Command Ignored ⚡️', telegramMsg_MsgId)
     end
 end
 
