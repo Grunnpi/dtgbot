@@ -96,7 +96,7 @@ function ssh_module.handler(parsed_cli)
                 local os_ssh_logfile = g_BotTempFileDir..'/ssh_cmd.log'
                 local os_ssh_command = "sshpass -p "..ssh_host_pwd.." ssh -o StrictHostKeyChecking=no "..ssh_host_user.."@"..ssh_host_ip..' '..ssh_command..' > '..os_ssh_logfile..' 2>&1'
                 print_info_to_log(0,"os.execute('"..os_ssh_command.."') > ")
-                if ( not g_TelegramBotIsOnWindows ) then
+                if ( g_TelegramBotIsOnWindows ) then
                     status = 1
                     response = "‼️ no ssh on window$"
                 else
