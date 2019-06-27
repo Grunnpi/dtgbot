@@ -57,7 +57,7 @@ function ssh_module.handler(parsed_cli)
             ssh_command = 'sudo service dtgbot start'
         elseif ( this_command == 'ssh_bil_bot_pull' ) then
             ssh_host_parameter = 'bil'
-            ssh_command = 'cd dtgbot;git pull'
+            ssh_command = '"cd dtgbot;git pull"'
         elseif ( this_command == 'ssh_bil_bot_stop' ) then
             ssh_host_parameter = 'bil'
             ssh_command = 'sudo service dtgbot stop'
@@ -67,7 +67,7 @@ function ssh_module.handler(parsed_cli)
             ssh_command = 'sudo service dtgbot start'
         elseif ( this_command == 'ssh_bob_bot_pull' ) then
             ssh_host_parameter = 'bob'
-            ssh_command = 'cd dtgbot;git pull'
+            ssh_command = '"cd dtgbot;git pull"'
         elseif ( this_command == 'ssh_bob_bot_stop' ) then
             ssh_host_parameter = 'bob'
             ssh_command = 'sudo service dtgbot stop'
