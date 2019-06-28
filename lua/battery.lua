@@ -3,7 +3,7 @@ local http = require "socket.http";
 --JSON = assert(loadfile "JSON.lua")() -- one-time load of the routines
 
 function get_battery_level(DeviceName)
-    idx = idx_from_name(DeviceName, 'devices')
+    idx = domoticz_cache_getDeviceIdxByNameByType(DeviceName, 'devices')
     if idx == nil then
         return DeviceName, -999, 0
     end

@@ -1,13 +1,13 @@
 local help_module = {};
---local http = require "socket.http";
 
 --- the handler for the list commands. a module can have more than one handler. in this case the same handler handles two commands
 function help_module.handler(parsed_cli)
-    local response = "", status;
+    local response = ""
+    local status = 0
 
-    command = parsed_cli[3]
+    local command = parsed_cli[3]
     if (command ~= "" and command ~= nil) then
-        command_dispatch = g_commandsLua[string.lower(command)];
+        local command_dispatch = g_commandsLua[string.lower(command)];
         if command_dispatch then
             if (ChkInTable(g_TelegramBotLuaExclude, command)) then
                 response = command .. ' filtered in your list of command'
@@ -20,24 +20,31 @@ function help_module.handler(parsed_cli)
         print_info_to_log(0, '[help:specific]=' .. response)
         return status, response
     end
-    local DotPos = 0
 
-    HelpText = 'Version=' .. g_dtgbot_version .. '\n'
+    local HelpText = 'Version=' .. g_dtgbot_version .. '\n'
     HelpText = HelpText .. '⚠️ Available Lua commands ⚠️ \n'
+    local commandLuaOrdered = {}
     for i, help in pairs(g_commandsLua) do
-        newCommand = string.gmatch(help.description, "%S+") [[1]] .. ''
+        local newCommand = string.gmatch(help.description, "%S+") [[1]] .. ''
         -- filter g_TelegramBotBashExclude
         if (ChkInTable(g_TelegramBotLuaExclude, newCommand)) then
             print_info_to_log(2, 'WARN help::list lua command:' .. newCommand .. ' filtered')
         else
-            newCommandHelper = g_TelegramBotName .. '_' .. newCommand
-            print_info_to_log(2, 'help::list lua command:' .. newCommandHelper)
-            HelpText = HelpText .. "/" .. newCommandHelper .. '\n'
+            table.insert(commandLuaOrdered, newCommand)
+--            newCommandHelper = g_TelegramBotName .. '_' .. newCommand
+--            print_info_to_log(2, 'help::list lua command:' .. newCommandHelper)
+--            HelpText = HelpText .. "/" .. newCommandHelper .. '\n'
         end
+    end
+    table.sort(commandLuaOrdered)
+    for i = 1, #commandLuaOrdered do
+        local newCommandHelper = g_TelegramBotName .. '_' .. commandLuaOrdered[i]
+        print_info_to_log(2, 'help::list lua command:' .. newCommandHelper)
+        HelpText = HelpText .. "/" .. newCommandHelper .. '\n'
     end
 
     HelpText = string.sub(HelpText, 1, -2) .. '\n<help command> - gives usage information, i.e. "help list" \n\n'
-
+    local cmdListDir = ""
     if (g_TelegramBotIsOnWindows) then
         cmdListDir = 'dir /B'
     else
@@ -47,26 +54,24 @@ function help_module.handler(parsed_cli)
     local Functions = io.popen(cmdListDir .. " " .. g_BotBashScriptPath)
     HelpText = HelpText .. '⚠️ Available Shell commands ⚠️ \n'
     for line in Functions:lines() do
-        DotPos = string.find(line, "%.")
-        newCommand = string.sub(line, 0, DotPos - 1)
-
+        local DotPos = string.find(line, "%.")
+        local newCommand = string.sub(line, 0, DotPos - 1)
         -- filter g_TelegramBotBashExclude
         if (ChkInTable(g_TelegramBotBashExclude, newCommand)) then
             print_info_to_log(2, 'WARN help::list bash command:' .. newCommand .. ' filtered')
         else
-            newCommandHelper = g_TelegramBotName .. '_' .. newCommand
+            local newCommandHelper = g_TelegramBotName .. '_' .. newCommand
             print_info_to_log(2, 'help::list bash command:' .. newCommandHelper)
             HelpText = HelpText .. "/" .. newCommandHelper .. '\n'
         end
     end
 
-    --print_info_to_log(1, '[help:global]=['.. HelpText..']')
+    print_info_to_log(1, '[help:global]=['.. HelpText..']')
     return status, HelpText;
 end
 
 local help_commands = {
-    ["help"] = { handler = help_module.handler, description = "help - list all help information" },
-    ["start"] = { handler = help_module.handler, description = "start - list all help information" }
+    ["help"] = { handler = help_module.handler, description = "help - list all help information" }
 }
 
 function help_module.get_commands()

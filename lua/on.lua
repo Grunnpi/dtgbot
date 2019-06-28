@@ -19,11 +19,11 @@ function switch(parsed_cli)
         end
         -- Update the list of device names and ids to be checked later
         -- Check if DeviceName is a device
-        DeviceID = idx_from_name(DeviceName, 'devices')
+        DeviceID = domoticz_cache_getDeviceIdxByNameByType(DeviceName, 'devices')
         switchtype = 'light'
         -- Its not a device so check if a scene
         if DeviceID == nil then
-            DeviceID = idx_from_name(DeviceName, 'scenes')
+            DeviceID = domoticz_cache_getDeviceIdxByNameByType(DeviceName, 'scenes')
             switchtype = 'scene'
         end
         if DeviceID ~= nil then

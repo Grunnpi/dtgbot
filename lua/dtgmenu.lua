@@ -516,7 +516,7 @@ function MakeRoomMenus(iLevel, iSubmenu)
         -----------------------------------------------------------
         -- retrieve all devices/scenes for this plan from Domoticz
         -----------------------------------------------------------
-        Devsinplan = device_list("command&param=getplandevices&idx=" .. room_number)
+        Devsinplan = domoticz_getDeviceListByType("command&param=getplandevices&idx=" .. room_number)
         DIPresult = Devsinplan["result"]
         if DIPresult ~= nil then
             print_info_to_log(1, 'For room ' .. room_name .. ' got some devices and/or scenes')
@@ -717,11 +717,11 @@ function dtgmenu_module.handler(menu_cli, SendTo)
     -------------------------------------------------
     -- Set DTGMENU On/Off
     if lcommand == "dtgmenu" then
-        local Menuidx = idx_from_variable_name("TelegramBotMenu")
+        local Menuidx = domoticz_cache_getVariableIdxByName("TelegramBotMenu")
         if Menuidx == nil then
             g_TelegramMenuStatus = "Off"
         else
-            g_TelegramMenuStatus = get_variable_value(Menuidx)
+            g_TelegramMenuStatus = domoticz_getVariableValueByIdx(Menuidx)
         end
         local response = "DTGMENU is currently " .. g_TelegramMenuStatus
 
@@ -729,15 +729,15 @@ function dtgmenu_module.handler(menu_cli, SendTo)
             print_info_to_log(0, " Set DTGMENU Off")
             response = "DTGMENU is now disabled. send DTGMENU to start the menus again."
             menuReplyMarkup = '{"hide_keyboard":true}'
-            set_variable_value(Menuidx, "TelegramBotMenu", 2, "Off")
+            domoticz_setVariableValueByIdx(Menuidx, "TelegramBotMenu", 2, "Off")
             LastCommand[SendTo]["replymarkup"] = ""
             g_TelegramMenuStatus = "Off"
         elseif g_TelegramMenuStatus == "Off" and (lparam1 == "on" or lparam1 == "") then
             print_info_to_log(0, " Set DTGMENU On")
             if Menuidx == nil then
-                create_variable("TelegramBotMenu", 2, "On")
+                domoticz_createVariable("TelegramBotMenu", 2, "On")
             else
-                set_variable_value(Menuidx, "TelegramBotMenu", 2, "On")
+                domoticz_setVariableValueByIdx(Menuidx, "TelegramBotMenu", 2, "On")
             end
             -- initialise the tables when switched on
             dtgbot_initialise()

@@ -7,9 +7,9 @@ function fetchDomoticzParameter(parameter_name)
     local response
     local parameter_value
 
-    local parameter_idx = idx_from_variable_name(parameter_name)
+    local parameter_idx = domoticz_cache_getVariableIdxByName(parameter_name)
     if ( parameter_idx ~= nil ) then
-        parameter_value = get_variable_value(parameter_idx)
+        parameter_value = domoticz_getVariableValueByIdx(parameter_idx)
         if ( parameter_value ~= nil ) then
             -- ready to to
             status = 0
@@ -61,6 +61,9 @@ function ssh_module.handler(parsed_cli)
         elseif ( this_command == 'ssh_bil_bot_stop' ) then
             ssh_host_parameter = 'bil'
             ssh_command = 'sudo service dtgbot stop'
+        elseif ( this_command == 'ssh_bil_bot_logs' ) then
+            ssh_host_parameter = 'bil'
+            ssh_command = '"cat /var/tmp/dtgloop.txt;cat /var/tmp/dtb.log;cat /var/tmp/dtb.log.errors"'
 
         elseif ( this_command == 'ssh_bob_bot_start' ) then
             ssh_host_parameter = 'bob'
@@ -71,6 +74,9 @@ function ssh_module.handler(parsed_cli)
         elseif ( this_command == 'ssh_bob_bot_stop' ) then
             ssh_host_parameter = 'bob'
             ssh_command = 'sudo service dtgbot stop'
+        elseif ( this_command == 'ssh_bob_bot_logs' ) then
+            ssh_host_parameter = 'bob'
+            ssh_command = '"cat /var/tmp/dtgloop.txt;cat /var/tmp/dtb.log;cat /var/tmp/dtb.log.errors"'
 
         else
             ssh_host_parameter = "paf"
@@ -132,10 +138,12 @@ local ssh_commands = {
     ["ssh_bil_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - stop bil bot" },
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
+    ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
 
     ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
-    ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" }
+    ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
+    ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" }
 }
 
 function ssh_module.get_commands()

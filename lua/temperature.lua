@@ -3,7 +3,7 @@ local http = require "socket.http";
 --JSON = assert(loadfile "JSON.lua")() -- one-time load of the routines
 
 function get_temperature(DeviceName)
-    idx = idx_from_name(DeviceName, 'devices')
+    idx = domoticz_cache_getDeviceIdxByNameByType(DeviceName, 'devices')
     if idx == nil then
         return DeviceName, -999, -999, -999, 0
     end
@@ -82,7 +82,7 @@ function temperature_module.handler(parsed_cli)
 
     elseif string.lower(parsed_cli[2]) == 'tempall' then
         -- get all devices with temp info
-        Deviceslist = device_list("devices&used=true&filter=temp")
+        Deviceslist = domoticz_getDeviceListByType("devices&used=true&filter=temp")
         result = Deviceslist["result"]
         status = ""
         for k, record in pairs(result) do
@@ -110,13 +110,13 @@ function temperature_module.handler(parsed_cli)
         end
     else
         -- Get list of all user variables
-        idx = idx_from_variable_name('DevicesWithTemperatures')
+        idx = domoticz_cache_getVariableIdxByName('DevicesWithTemperatures')
         if idx == 0 then
             print('User Variable DevicesWithTemperatures not set in Domoticz')
             return 1, 'User Variable DevicesWithTemperatures not set in Domoticz'
         end
         -- Get user variable DevicesWithTemperature
-        DevicesWithTemperatures = get_variable_value(idx)
+        DevicesWithTemperatures = domoticz_getVariableValueByIdx(idx)
         print(DevicesWithTemperatures)
         -- Retrieve the names
         DeviceNames = get_names_from_variable(DevicesWithTemperatures)

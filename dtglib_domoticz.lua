@@ -17,11 +17,11 @@ end
 -- returns list of all user variables - called early by dtgbot
 -- in case Domoticz is not running will retry
 -- allowing Domoticz time to start
-function variable_list()
+function domoticz_getVariableFullList()
     local t, jresponse, status, decoded_response
     t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getuservariables"
     jresponse = nil
-    domoticz_tries = 1
+    local domoticz_tries = 1
     -- Domoticz seems to take a while to respond to getuservariables after start-up
     -- So just keep trying after 1 second sleep
     while (jresponse == nil) do
@@ -47,11 +47,11 @@ function variable_list()
 end
 
 -- returns idx of a user variable from name
-function variable_list_names_idxs()
+function domoticz_getVariableIdxPerNameList()
     local idx, k, record, decoded_response
-    decoded_response = variable_list()
-    result = decoded_response["result"]
-    variables = {}
+    decoded_response = domoticz_getVariableFullList()
+    local result = decoded_response["result"]
+    local variables = {}
     for i = 1, #result do
         record = result[i]
         if type(record) == "table" then
@@ -61,40 +61,55 @@ function variable_list_names_idxs()
     return variables
 end
 
-function idx_from_variable_name(DeviceName)
-    return g_DomoticzVariableList[DeviceName]
+-- returns idx of a user variable from name
+function domoticz_getVariableTypePerIdxList()
+    local idx, k, record, decoded_response
+    decoded_response = domoticz_getVariableFullList()
+    local result = decoded_response["result"]
+    local variables = {}
+    for i = 1, #result do
+        record = result[i]
+        if type(record) == "table" then
+            variables[record['idx']] = record['Type']
+        end
+    end
+    return variables
+end
+
+function domoticz_cache_getVariableIdxByName(DeviceName)
+    return g_DomoticzVariableIdxPerNameList[DeviceName]
 end
 
 -- returns the value of the variable from the idx
-function get_variable_value(idx)
+function domoticz_getVariableValueByIdx(idx)
     local t, jresponse, decoded_response
     if idx == nil then
         return ""
     end
     t = g_DomoticzServeUrl .. "/json.htm?type=command&param=getuservariable&idx=" .. tostring(idx)
-    print_info_to_log(1, "get_variable_value: JSON request <" .. t .. ">");
+    print_info_to_log(1, "domoticz_getVariableValueByIdx: JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
-    returnValue = ""
+    local returnValue = ""
     if (jresponse ~= nil) then
         decoded_response = JSON:decode(jresponse)
         returnValue = decoded_response["result"][1]["Value"]
-        print_info_to_log(1, 'get_variable_value: Decoded ' .. returnValue)
+        print_info_to_log(1, 'domoticz_getVariableValueByIdx: Decoded ' .. returnValue)
     else
-        print_error_to_log(0, 'get_variable_value(' .. idx .. ') return nil value. Assume empty value')
+        print_error_to_log(0, 'domoticz_getVariableValueByIdx(' .. idx .. ') return nil value. Assume empty value')
     end
     return returnValue
 end
 
-function set_variable_value(idx, name, Type, value)
+function domoticz_setVariableValueByIdx(idx, name, Type, value)
     -- store the value of a user variable
     local t, jresponse, decoded_response
     t = g_DomoticzServeUrl .. "/json.htm?type=command&param=updateuservariable&idx=" .. idx .. "&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
-    print_info_to_log(1, "set_variable_value: JSON request <" .. t .. ">");
+    print_info_to_log(1, "domoticz_setVariableValueByIdx: JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     return
 end
 
-function create_variable(name, Type, value)
+function domoticz_createVariable(name, Type, value)
     -- creates user variable
     local t, jresponse, decoded_response
     t = g_DomoticzServeUrl .. "/json.htm?type=command&param=saveuservariable&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
@@ -116,15 +131,15 @@ function get_names_from_variable(DividedString)
 end
 
 -- returns a device table of Domoticz items based on type i.e. devices or scenes
-function device_list(DeviceType)
+function domoticz_getDeviceListByType(DeviceType)
     local t, jresponse, status, decoded_response
     t = g_DomoticzServeUrl .. "/json.htm?type=" .. DeviceType .. "&order=name&used=true"
-    print_info_to_log(1, "device_list:JSON request <" .. t .. ">");
+    print_info_to_log(1, "domoticz_getDeviceListByType:JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     if jresponse ~= nil then
         decoded_response = JSON:decode(jresponse)
     else
-        print_info_to_log(3, "device_list:nil assume empty table");
+        print_info_to_log(3, "domoticz_getDeviceListByType:nil assume empty table");
         decoded_response = {}
         decoded_response["result"] = {}
     end
@@ -132,13 +147,13 @@ function device_list(DeviceType)
 end
 
 -- returns a list of Domoticz items based on type i.e. devices or scenes
-function device_list_names_idxs(DeviceType)
+function domoticz_getDeviceAndPropertiesListByType(DeviceType)
     --returns a devcie idx based on its name
     local idx, k, record, decoded_response
-    decoded_response = device_list(DeviceType)
-    result = decoded_response['result']
-    devices = {}
-    devicesproperties = {}
+    decoded_response = domoticz_getDeviceListByType(DeviceType)
+    local result = decoded_response['result']
+    local devices = {}
+    local devicesproperties = {}
     if result ~= nil then
         for i = 1, #result do
             record = result[i]
@@ -155,12 +170,12 @@ function device_list_names_idxs(DeviceType)
             end
         end
     else
-        print_info_to_log(0, " !!!! device_list_names_idxs(): nothing found for ", DeviceType)
+        print_info_to_log(0, " !!!! domoticz_getDeviceAndPropertiesListByType(): nothing found for ", DeviceType)
     end
     return devices, devicesproperties
 end
 
-function idx_from_name(DeviceName, DeviceType)
+function domoticz_cache_getDeviceIdxByNameByType(DeviceName, DeviceType)
     --returns a devcie idx based on its name
     if DeviceType == "devices" then
         return g_DomoticzDeviceList[string.lower(DeviceName)]
@@ -171,7 +186,7 @@ function idx_from_name(DeviceName, DeviceType)
     end
 end
 
-function retrieve_status(idx, DeviceType)
+function domoticz_getDeviceStatusByIdxByType(idx, DeviceType)
     local t, jresponse, status, decoded_response
     t = g_DomoticzServeUrl .. "/json.htm?type=" .. DeviceType .. "&rid=" .. tostring(idx)
     print_info_to_log(2, "JSON request <" .. t .. ">");
@@ -200,11 +215,11 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
         -- Check for Devices
         -- Have the device name
         if DeviceName ~= "" then
-            idx = idx_from_name(DeviceName, 'devices')
+            idx = domoticz_cache_getDeviceIdxByNameByType(DeviceName, 'devices')
         end
         print_info_to_log(2, "==> start devinfo_from_name", idx, DeviceName)
         if idx ~= nil then
-            tvar = retrieve_status(idx, "devices")['result']
+            tvar = domoticz_getDeviceStatusByIdxByType(idx, "devices")['result']
             if tvar == nil then
                 found = 9
             else
@@ -263,9 +278,9 @@ function devinfo_from_name(idx, DeviceName, DeviceScene)
     -- Check for Scenes
     if found == 0 then
         if DeviceName ~= "" then
-            idx = idx_from_name(DeviceName, 'scenes')
+            idx = domoticz_cache_getDeviceIdxByNameByType(DeviceName, 'scenes')
         else
-            DeviceName = idx_from_name(idx, 'scenes')
+            DeviceName = domoticz_cache_getDeviceIdxByNameByType(idx, 'scenes')
         end
         if idx ~= nil then
             DeviceName = g_DomoticzSceneList[idx]

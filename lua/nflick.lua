@@ -14,7 +14,7 @@ function nflick_module.handler(parsed_cli)
         if tonumber(parsed_cli[3]) ~= nil then
             idx = tonumber(parsed_cli[3]);
         else
-            idx = idx_from_name(parsed_cli[3], "devices")
+            idx = domoticz_cache_getDeviceIdxByNameByType(parsed_cli[3], "devices")
         end
         if parsed_cli[4] then
             state = parsed_cli[4];

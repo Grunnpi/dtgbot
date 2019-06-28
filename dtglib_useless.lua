@@ -79,13 +79,13 @@ function id_check_for_function(SendTo, FunctionName)
     FunctionWhiteList = 'TelegramWhiteListFor' .. FunctionName
 
     -- Retrieve id white list
-    FunctionWhiteListIdx = idx_from_variable_name(FunctionWhiteList)
+    FunctionWhiteListIdx = domoticz_cache_getVariableIdxByName(FunctionWhiteList)
     if FunctionWhiteListIdx == nil then
         print_info_to_log(0, FunctionWhiteList .. ' user variable does not exist in Domoticz')
         print_info_to_log(0, 'So will allow any id to use the bot')
     else
         print_info_to_log(0, 'FunctionWhiteListIdx ' .. FunctionWhiteListIdx)
-        FunctionWhiteListName = get_variable_value(FunctionWhiteListIdx)
+        FunctionWhiteListName = domoticz_getVariableValueByIdx(FunctionWhiteListIdx)
         print_info_to_log(0, 'FunctionWhiteListValue: ' .. FunctionWhiteListName)
         FunctionWhiteListValue = get_names_from_variable(FunctionWhiteListName)
     end

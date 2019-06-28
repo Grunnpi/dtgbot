@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'v0.9.3'
+g_dtgbot_version = 'v0.9.4'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -85,7 +85,8 @@ g_DomoticzDeviceOrSceneStoredList = {}
 g_commandsLua = {};
 
 -- Stuff from Domoticz
-g_DomoticzVariableList = {}
+g_DomoticzVariableIdxPerNameList = {}
+g_DomoticzVariableTypePerIdxList = {}
 g_DomoticzDeviceList = {}
 g_DomoticzSceneList = {}
 g_DomoticzSceneProperties = {}
@@ -134,7 +135,7 @@ while file_exists(dtgbot_pid) do
                 print_info_to_log(1, 'update_id:', tt.update_id)
                 g_TelegramBotOffset = tt.update_id + 1
                 print_info_to_log(1, 'TelegramBotOffset:' .. g_TelegramBotOffset)
-                set_variable_value(g_TBotOffsetIdx, g_TBotOffsetName, 0, g_TelegramBotOffset)
+                domoticz_setVariableValueByIdx(g_TBotOffsetIdx, g_TBotOffsetName, 0, g_TelegramBotOffset)
 
                 -- get message from Json result
                 local msg = tt['message']

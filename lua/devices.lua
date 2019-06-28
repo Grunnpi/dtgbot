@@ -23,7 +23,7 @@ function DevicesScenes(DeviceType, qualifier)
         response = 'All available ' .. DeviceType
     end
 
-    decoded_response = device_list(DeviceType)
+    decoded_response = domoticz_getDeviceListByType(DeviceType)
     result = decoded_response["result"]
     print_info_to_log(1,"devices.lua/Devices["..DeviceType.."]:size="..tostring(#result))
     g_DomoticzDeviceOrSceneStoredType = DeviceType

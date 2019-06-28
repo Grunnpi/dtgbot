@@ -54,7 +54,7 @@ function mockHttp(u)
 		jsonString = jsonString..']}'
 		
 	elseif ( u == 'http://127.0.0.1:8080/json.htm?type=devices&order=name&used=true' ) then
-		-- device_list
+		-- domoticz_getDeviceListByType
 		jsonString = '{"result":['
 		jsonString = jsonString..'{ "Name": "MyDevice", "idx": "987" }'
 		jsonString = jsonString..']}'

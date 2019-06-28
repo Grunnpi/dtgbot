@@ -18,26 +18,27 @@ function dtgbot_initialise()
     end
 
     -- Initialize stuff from Domoticz
-    g_DomoticzVariableList  = variable_list_names_idxs()
-    g_DomoticzDeviceList    = device_list_names_idxs("devices")
-    g_DomoticzSceneList, g_DomoticzSceneProperties = device_list_names_idxs("scenes")
-    g_DomoticzRoomList      = device_list_names_idxs("plans")
+    g_DomoticzVariableIdxPerNameList  = domoticz_getVariableIdxPerNameList()
+    g_DomoticzVariableTypePerIdxList = domoticz_getVariableTypePerIdxList()
+    g_DomoticzDeviceList    = domoticz_getDeviceAndPropertiesListByType("devices")
+    g_DomoticzSceneList, g_DomoticzSceneProperties = domoticz_getDeviceAndPropertiesListByType("scenes")
+    g_DomoticzRoomList      = domoticz_getDeviceAndPropertiesListByType("plans")
 
     -- Get language from Domoticz
     g_DomoticzLanguage      = domoticz_language()
 
     -- get the required loglevel
-    local dtgbotLogLevelidx = idx_from_variable_name("TelegramBotLoglevel")
+    local dtgbotLogLevelidx = domoticz_cache_getVariableIdxByName("TelegramBotLoglevel")
     if dtgbotLogLevelidx ~= nil then
-        g_dtgbotLogLevel = tonumber(get_variable_value(dtgbotLogLevelidx))
+        g_dtgbotLogLevel = tonumber(domoticz_getVariableValueByIdx(dtgbotLogLevelidx))
         if g_dtgbotLogLevel == nil then
             g_dtgbotLogLevel = 0
         end
     end
 
-    local TelegramBotNameIdx = idx_from_variable_name("TelegramBotName")
+    local TelegramBotNameIdx = domoticz_cache_getVariableIdxByName("TelegramBotName")
     if TelegramBotNameIdx ~= nil then
-        g_TelegramBotName = get_variable_value(TelegramBotNameIdx)
+        g_TelegramBotName = domoticz_getVariableValueByIdx(TelegramBotNameIdx)
     else
         g_TelegramBotName = "bot"
     end
@@ -54,12 +55,15 @@ function dtgbot_initialise()
             print_info_to_log(1, "** found command [" .. m .. "]::<" .. c .. ">");
             g_commandsLua[c] = r;
         end
+
+        -- sort commands for nicer result
+        table.sort(g_commandsLua)
     end
 
     -- Initialise and populate dtgmenu tables in case the menu is switched on
-    local Menuidx = idx_from_variable_name("TelegramBotMenu")
+    local Menuidx = domoticz_cache_getVariableIdxByName("TelegramBotMenu")
     if Menuidx ~= nil then
-        g_TelegramMenuStatus = get_variable_value(Menuidx)
+        g_TelegramMenuStatus = domoticz_getVariableValueByIdx(Menuidx)
         if g_TelegramMenuStatus == "On" then
             -- initialise
             -- define the menu table and initialize the table first time
@@ -67,9 +71,9 @@ function dtgbot_initialise()
         end
     end
 
-    local TelegramBotLuaExcludeIdx = idx_from_variable_name("TelegramBotLuaExclude")
+    local TelegramBotLuaExcludeIdx = domoticz_cache_getVariableIdxByName("TelegramBotLuaExclude")
     if TelegramBotLuaExcludeIdx ~= nil then
-        g_TelegramBotLuaExclude = get_variable_value(TelegramBotLuaExcludeIdx)
+        g_TelegramBotLuaExclude = domoticz_getVariableValueByIdx(TelegramBotLuaExcludeIdx)
         if ( g_TelegramBotLuaExclude == nil ) then
             g_TelegramBotLuaExclude = ""
         end
@@ -77,9 +81,9 @@ function dtgbot_initialise()
         g_TelegramBotLuaExclude = ""
     end
 
-    local TelegramBotBashExcludeIdx = idx_from_variable_name("TelegramBotBashExclude")
+    local TelegramBotBashExcludeIdx = domoticz_cache_getVariableIdxByName("TelegramBotBashExclude")
     if TelegramBotBashExcludeIdx ~= nil then
-        g_TelegramBotBashExclude = get_variable_value(TelegramBotBashExcludeIdx)
+        g_TelegramBotBashExclude = domoticz_getVariableValueByIdx(TelegramBotBashExcludeIdx)
         if ( g_TelegramBotBashExclude == nil ) then
             g_TelegramBotBashExclude = ""
         end
@@ -88,27 +92,27 @@ function dtgbot_initialise()
     end
 
     -- Retrieve id white list
-    local WLidx = idx_from_variable_name("TelegramBotWhiteListedIDs")
+    local WLidx = domoticz_cache_getVariableIdxByName("TelegramBotWhiteListedIDs")
     if WLidx == nil then
         print_warning_to_log(0, 'TelegramBotWhiteListedIDs user variable does not exist in Domoticz')
         print_warning_to_log(0, 'So will allow any id to use the bot')
     else
-        print_info_to_log(1, 'idx_from_variable_name: WLidx ' .. WLidx)
-        local WLString = get_variable_value(WLidx)
-        print_info_to_log(1, 'idx_from_variable_name: WLString: ' .. WLString)
+        print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLidx ' .. WLidx)
+        local WLString = domoticz_getVariableValueByIdx(WLidx)
+        print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLString: ' .. WLString)
         g_TelegramBotWhiteListedIDs = get_names_from_variable(WLString)
     end
 
     -- Get the updates
     print_info_to_log(0, 'Getting [' .. g_TBotOffsetName .. '] the previous Telegram bot message offset from Domoticz')
-    g_TBotOffsetIdx = idx_from_variable_name(g_TBotOffsetName)
+    g_TBotOffsetIdx = domoticz_cache_getVariableIdxByName(g_TBotOffsetName)
     if g_TBotOffsetIdx == nil then
         print_error_to_log(0, g_TBotOffsetName .. ' user variable does not exist in Domoticz so can not continue')
         os.exit()
     else
         print_info_to_log(2, '[' .. g_TBotOffsetName .. ']>idx(g_TBotOffsetIdx)=' .. g_TBotOffsetIdx)
     end
-    g_TelegramBotOffset = get_variable_value(g_TBotOffsetIdx)
+    g_TelegramBotOffset = domoticz_getVariableValueByIdx(g_TBotOffsetIdx)
     print_info_to_log(2, '[' .. g_TBotOffsetName .. ']>TBO=' .. g_TelegramBotOffset)
     print_info_to_log(2, 'TelegramUrl=[' .. g_TelegramApiUrl .. ']')
 
@@ -206,11 +210,13 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
             --local len_parsed_command = #parsed_command
             local stuff = string.sub(cmd, string.len(cmda) + 1)
             for line in f:lines() do
-                print_info_to_log(0, "checking line " .. line)
-                if (line:match(cmda)) then
-                    print_info_to_log(1, "line=["..line.."]")
-                    os.execute(g_BotBashScriptPath .. line .. ' ' .. ReplyTo .. ' ' .. MessageId .. ' ' .. stuff)
-                    commandFound = 1
+                if ( commandFound ~= 1 ) then
+                    print_info_to_log(1, "checking line " .. line)
+                    if (line:match(cmda)) then
+                        print_info_to_log(1, "line=["..line.."] found")
+                        os.execute(g_BotBashScriptPath .. line .. ' ' .. ReplyTo .. ' ' .. MessageId .. ' ' .. stuff)
+                        commandFound = 1
+                    end
                 end
             end
         end
@@ -328,7 +334,7 @@ function on_msg_receive(msg)
 
         if msg.text then -- check if message is text
             --ReceivedText = msg.text -- I dont read it again
-            if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
+            if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                 print_info_to_log(0, "Succesfully handled incoming request")
             else
                 print_info_to_log(0, "Invalid command received from:["..telegramMsg_FromId.."]")
@@ -347,7 +353,7 @@ function on_msg_receive(msg)
                 local filelink = result["file_path"]
                 print_info_to_log(1, "filelink:", filelink)
                 ReceivedText = "voice " .. filelink
-                if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
+                if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                     print_info_to_log(0, "Succesfully handled incoming voice request")
                 else
                     print_info_to_log(0, "Voice file received but voice.sh or lua not found to process it. skipping the message.")
@@ -367,7 +373,7 @@ function on_msg_receive(msg)
                 local filelink = result["file_path"]
                 print_info_to_log(1, "filelink:", filelink)
                 ReceivedText = "video " .. filelink
-                if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), tostring(telegramMsg_ChatId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
+                if HandleCommand(ReceivedText, tostring(telegramMsg_ReplyToId), telegramMsg_MsgId, telegramMsg_IsChannel) == 1 then
                     print_info_to_log(0, "Succesfully handled incoming video request")
                 else
                     print_info_to_log(0, "Video file received but video_note.sh or lua not found to process it. Skipping the message.")
