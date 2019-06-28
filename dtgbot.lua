@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'v0.9.5'
+g_dtgbot_version = 'v0.9.6'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -48,6 +48,7 @@ g_dtgbotLogLevel = 0
 -- All these values are set in /etc/profile.d/DomoticzData.sh
 local DomoticzIP        = environmentVariableDomoticz("DomoticzIP")
 local DomoticzPort      = environmentVariableDomoticz("DomoticzPort")
+local TelegramChatId    = environmentVariableDomoticz("TelegramChatId")
 local TelegramBotToken  = environmentVariableDomoticz("TelegramBotToken")
 g_BotTempFileDir        = environmentVariableDomoticz("TempFileDir")
 g_BotHomePath           = environmentVariableDomoticz("BotHomePath")
@@ -111,6 +112,9 @@ dtgbot_initialise()
 local telegram_connected = false
 
 os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. g_BotTempFileDir .. "/dtgloop.txt")
+
+-- startup notification
+telegram_SendMsg(TelegramChatId, "🔌 I'm alive ! ["..g_dtgbot_version.."]",'')
 while file_exists(dtgbot_pid) do
     local response
     local status

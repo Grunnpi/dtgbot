@@ -63,10 +63,10 @@ function ssh_module.handler(parsed_cli)
             ssh_command = 'sudo service dtgbot stop'
         elseif ( this_command == 'ssh_bil_bot_logs' ) then
             ssh_host_parameter = 'bil'
-            ssh_command = '"tail -5 /var/tmp/dtgloop.txt;cat /var/tmp/dtb.log;cat /var/tmp/dtb.log.errors"'
+            ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
         elseif ( this_command == 'ssh_bil_bot_rmlogs' ) then
             ssh_host_parameter = 'bil'
-            ssh_command = '"echo > /var/tmp/dtgloop.txt;echo > /var/tmp/dtb.log;echo > /var/tmp/dtb.log.errors"'
+            ssh_command = '"sudo echo > /var/tmp/dtgloop.txt;sudo echo > /var/tmp/dtb.log;sudo echo > /var/tmp/dtb.log.errors"'
 
         elseif ( this_command == 'ssh_bob_bot_start' ) then
             ssh_host_parameter = 'bob'
@@ -79,10 +79,10 @@ function ssh_module.handler(parsed_cli)
             ssh_command = 'sudo service dtgbot stop'
         elseif ( this_command == 'ssh_bob_bot_logs' ) then
             ssh_host_parameter = 'bob'
-            ssh_command = '"tail -5 /var/tmp/dtgloop.txt;cat /var/tmp/dtb.log;cat /var/tmp/dtb.log.errors"'
+            ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
         elseif ( this_command == 'ssh_bob_bot_rmlogs' ) then
             ssh_host_parameter = 'bob'
-            ssh_command = '"echo > /var/tmp/dtgloop.txt;echo > /var/tmp/dtb.log;echo > /var/tmp/dtb.log.errors"'
+            ssh_command = '"sudo echo > /var/tmp/dtgloop.txt;sudo echo > /var/tmp/dtb.log;sudo echo > /var/tmp/dtb.log.errors"'
 
         else
             ssh_host_parameter = "paf"
