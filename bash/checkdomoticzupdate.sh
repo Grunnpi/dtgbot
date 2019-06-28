@@ -24,7 +24,7 @@ InstalledVersion=`cat $ActVersionFile | awk -F: '{print $2, $3}' | sed 's/\"//g'
 UpdateVersion=`cat $RevisionFile | awk -F: '{print $2, $3}' | sed 's/\"//g' | sed 's/,//'`
 if [ $InstalledVersion -le $UpdateVersion ] && [ $UpdateVersion -eq $LatelyChecked ] ; then
     echo "No Update Available"
-    curl --data 'chat_id='$ReplyTo --date 'reply_to_message_id='$MessageId --data-urlencode 'text=No Update Available' 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
+    curl --data 'chat_id='$ReplyTo --data 'reply_to_message_id='$MessageId --data-urlencode 'text=No Update Available' 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
     exit  # Exit script
 fi
 
@@ -32,7 +32,7 @@ if [ $InstalledVersion -le $UpdateVersion ] && [ $UpdateVersion -ge $LatelyCheck
     echo 'Domoticz Update Available! \n'$InstalledVersion'= Current Version\n'$UpdateVersion'= Latest Version\n sourceforge.net/p/domoticz/code/commit_browser' > $UpdateFile
     stuff=`cat $UpdateFile`
     echo $stuff
-    curl --data 'chat_id='$ReplyTo --date 'reply_to_message_id='$MessageId --data-urlencode 'text='"$stuff" 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
+    curl --data 'chat_id='$ReplyTo --data 'reply_to_message_id='$MessageId --data-urlencode 'text='"$stuff" 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
 else
-    curl --data 'chat_id='$ReplyTo --date 'reply_to_message_id='$MessageId --data-urlencode 'text=No Update Available' 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
+    curl --data 'chat_id='$ReplyTo --data 'reply_to_message_id='$MessageId --data-urlencode 'text=No Update Available' 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
 fi
