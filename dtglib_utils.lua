@@ -48,9 +48,17 @@ function readFileToString(file)
 end
 
 local function starts_with(str, start)
-    return str:sub(1, #start) == start
+    if ( str == nil or start == nil ) then
+        return false
+    else
+        return str:sub(1, #start) == start
+    end
 end
 
 local function ends_with(str, ending)
-    return ending == "" or str:sub(-#ending) == ending
+    if ( str == nil or ending == nil ) then
+        return false
+    else
+        return ending == "" or str:sub(-#ending) == ending
+    end
 end

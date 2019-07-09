@@ -51,7 +51,6 @@ function ssh_module.handler(parsed_cli)
                 status = 1
                 response = "‼️ missing parameter(s) : ssh <host> <commands>"
             end
-
         else
             if ( starts_with(this_command,"ssh_bil") ) then
                 ssh_host_parameter = 'bil'
