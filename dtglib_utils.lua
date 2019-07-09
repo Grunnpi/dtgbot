@@ -47,7 +47,7 @@ function readFileToString(file)
     return content
 end
 
-local function starts_with(str, start)
+function starts_with(str, start)
     if ( str == nil or start == nil ) then
         return false
     else
@@ -55,7 +55,7 @@ local function starts_with(str, start)
     end
 end
 
-local function ends_with(str, ending)
+function ends_with(str, ending)
     if ( str == nil or ending == nil ) then
         return false
     else
