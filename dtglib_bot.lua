@@ -178,7 +178,7 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
 
     -- push all words in parser command table
     --~	added "-_"to allowed characters a command/word
-    for w in string.gmatch(cmd, "([%w-_\|\"<>]+)") do
+    for w in string.gmatch(cmd, "([%w-_|\"<>]+)") do
         table.insert(parsed_command, w)
     end
 
