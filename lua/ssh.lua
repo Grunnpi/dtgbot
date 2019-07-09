@@ -52,42 +52,28 @@ function ssh_module.handler(parsed_cli)
                 response = "‼️ missing parameter(s) : ssh <host> <commands>"
             end
 
-        elseif ( this_command == 'ssh_bil_bot_start' ) then
-            ssh_host_parameter = 'bil'
-            ssh_command = 'sudo service dtgbot start'
-        elseif ( this_command == 'ssh_bil_bot_pull' ) then
-            ssh_host_parameter = 'bil'
-            ssh_command = '"cd dtgbot;git pull"'
-        elseif ( this_command == 'ssh_bil_bot_stop' ) then
-            ssh_host_parameter = 'bil'
-            ssh_command = 'sudo service dtgbot stop'
-        elseif ( this_command == 'ssh_bil_bot_logs' ) then
-            ssh_host_parameter = 'bil'
-            ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
-        elseif ( this_command == 'ssh_bil_bot_rmlogs' ) then
-            ssh_host_parameter = 'bil'
-            ssh_command = '"sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt"'
-
-        elseif ( this_command == 'ssh_bob_bot_start' ) then
-            ssh_host_parameter = 'bob'
-            ssh_command = 'sudo service dtgbot start'
-        elseif ( this_command == 'ssh_bob_bot_pull' ) then
-            ssh_host_parameter = 'bob'
-            ssh_command = '"cd dtgbot;git pull"'
-        elseif ( this_command == 'ssh_bob_bot_stop' ) then
-            ssh_host_parameter = 'bob'
-            ssh_command = 'sudo service dtgbot stop'
-        elseif ( this_command == 'ssh_bob_bot_logs' ) then
-            ssh_host_parameter = 'bob'
-            ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
-        elseif ( this_command == 'ssh_bob_bot_rmlogs' ) then
-            ssh_host_parameter = 'bob'
-            ssh_command = '"sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt"'
-
         else
-            ssh_host_parameter = "paf"
-            ssh_command = "zob"
-            print_info_to_log(0,"ssh["..ssh_command.."]")
+            if ( starts_with(this_command,"ssh_bil") ) then
+                ssh_host_parameter = 'bil'
+            elseif ( starts_with(this_command,"ssh_bob") ) then
+                ssh_host_parameter = 'bob'
+            else
+                ssh_host_parameter = 'nop'
+            end
+
+            if (     ends_with(this_command,"_bot_start") ) then
+                ssh_command = 'sudo service dtgbot start'
+            elseif ( ends_with(this_command,"_bot_pull") ) then
+                ssh_command = '"cd dtgbot;git pull"'
+            elseif ( ends_with(this_command,"_bot_rmlogs") ) then
+                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
+            elseif ( ends_with(this_command,"_bot_stop") ) then
+                ssh_command = 'sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua'
+            elseif ( ends_with(this_command,"_bot_logs") ) then
+                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
+            else
+                ssh_command = "zob"
+            end
         end
 
         if (status == 0) then

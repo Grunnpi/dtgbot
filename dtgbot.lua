@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'v0.9.7'
+g_dtgbot_version = 'v0.9.8'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -128,7 +128,6 @@ while file_exists(dtgbot_pid) do
             telegram_connected = true
         end
         if response ~= nil then
-            io.write('.')
             print_info_to_log(1, "loop.response=["..response.."]")
             local decoded_response = JSON:decode(response)
             local result_table = decoded_response['result']
@@ -159,11 +158,9 @@ while file_exists(dtgbot_pid) do
                 end
             end
         else
-            io.write('X')
             print_info_to_log(2, 'Updates retrieved', status)
         end
     else
-        io.write('?')
         if telegram_connected then
             print_info_to_log(0, '### Lost contact with Telegram servers, received Non 200 status - returned - ', status)
             telegram_connected = false

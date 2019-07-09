@@ -13,6 +13,6 @@ declare -a icons=("smiley 😀" "crying smiley 😢" "sleeping smiley 😴" "bee
 ## now loop through the above array of icons
 for icon in "${icons[@]}"
 do
-   curl --data 'chat_id='$ReplyTo --data 'reply_to_message_id='$MessageId --data-urlencode 'text='"$icon" 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
+   curl -s --data 'chat_id='$ReplyTo --data 'reply_to_message_id='$MessageId --data-urlencode 'text='"$icon" 'https://api.telegram.org/bot'$TelegramBotToken'/sendMessage'
 done
 
