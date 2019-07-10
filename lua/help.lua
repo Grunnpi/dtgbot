@@ -51,7 +51,9 @@ function help_module.handler(parsed_cli)
         cmdListDir = 'ls'
     end
 
-    local Functions = io.popen(cmdListDir .. " " .. g_BotBashScriptPath)
+    local commandList = cmdListDir .. " " .. g_BotBashScriptPath
+    print_info_to_log(1, 'help::commandList[' .. commandList .. ']')
+    local Functions = io.popen(commandList)
     HelpText = HelpText .. '⚠️ Available Shell commands ⚠️ \n'
     for line in Functions:lines() do
         local DotPos = string.find(line, "%.")

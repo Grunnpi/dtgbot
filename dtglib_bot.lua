@@ -121,7 +121,8 @@ function dtgbot_initialise()
     g_TelegramBotIsOnWindows = isWindowsOS()
     if ( g_TelegramBotIsOnWindows ) then
         if ( string.sub(g_BotBashScriptPath,-1) == '/' ) then
-            g_BotBashScriptPath = string.sub(g_BotBashScriptPath,1, string.len(g_BotBashScriptPath)-1);
+            g_BotBashScriptPath = string.sub(g_BotBashScriptPath,1, string.len(g_BotBashScriptPath)-1)
+            g_BotBashScriptPath = g_BotBashScriptPath.."\\"
         end
     end
 
@@ -178,7 +179,7 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
 
     -- push all words in parser command table
     --~	added "-_"to allowed characters a command/word
-    for w in string.gmatch(cmd, "([%w-_<>]+)") do
+    for w in string.gmatch(cmd, "([%w-_\";|<>]+)") do
         table.insert(parsed_command, w)
     end
 

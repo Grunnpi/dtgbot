@@ -13,6 +13,31 @@ function utility_module.handler(parsed_cli)
         dtgbot_initialise()
         response = 'Global device, scene and room variables updated from Domoticz and modules code reloaded'
         return status, response
+    elseif command == 'lcd' then
+        local lcdMessage
+        if ( #parsed_cli >= 3 ) then
+            for idx = 3, #parsed_cli do
+                if ( lcdMessage == nil ) then
+                    lcdMessage = parsed_cli[idx]
+                else
+                    lcdMessage = lcdMessage ..' '..parsed_cli[idx]
+                end
+            end
+            local lcdMessageEncoded = url_encode(lcdMessage)
+            print_info_to_log(1,"utility.lua/lcd=msg[".. lcdMessage .."]")
+            io.popen('/usr/bin/curl -s "http://192.168.1.110:8180/json.htm?type=command&param=updateuservariable&vname=LCD_Message&vtype=2&vvalue='.. lcdMessageEncoded ..'"')
+
+            if ( string.len(lcdMessage) > 16 ) then
+                lcdMessage = string.sub(lcdMessage,1,16)
+                response = 'message ['.. lcdMessage ..'] sent (truncated:16 char max)'
+            else
+                response = 'message ['.. lcdMessage ..'] sent'
+            end
+        else
+            status = 1
+            response = "Missing parameter ! (no message)"
+        end
+        return status, response
     elseif command == 'get_variables' then
         response = "Variables <name>(idx)[type]\n"
         for name, idx in pairs(g_DomoticzVariableIdxPerNameList) do
@@ -99,6 +124,7 @@ end
 
 local utility_commands = {
     ["refresh"] = { handler = utility_module.handler, description = "refresh - reloads global variables and modules code" },
+    ["lcd"] = { handler = utility_module.handler, description = "lcd - message to LCD" },
     ["get_variables"] = { handler = utility_module.handler, description = "get_variables - list all variables name" },
     ["get_variable"] = { handler = utility_module.handler, description = "get_variable - parameter=variableName return variable value" },
     ["set_variable"] = { handler = utility_module.handler, description = "set_variable - parameter=variableName,variableValue set variable value (optional variableType)" }
