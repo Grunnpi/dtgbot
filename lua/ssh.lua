@@ -67,7 +67,7 @@ function ssh_module.handler(parsed_cli)
             elseif ( ends_with(this_command,"_bot_rmlogs") ) then
                 ssh_command = '"sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt"'
             elseif ( ends_with(this_command,"_bot_stop") ) then
-                ssh_command = 'sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua'
+                ssh_command = '"sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua"'
             elseif ( ends_with(this_command,"_bot_logs") ) then
                 ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
             else
