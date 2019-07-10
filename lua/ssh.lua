@@ -106,7 +106,7 @@ function ssh_module.handler(parsed_cli)
 
                     response = "command["..ssh_command.."] executed\n"
                     if ( customResponse ~= nil ) then
-                        response = response..customResponse
+                        response = response..customResponse..'\n'
                     end
                     if (file_exists(os_ssh_logfile)) then
                         -- log ! grep it
