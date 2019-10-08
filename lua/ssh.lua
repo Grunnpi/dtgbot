@@ -29,6 +29,7 @@ end
 function ssh_module.handler(parsed_cli)
     print_info_to_log(1,"ssh me ! ("..tostring(#parsed_cli)..")")
 
+    local customResponse
     local response = ""
     local status = 0
 
@@ -60,14 +61,17 @@ function ssh_module.handler(parsed_cli)
                 ssh_host_parameter = 'nop'
             end
 
+
             if (     ends_with(this_command,"_bot_start") ) then
                 ssh_command = 'sudo service dtgbot start'
+                customResponse = ":robot: revived !"
             elseif ( ends_with(this_command,"_bot_pull") ) then
                 ssh_command = '"cd dtgbot;git pull"'
             elseif ( ends_with(this_command,"_bot_rmlogs") ) then
                 ssh_command = '"sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt"'
             elseif ( ends_with(this_command,"_bot_stop") ) then
-                ssh_command = 'sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua'
+                ssh_command = '"sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua"'
+                customResponse = "bot killed ☠️"
             elseif ( ends_with(this_command,"_bot_logs") ) then
                 ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
             else
@@ -101,6 +105,9 @@ function ssh_module.handler(parsed_cli)
                     os.execute(os_ssh_command)
 
                     response = "command["..ssh_command.."] executed\n"
+                    if ( customResponse ~= nil ) then
+                        response = response..customResponse..'\n'
+                    end
                     if (file_exists(os_ssh_logfile)) then
                         -- log ! grep it
                         local fullLog = readFileToString(os_ssh_logfile)
