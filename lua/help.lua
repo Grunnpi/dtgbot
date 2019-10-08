@@ -10,7 +10,7 @@ function help_module.handler(parsed_cli)
         local command_dispatch = g_commandsLua[string.lower(command)];
         if command_dispatch then
             if (ChkInTable(g_TelegramBotLuaExclude, command)) then
-                response = command .. ' filtered in your list of command'
+                response = command .. ' filtered out in your list of command (not available by config)'
             else
                 response = command_dispatch.description;
             end
