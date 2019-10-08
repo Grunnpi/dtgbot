@@ -50,7 +50,7 @@ function ssh_module.handler(parsed_cli)
                 end
             else
                 status = 1
-                response = "‼️ missing parameter(s) : ssh <host> <commands>"
+                response = "‼️missing parameter(s) : ssh <host> <commands>"
             end
         else
             if ( starts_with(this_command,"ssh_bil") ) then
@@ -67,6 +67,12 @@ function ssh_module.handler(parsed_cli)
                 customResponse = ":robot: revived !"
             elseif ( ends_with(this_command,"_bot_pull") ) then
                 ssh_command = '"cd dtgbot;git pull"'
+            elseif ( ends_with(this_command,"_bot_checkout") ) then
+                if ( #parsed_cli >= 3 ) then
+                    ssh_command = '"cd dtgbot;git fetch;git checkout ' .. parsed_cli[3] ..'"'
+                else
+                    ssh_command = '"cd dtgbot;git fetch;git checkout master"'
+                end
             elseif ( ends_with(this_command,"_bot_rmlogs") ) then
                 ssh_command = '"sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt"'
             elseif ( ends_with(this_command,"_bot_stop") ) then
@@ -134,12 +140,14 @@ local ssh_commands = {
     ["ssh"] = { handler = ssh_module.handler, description = "ssh - remote stuff" },
 
     ["ssh_bil_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - stop bil bot" },
+    ["ssh_bil_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bil_bot_checkout - checkout + optional tag parameter (master default)" },
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
     ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
     ["ssh_bil_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_rmlogs - empty log/error" },
 
     ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
+    ["ssh_bob_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bob_bot_checkout - checkout + optional tag parameter (master default)" },
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
     ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
     ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" },
