@@ -4,7 +4,7 @@ local http = require "socket.http";
 
 local SSH_BOT_START = 'sudo service dtgbot start'
 local SSH_CD_DIRECTORY = 'cd dtgbot'
-local SSH_GIT_PULL = 'git pull'
+local SSH_GIT_PULL = 'git pull --force'
 local SSH_KILL_BOT = 'sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua'
 local SSH_RM_LOGS = 'sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt'
 
@@ -85,7 +85,7 @@ function ssh_module.handler(parsed_cli)
                 ssh_command = '"'.. SSH_KILL_BOT ..'"'
                 customResponse = "bot killed ☠️"
             elseif ( ends_with(this_command,"_bot_logs") ) then
-                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
+                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo tail -30 /var/tmp/dtb.log;sudo tail -30 /var/tmp/dtb.log.errors"'
             elseif ( ends_with(this_command,"_bot_upgrade") ) then
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             else
