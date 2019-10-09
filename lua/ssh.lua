@@ -2,6 +2,12 @@ local ssh_module = {};
 local http = require "socket.http";
 --JSON = assert(loadfile "JSON.lua")() -- one-time load of the routines
 
+local SSH_BOT_START = 'sudo service dtgbot start'
+local SSH_CD_DIRECTORY = 'cd dtgbot'
+local SSH_GIT_PULL = 'git pull'
+local SSH_KILL_BOT = 'sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua'
+local SSH_RM_LOGS = 'sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt'
+
 function fetchDomoticzParameter(parameter_name)
     local status
     local response
@@ -63,23 +69,25 @@ function ssh_module.handler(parsed_cli)
 
 
             if (     ends_with(this_command,"_bot_start") ) then
-                ssh_command = 'sudo service dtgbot start'
+                ssh_command = SSH_BOT_START
                 customResponse = ":robot: revived !"
             elseif ( ends_with(this_command,"_bot_pull") ) then
-                ssh_command = '"cd dtgbot;git pull"'
+                ssh_command = '"'.. SSH_CD_DIRECTORY ..';'.. SSH_GIT_PULL ..'"'
             elseif ( ends_with(this_command,"_bot_checkout") ) then
                 if ( #parsed_cli >= 3 ) then
-                    ssh_command = '"cd dtgbot;git fetch;git checkout ' .. parsed_cli[3] ..'"'
+                    ssh_command = '"'.. SSH_CD_DIRECTORY ..';git fetch;git checkout ' .. parsed_cli[3] ..'"'
                 else
-                    ssh_command = '"cd dtgbot;git fetch;git checkout master"'
+                    ssh_command = '"'.. SSH_CD_DIRECTORY ..';git fetch;git checkout master"'
                 end
             elseif ( ends_with(this_command,"_bot_rmlogs") ) then
-                ssh_command = '"sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt"'
+                ssh_command = '"'.. SSH_RM_LOGS ..'"'
             elseif ( ends_with(this_command,"_bot_stop") ) then
-                ssh_command = '"sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua"'
+                ssh_command = '"'.. SSH_KILL_BOT ..'"'
                 customResponse = "bot killed ☠️"
             elseif ( ends_with(this_command,"_bot_logs") ) then
                 ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo cat /var/tmp/dtb.log;sudo cat /var/tmp/dtb.log.errors"'
+            elseif ( ends_with(this_command,"_bot_upgrade") ) then
+                ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             else
                 ssh_command = "zob"
             end
@@ -141,6 +149,7 @@ local ssh_commands = {
 
     ["ssh_bil_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - stop bil bot" },
     ["ssh_bil_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bil_bot_checkout - checkout + optional tag parameter (master default)" },
+    ["ssh_bil_bot_upgrade"] = { handler = ssh_module.handler, description = "ssh_bil_bot_upgrade - upgrade to last version" },
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
     ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
@@ -148,6 +157,7 @@ local ssh_commands = {
 
     ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
     ["ssh_bob_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bob_bot_checkout - checkout + optional tag parameter (master default)" },
+    ["ssh_bob_bot_upgrade"] = { handler = ssh_module.handler, description = "ssh_bob_bot_upgrade - upgrade to last version" },
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
     ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
     ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" },

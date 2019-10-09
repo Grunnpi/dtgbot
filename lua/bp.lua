@@ -12,19 +12,61 @@ function bp_module.handler(parsed_cli)
     local command = parsed_cli[2]
     command = string.lower(command)
     if command == 'bp' then
-        local file = io.open(bp_file, "a")
-        file:write("Hello World\n")
-        file:close()
-        response = 'ajout ok'
+
+        local bp_command = ''
+        for i, v in ipairs(parsed_cli) do
+            if ( i == 3 ) then
+                bp_command = v
+            elseif ( i > 3 ) then
+                bp_command = bp_command .. ' ' .. v
+            end
+        end
+        print_info_to_log(1,"bp_command=["..bp_command.."]")
+
+        local split_bp = split_string(bp_command,";")
+        for i, v in ipairs(split_bp) do
+            print_info_to_log(1,"bp["..i.."]=["..v.."]")
+        end
+
+        if ( #split_bp < 2 ) then
+            status = 1
+            response = '2 infos séparées par des ;, ce n\'est pas assez'
+        elseif ( #split_bp > 4) then
+            status = 1
+            response = 'plus que 4 infos séparées par des ;, c\'est trop'
+        else
+            local montant = split_bp[1]
+            local tier = split_bp[2]
+            local commentaire = ""
+            local date = os.date("%Y-%m-%d")
+
+            montant = montant:gsub(",", ".")
+            if ( #split_bp > 2 ) then
+                commentaire = split_bp[3]
+            end
+            if ( #split_bp > 3 ) then
+                date = split_bp[4]
+            end
+
+            if ( string.len(date) ~= 10 ) then
+                status = 1
+                response = 'la date doit être formattée AAAA-MM-JJ (ie 2019-07-26)'
+            end
+
+            if ( status == 0 ) then
+                local file = io.open(bp_file, "a")
+                file:write(montant .. ";" .. tier .. ";" .. commentaire .. ";" .. date .. "\n")
+                file:close()
+                response = 'c\'est noté !'
+            end
+        end
         return status, response
     elseif command == 'bp_list' then
-
         if ( file_exists(bp_file) ) then
             local lines = lines_from(bp_file)
-            -- print all line numbers and their contents
-            response = 'liste moi ok'
+            response = ''
             for k,v in pairs(lines) do
-                --print('line[' .. k .. ']', v)
+                print_info_to_log(0,'bp[' .. k .. ']['.. v .. ']')
                 response = response .. v .. "\n"
             end
         else

@@ -9,6 +9,16 @@ function isWindowsOS()
     return (current_dir == ':')
 end
 
+function split_string(theString, theSeparator)
+    local result, i = {}, 1
+    for word in theString:gmatch('[^'..theSeparator..']+') do
+        word = string.gsub(word, '^%s*(.-)%s*$', '%1')
+        result[i] = word
+        i=i+1
+    end
+    return result
+end
+
 function file_exists(name)
     local f = io.open(name, "r")
     if f ~= nil then io.close(f) return true else return false end
