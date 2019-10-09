@@ -5,8 +5,9 @@ local http = require "socket.http";
 local SSH_BOT_START = 'sudo service dtgbot start'
 local SSH_CD_DIRECTORY = 'cd dtgbot'
 local SSH_GIT_PULL = 'git pull --force'
+local SSH_GIT_PULL_RESET = 'git fetch --all;git reset --hard origin/master'
 local SSH_KILL_BOT = 'sudo service dtgbot stop;sleep 5;sudo pkill -f dtgbot/dtgbot.lua'
-local SSH_RM_LOGS = 'sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt'
+local SSH_RM_LOGS = 'sudo cp /dev/null /var/tmp/dtb.log;sudo cp /dev/null /var/tmp/dtb.log.errors;sudo cp /dev/null /var/tmp/dtgloop.txt;sudo cp /dev/null /var/tmp/ssh_cmd.log'
 
 function fetchDomoticzParameter(parameter_name)
     local status
@@ -73,6 +74,8 @@ function ssh_module.handler(parsed_cli)
                 customResponse = ":robot: revived !"
             elseif ( ends_with(this_command,"_bot_pull") ) then
                 ssh_command = '"'.. SSH_CD_DIRECTORY ..';'.. SSH_GIT_PULL ..'"'
+            elseif ( ends_with(this_command,"_bot_pull_reset") ) then
+                ssh_command = '"'.. SSH_CD_DIRECTORY ..';'.. SSH_GIT_PULL_RESET ..'"'
             elseif ( ends_with(this_command,"_bot_checkout") ) then
                 if ( #parsed_cli >= 3 ) then
                     ssh_command = '"'.. SSH_CD_DIRECTORY ..';git fetch;git checkout ' .. parsed_cli[3] ..'"'
@@ -85,7 +88,7 @@ function ssh_module.handler(parsed_cli)
                 ssh_command = '"'.. SSH_KILL_BOT ..'"'
                 customResponse = "bot killed ☠️"
             elseif ( ends_with(this_command,"_bot_logs") ) then
-                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo tail -30 /var/tmp/dtb.log;sudo tail -30 /var/tmp/dtb.log.errors"'
+                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo tail -30 /var/tmp/dtb.log;sudo tail -30 /var/tmp/dtb.log.errors;sudo tail -30 var/tmp/ssh_cmd.log"'
             elseif ( ends_with(this_command,"_bot_upgrade") ) then
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             else
@@ -151,6 +154,7 @@ local ssh_commands = {
     ["ssh_bil_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bil_bot_checkout - checkout + optional tag parameter (master default)" },
     ["ssh_bil_bot_upgrade"] = { handler = ssh_module.handler, description = "ssh_bil_bot_upgrade - upgrade to last version" },
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
+    ["ssh_bil_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull_reset - fetch and reset last git master" },
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
     ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
     ["ssh_bil_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_rmlogs - empty log/error" },
@@ -159,6 +163,7 @@ local ssh_commands = {
     ["ssh_bob_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bob_bot_checkout - checkout + optional tag parameter (master default)" },
     ["ssh_bob_bot_upgrade"] = { handler = ssh_module.handler, description = "ssh_bob_bot_upgrade - upgrade to last version" },
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
+    ["ssh_bob_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull_reset - fetch and reset last git master" },
     ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
     ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" },
     ["ssh_bob_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_rmlogs - empty log/error" }
