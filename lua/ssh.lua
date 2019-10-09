@@ -88,7 +88,7 @@ function ssh_module.handler(parsed_cli)
                 ssh_command = '"'.. SSH_KILL_BOT ..'"'
                 customResponse = "bot killed ☠️"
             elseif ( ends_with(this_command,"_bot_logs") ) then
-                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo tail -30 /var/tmp/dtb.log;sudo tail -30 /var/tmp/dtb.log.errors;sudo tail -30 var/tmp/ssh_cmd.log"'
+                ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo tail -30 /var/tmp/dtb.log;sudo tail -30 /var/tmp/dtb.log.errors;sudo tail -30 /var/tmp/ssh_cmd.log"'
             elseif ( ends_with(this_command,"_bot_upgrade") ) then
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             else
