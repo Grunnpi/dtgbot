@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm0.9.24'
+g_dtgbot_version = 'm0.9.25'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
