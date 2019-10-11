@@ -55,7 +55,7 @@ function bp_module.handler(parsed_cli)
 
             if ( status == 0 ) then
                 local file = io.open(bp_file, "a")
-                file:write(montant .. ";" .. tier .. ";" .. commentaire .. ";" .. date .. "\n")
+                file:write("bot;421421;555666;10101010101;".. date .. ";" .. tier .. ";" .. commentaire .. ";-" .. montant .. "\n")
                 file:close()
                 response = 'c\'est noté !'
             end

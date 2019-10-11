@@ -18,17 +18,20 @@ function mockHttp(u)
 	local headers = ""
 	
 	if ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=0' ) then
-		jsonString = '{ "ok": true, "result": [{ "update_id": 1, "message": { "message_id": 10, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 421, "text": "/bob set_variable TelegramBotMenu Zob" } }]}'
+		jsonString = '{ "ok": true, "result": [{ "update_id": 0, "message": { "message_id": 10, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 421, "text": "/bob bp_clean" } }]}'
 	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/sendMessage?chat_id=987654&reply_to_message_id=10&text=Device+name+must+be+given%21' ) then
 		jsonString = '{ "ok": true, "result": []}'
 --		jsonString = nil
 	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=1' ) then
-		jsonString = '{ "ok": true, "result": [{ "update_id": 2, "message": { "message_id": 20, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 666, "text": "/bob_set_variable TelegramBotMenu Zob" } }]}'
+		jsonString = '{ "ok": true, "result": [{ "update_id": 1, "message": { "message_id": 20, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 666, "text": "/bob bp 8,5;pain boulangerie; super commentaire de la mort;2019-07-26" } }]}'
 --		jsonString = nil
 	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=2' ) then
-		jsonString = '{ "ok": true, "result": [{ "update_id": 2, "message": { "message_id": 20, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 666, "text": "/bob photo" } }]}'
+		jsonString = '{ "ok": true, "result": [{ "update_id": 2, "message": { "message_id": 20, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 666, "text": "/bob bp 35;Empire du Kebab	" } }]}'
 --		jsonString = nil
 	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=3' ) then
+		jsonString = '{ "ok": true, "result": [{ "update_id": 3, "message": { "message_id": 20, "from": { "id": 123456, "first_name": "Moi", "last_name": "X", "username": "UserID" }, "chat": { "id": 987654, "first_name": "NotMe", "last_name": "Y", "username": "UserIdChat" }, "date": 666, "text": "/bob bp_list"} }]}'
+--		jsonString = nil
+	elseif ( u == 'https://api.telegram.org/botxxxxTOKENxxx/getUpdates?timeout=60&offset=4' ) then
 		jsonString = nil
 		os.exit(-666)
 	else

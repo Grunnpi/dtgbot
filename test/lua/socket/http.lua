@@ -51,7 +51,7 @@ function mockHttp(u)
 		jsonString = '{"result":[{ "Value": "'..mock_TelegramBotMenu..'", "idx": "1" }]}'
 	elseif ( u == 'http://127.0.0.1:8080/json.htm?type=command&param=getuservariable&idx=6' ) then
 		-- TelegramBotLuaExclude
-		jsonString = '{"result":[{ "Value": "bp|temperatures|ssh_bob_bot_pull|ssh_bob_bot_stop|ssh_bob_bot_start|ssh_bob_bot_logs", "idx": "1" }]}'
+		jsonString = '{"result":[{ "Value": "temperatures|ssh_bob_bot_pull|ssh_bob_bot_stop|ssh_bob_bot_start|ssh_bob_bot_logs", "idx": "1" }]}'
 	elseif ( u == 'http://127.0.0.1:8080/json.htm?type=command&param=getuservariable&idx=7' ) then
 		-- TelegramBotBashExclude
 		jsonString = '{"result":['
