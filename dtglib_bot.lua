@@ -234,7 +234,7 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
     end
 
     -- final feedback status (ok or not)
-    if text ~= "" then
+    if text ~= "" and text ~= nil then
         while string.len(text) > 0 do
             telegram_SendMsg(ReplyTo, string.sub(text, 1, 4000), MessageId, handleCommandReplyMarkup)
             text = string.sub(text, 4000, -1)
