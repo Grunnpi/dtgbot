@@ -112,7 +112,7 @@ end
 function domoticz_createVariable(name, Type, value)
     -- creates user variable
     local t, jresponse, decoded_response, status
-    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=saveuservariable&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
+    t = g_DomoticzServeUrl .. "/json.htm?type=command&param=adduservariable&vname=" .. name .. "&vtype=" .. Type .. "&vvalue=" .. tostring(value)
     print_info_to_log(1, "JSON request <" .. t .. ">");
     jresponse, status = http.request(t)
     print_info_to_log(1, "JSON status:"..status .. "/response <" .. jresponse .. ">");
