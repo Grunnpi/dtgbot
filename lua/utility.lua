@@ -38,6 +38,60 @@ function utility_module.handler(parsed_cli)
             response = "Missing parameter ! (no message)"
         end
         return status, response
+    elseif command == 'rasoir' then
+        local v_rasoir_compteur_name = 'Rasoir_compteur'
+        local v_rasoir_face_name = 'Rasoir_face'
+
+        local v_rasoir_endroit = "Endroit"
+        local v_rasoir_envers = "Envers"
+
+        local v_rasoir_compteur_name_idx = domoticz_cache_getVariableIdxByName(v_rasoir_compteur_name)
+        if v_rasoir_compteur_name_idx == nil then
+            print_error_to_log(0, '"'.. v_rasoir_compteur_name..'" n\'exite pas. Creation')
+            domoticz_createVariable(v_rasoir_compteur_name,0,0)
+            v_rasoir_compteur_name_idx = domoticz_cache_getVariableIdxByName(v_rasoir_compteur_name)
+        end
+
+        local v_rasoir_face_name_idx = domoticz_cache_getVariableIdxByName(v_rasoir_face_name)
+        if v_rasoir_face_name_idx == nil then
+            print_error_to_log(0, '"'.. v_rasoir_face_name..'" n\'exite pas. Creation')
+            domoticz_createVariable(v_rasoir_face_name,2,v_rasoir_endroit)
+            v_rasoir_face_name_idx = domoticz_cache_getVariableIdxByName(v_rasoir_face_name)
+        end
+
+        if v_rasoir_compteur_name_idx == nil then
+            status = 1
+            reseponse = "Variable [" .. v_rasoir_compteur_name .. "] pas trouvée"
+        else
+            if v_rasoir_face_name_idx == nil then
+                status = 1
+                reseponse = "Variable [" .. v_rasoir_face_name .. "] pas trouvée"
+            else
+                local v_rasoir_face = domoticz_getVariableValueByIdx(v_rasoir_face_name_idx)
+                local v_rasoir_compteur = tonumber(domoticz_getVariableValueByIdx(v_rasoir_compteur_name_idx))
+                if ( #parsed_cli >= 3 and parsed_cli[3] == 'status') then
+                    response = "Rasoir en face [".. v_rasoir_face .. "], utilisé " .. tostring(v_rasoir_compteur) .. " fois"
+                else
+                    v_rasoir_compteur = v_rasoir_compteur + 1
+                    if v_rasoir_compteur > 4 then
+                        -- quelle face ? on retourne ou on change la lame !
+                        if ( v_rasoir_face == v_rasoir_endroit ) then
+                            v_rasoir_face = v_rasoir_envers
+                            v_rasoir_compteur = 1
+                            response = "Il faut retourner la lame vers l\'envers et utiliser pour la 1er fois"
+                        else
+                            v_rasoir_face = v_rasoir_endroit
+                            response = "Il faut changer la lame et utiliser pour la 1er fois"
+                        end
+                        domoticz_setVariableValueByIdx(v_rasoir_face_name_idx, v_rasoir_face_name, 2, v_rasoir_face)
+                        domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
+                    else
+                        response = "Face [" .. v_rasoir_face_name .. "] utilisée " .. tostring(v_rasoir_compteur) .. " fois"
+                        domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
+                    end
+                end
+            end
+        end
     elseif command == 'get_variables' then
         response = "Variables <name>(idx)[type]\n"
         for name, idx in pairs(g_DomoticzVariableIdxPerNameList) do
@@ -127,7 +181,8 @@ local utility_commands = {
     ["lcd"] = { handler = utility_module.handler, description = "lcd - message to LCD" },
     ["get_variables"] = { handler = utility_module.handler, description = "get_variables - list all variables name" },
     ["get_variable"] = { handler = utility_module.handler, description = "get_variable - parameter=variableName return variable value" },
-    ["set_variable"] = { handler = utility_module.handler, description = "set_variable - parameter=variableName,variableValue set variable value (optional variableType)" }
+    ["set_variable"] = { handler = utility_module.handler, description = "set_variable - parameter=variableName,variableValue set variable value (optional variableType)" },
+    ["rasoir"] = { handler = utility_module.handler, description = "rasoir - incrémente le compteur" }
 }
 
 function utility_module.get_commands()
