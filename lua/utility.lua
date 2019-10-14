@@ -81,6 +81,7 @@ function utility_module.handler(parsed_cli)
                             response = "Il faut retourner la lame vers l\'envers et utiliser pour la 1er fois"
                         else
                             v_rasoir_face = v_rasoir_endroit
+                            v_rasoir_compteur = 1
                             response = "Il faut changer la lame et utiliser pour la 1er fois"
                         end
                         domoticz_setVariableValueByIdx(v_rasoir_face_name_idx, v_rasoir_face_name, 2, v_rasoir_face)
