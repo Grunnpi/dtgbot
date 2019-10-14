@@ -61,11 +61,11 @@ function utility_module.handler(parsed_cli)
 
         if v_rasoir_compteur_name_idx == nil then
             status = 1
-            reseponse = "Variable [" .. v_rasoir_compteur_name .. "] pas trouvée"
+            response = "Variable [" .. v_rasoir_compteur_name .. "] pas trouvée"
         else
             if v_rasoir_face_name_idx == nil then
                 status = 1
-                reseponse = "Variable [" .. v_rasoir_face_name .. "] pas trouvée"
+                response = "Variable [" .. v_rasoir_face_name .. "] pas trouvée"
             else
                 local v_rasoir_face = domoticz_getVariableValueByIdx(v_rasoir_face_name_idx)
                 local v_rasoir_compteur = tonumber(domoticz_getVariableValueByIdx(v_rasoir_compteur_name_idx))

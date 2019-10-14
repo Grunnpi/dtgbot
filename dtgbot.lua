@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm0.9.33'
+g_dtgbot_version = 'm0.9.34'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -130,7 +130,7 @@ while file_exists(dtgbot_pid) do
             telegram_connected = true
         end
         if response ~= nil then
-            print_info_to_log(1, "loop.response=["..response.."]")
+            print_info_to_log(2, "loop.response=["..response.."]")
             local decoded_response = JSON:decode(response)
             local result_table = decoded_response['result']
             tc = #result_table

@@ -190,6 +190,11 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
         local status
         if commandLua_dispatchHandler then
             status, text, handleCommandReplyMarkup = commandLua_dispatchHandler.handler(parsed_command, ReplyTo);
+            if ( text == nil) then
+                print_info_to_log(1,"commandLua=["..tostring(status).."][nil]")
+            else
+                print_info_to_log(1,"commandLua=["..tostring(status).."]["..text.."]")
+            end
             commandFound = 1
         else
             -- is this a BASH command ?
