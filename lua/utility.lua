@@ -92,6 +92,7 @@ function utility_module.handler(parsed_cli)
                 end
             end
         end
+        return status, response
     elseif command == 'get_variables' then
         response = "Variables <name>(idx)[type]\n"
         for name, idx in pairs(g_DomoticzVariableIdxPerNameList) do
