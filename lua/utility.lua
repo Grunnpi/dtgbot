@@ -87,7 +87,7 @@ function utility_module.handler(parsed_cli)
                         domoticz_setVariableValueByIdx(v_rasoir_face_name_idx, v_rasoir_face_name, 2, v_rasoir_face)
                         domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
                     else
-                        response = "Face [" .. v_rasoir_face .. "] utilisée " .. tostring(v_rasoir_compteur) .. " fois"
+                        response = "Face [" .. v_rasoir_face .. "], utilisée mainenant pour la " .. tostring(v_rasoir_compteur) .. " fois"
                         domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
                     end
                 end

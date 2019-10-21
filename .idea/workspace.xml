@@ -1,138 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="quote ssh commands">
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="rasoir stuff">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dtglib_bot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_bot.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lua/bp.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/bp.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lua/utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/utility.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dtgbot.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.cfg" afterDir="false" />
     </list>
-    <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-238152621">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.20" value="1" />
-          <entry key="project.opened" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="Lua" value="41" />
-          <entry key="PLAIN_TEXT" value="151" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="dtgbot" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dtgbot.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lua/ssh.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="49" column="16" lean-forward="true" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dtglib_domoticz.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="68" column="27" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>SendToRe</find>
-      <find>SendTo</find>
-      <find>telegramMsg_ReplyToId</find>
-      <find>ReplyTo</find>
-      <find>Group</find>
-      <find>channelmsgString</find>
-      <find>SendMsgTo</find>
-      <find>nflick_module</find>
-      <find>nflick_commands</find>
-      <find>response</find>
-      <find>g_TelegramBotLuaExclude</find>
-      <find>ChkInTable</find>
-      <find>Message sent status</find>
-      <find>dtgbot:no menu activated..</find>
-      <find>telegram:msg</find>
-      <find>stuff</find>
-      <find>print</find>
-      <find>parsed_command</find>
-      <find>for</find>
-      <find>for idx = 1, #tables do</find>
-      <find>Temp</find>
-      <find>TempFileDir</find>
-      <find>isWin</find>
-      <find>g_TelegramBotIsOnWindows</find>
-      <find>file_e</find>
-      <find>file_ex</find>
-      <find>ssh_host_parameter</find>
-      <find>telegramMsg_MsgId</find>
-      <find>HandleCommand</find>
-      <find>ssh_bob_bot_stop</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>g_DomoticzVariableList</replace>
-      <replace>g_DomoticzDeviceList</replace>
-      <replace>g_DomoticzSceneList</replace>
-      <replace>g_BotStarted</replace>
-      <replace>dtgbotLogLevelidx</replace>
-      <replace>g_DomoticzDeviceOrSceneStoredType</replace>
-      <replace>g_DomoticzDeviceOrSceneStoredList</replace>
-      <replace>g_TelegramBotOffset</replace>
-      <replace>g_TBotOffsetIdx</replace>
-      <replace>g_TelegramMenuStatus</replace>
-      <replace>g_TelegramBotName</replace>
-      <replace>g_TelegramBotLuaExclude</replace>
-      <replace>g_TelegramBotBashExclude</replace>
-      <replace>g_TelegramBotIsOnWindows</replace>
-      <replace>pReplyMarkup</replace>
-      <replace>menuReplyMarkup</replace>
-      <replace>handleCommandReplyMarkup</replace>
-      <replace>g_TelegramBotWhiteListedIDs</replace>
-      <replace>commandLua_dispatchHandler</replace>
-      <replace>telegramMsg_From</replace>
-      <replace>telegramMsg_ChatId</replace>
-      <replace>telegramMsg_FromId</replace>
-      <replace>telegramMsg_MsgId</replace>
-      <replace>telegramMsg_IsChannel</replace>
-      <replace>telegram_SendMsg</replace>
-      <replace>telegramUserId</replace>
-      <replace>ReplyTo</replace>
-      <replace>ssh_module</replace>
-      <replace>g_BotTempFileDir</replace>
-      <replace>ssh_commands</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.idea/workspace.xml">
+      <ranges>
+        <range start1="3" end1="4" start2="3" end2="5" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="5" end1="5" start2="6" end2="9" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="8" end1="8" start2="12" end2="13" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="9" end1="10" start2="14" end2="14" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="15" end1="32" start2="19" end2="19" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="35" end1="132" start2="22" end2="22" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="135" end1="135" start2="25" end2="54" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="136" end1="218" start2="55" end2="56" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="219" end1="219" start2="57" end2="58" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="222" end1="222" start2="61" end2="62" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="223" end1="225" start2="63" end2="63" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="249" end1="250" start2="87" end2="88" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="264" end1="264" start2="102" end2="103" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="270" end1="271" start2="109" end2="111" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="293" end1="293" start2="133" end2="134" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="315" end1="316" start2="156" end2="157" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="319" end1="320" start2="160" end2="161" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="465" end1="466" start2="306" end2="342" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="477" end1="511" start2="353" end2="353" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="517" end1="531" start2="359" end2="360" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="537" end1="540" start2="366" end2="366" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="557" end1="558" start2="383" end2="389" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="559" end1="868" start2="390" end2="390" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+      </ranges>
+    </file>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">

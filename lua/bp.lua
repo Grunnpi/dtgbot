@@ -6,6 +6,7 @@ function bp_module.handler(parsed_cli)
     local response = ""
     local status = 0
 
+    local sep = ","
     local bp_file = g_BotTempFileDir .. "/bp.csv"
     print_info_to_log(1,"file bp_file=["..bp_file.."]")
 
@@ -54,8 +55,16 @@ function bp_module.handler(parsed_cli)
             end
 
             if ( status == 0 ) then
+                local createHeader = false
+                if ( not file_exists(bp_file) ) then
+                    createHeader = true
+                end
+
                 local file = io.open(bp_file, "a")
-                file:write("bot;421421;555666;10101010101;".. date .. ";" .. tier .. ";" .. commentaire .. ";-" .. montant .. "\n")
+                if ( createHeader ) then
+                    file:write("file"..sep.."bank"..sep.."branch"..sep.."account"..sep.. "date" .. sep .. "tier" .. sep .. "description" .. ",-" .. "amount" .. "\n")
+                end
+                file:write("bot"..sep.."88888"..sep.."77777"..sep.."22222222222"..sep.. date .. sep .. tier .. sep .. commentaire .. ",-" .. montant .. "\n")
                 file:close()
                 response = 'c\'est noté !'
             end
@@ -81,7 +90,7 @@ function bp_module.handler(parsed_cli)
         end
         return status, response
     else
-        response = 'Wrong command'
+        response = 'Commande inconnue'
         return status, response
     end
 end
