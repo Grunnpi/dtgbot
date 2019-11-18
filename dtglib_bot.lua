@@ -103,6 +103,18 @@ function dtgbot_initialise()
         g_TelegramBotWhiteListedIDs = get_names_from_variable(WLString)
     end
 
+    -- Retrieve id white list Names
+    local WLNameIdx = domoticz_cache_getVariableIdxByName("TelegramBotWhiteListedNames")
+    if WLNameIdx == nil then
+        print_warning_to_log(0, 'TelegramBotWhiteListedNames user variable does not exist in Domoticz')
+        print_warning_to_log(0, 'So will allow any id to use the bot')
+    else
+        print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLNameIdx ' .. WLNameIdx)
+        local WLNamesString = domoticz_getVariableValueByIdx(WLNameIdx)
+        print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLNamesString: ' .. WLNamesString)
+        g_TelegramBotWhiteListedNames = get_names_from_variable(WLNamesString)
+    end
+
     -- Get the updates
     print_info_to_log(0, 'Getting [' .. g_TBotOffsetName .. '] the previous Telegram bot message offset from Domoticz')
     g_TBotOffsetIdx = domoticz_cache_getVariableIdxByName(g_TBotOffsetName)
@@ -192,9 +204,9 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
         if commandLua_dispatchHandler then
             status, text, handleCommandReplyMarkup = commandLua_dispatchHandler.handler(parsed_command, ReplyTo);
             if ( text == nil) then
-                print_info_to_log(1,"commandLua=["..tostring(status).."][nil]")
+                print_info_to_log(1,"commandLua.nil=["..tostring(status).."][nil]")
             else
-                print_info_to_log(1,"commandLua=["..tostring(status).."]["..text.."]")
+                print_info_to_log(1,"commandLua.text=["..tostring(status).."]["..text.."]")
             end
             commandFound = 1
         else
@@ -233,10 +245,10 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
             handleCommandReplyMarkup = savereplymarkup
         end
         if commandFound == 0 then
-            text = "command <" .. tostring(parsed_command[2]) .. "> not found";
+            text = "commande <" .. tostring(parsed_command[2]) .. "> non trouvée";
         end
     else
-        text = 'No command found'
+        text = 'je ne trouve pas de commande'
     end
 
     -- final feedback status (ok or not)
@@ -246,7 +258,8 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
             text = string.sub(text, 4000, -1)
         end
     elseif handleCommandReplyMarkup ~= "" then
-        telegram_SendMsg(ReplyTo, "done", MessageId, handleCommandReplyMarkup)
+        local randomMessage = randomOkMessage()
+        telegram_SendMsg(ReplyTo, randomMessage .. " " .. g_currentUserName, MessageId, handleCommandReplyMarkup)
     end
     return commandFound
 end
@@ -338,6 +351,7 @@ function on_msg_receive(msg)
 
     --Check to see if id is whitelisted, if not record in log and exit
     if id_check(telegramMsg_FromId) then
+        g_currentUserName = id_domoticzName(telegramMsg_FromId)
 
         if msg.text then -- check if message is text
             --ReceivedText = msg.text -- I dont read it again
@@ -345,7 +359,7 @@ function on_msg_receive(msg)
                 print_info_to_log(0, "Succesfully handled incoming request")
             else
                 print_info_to_log(0, "Invalid command received from:["..telegramMsg_FromId.."]")
-                telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
+                telegram_SendMsg(telegramMsg_ReplyToId, '⚡️Commande invalide ⚡️', telegramMsg_MsgId)
             end
             -- check for received voicefiles
         elseif msg.voice then -- check if message is voicefile
@@ -365,7 +379,7 @@ function on_msg_receive(msg)
                 else
                     print_info_to_log(0, "Voice file received but voice.sh or lua not found to process it. skipping the message.")
                     print_info_to_log(1, "telegramMsg_FromId:"..telegramMsg_FromId)
-                    telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
+                    telegram_SendMsg(telegramMsg_ReplyToId, '⚡️Commande invalide ⚡️', telegramMsg_MsgId)
                 end
             end
         elseif msg.video_note then -- check if message is videofile
@@ -385,13 +399,13 @@ function on_msg_receive(msg)
                 else
                     print_info_to_log(0, "Video file received but video_note.sh or lua not found to process it. Skipping the message.")
                     print_info_to_log(0, "telegramMsg_FromId:"..telegramMsg_FromId)
-                    telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ INVALID COMMAND ⚡️', telegramMsg_MsgId)
+                    telegram_SendMsg(telegramMsg_ReplyToId, '⚡️Commande invalide ⚡️', telegramMsg_MsgId)
                 end
             end
         end
     else
         print_warning_to_log(0, 'id['..telegramMsg_FromId..'] not on white list, command ignored')
-        telegram_SendMsg(telegramMsg_ReplyToId, '⚡️ ID Not Recognised - Command Ignored ⚡️', telegramMsg_MsgId)
+        --telegram_SendMsg(telegramMsg_ReplyToId, '⚡️Votre identité est invalide : je vous ignore ⚡️', telegramMsg_MsgId)
     end
 end
 
@@ -413,4 +427,39 @@ function id_check(telegramUserId)
         print_warning_to_log(0, 'id_check: WhiteList[' .. telegramUserId .. '] not allowed')
         return false
     end
+end
+
+function id_domoticzName(telegramUserId)
+    --Check if whitelist empty then let any message through
+    if g_TelegramBotWhiteListedIDs == nil or g_TelegramBotWhiteListedNames == nil then
+        return "inconnu"
+    else
+        telegramUserId = tostring(telegramUserId)
+        --Check id against whitelist
+        for i = 1, #g_TelegramBotWhiteListedIDs do
+            print_info_to_log(2, 'id_domoticzName:WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ?')
+            if telegramUserId == g_TelegramBotWhiteListedIDs[i] then
+                local userName = g_TelegramBotWhiteListedNames[i]
+                print_info_to_log(1, 'id_domoticzName:WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. ']:['..userName..']')
+                return userName
+            end
+        end
+        -- Checked WhiteList no match
+        print_warning_to_log(0, 'id_check: WhiteList[' .. telegramUserId .. '] not allowed')
+        return "non autorisé"
+    end
+end
+
+function randomOkMessage()
+    okMessage = {
+          "c'est fait"
+        , "ok"
+        , "hop"
+        , "et voilà"
+        , "trop facile"
+        , "à vos ordre"
+        , "yep"
+    }
+    local randomIdx = math.random(1,#okMessage)
+    return okMessage[randomIdx]
 end
