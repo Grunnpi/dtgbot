@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm1.1.1'
+g_dtgbot_version = 'm1.1.2'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -117,7 +117,7 @@ local telegram_connected = false
 os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. g_BotTempFileDir .. "/dtgloop.txt")
 
 -- startup notification
-telegram_SendMsg(TelegramChatId, "🔌 I'm alive ! ["..g_dtgbot_version.."]",'')
+telegram_SendMsg(TelegramChatId, "🔌 Bot est vivant ! ["..g_dtgbot_version.."]",'')
 while file_exists(dtgbot_pid) do
     local response
     local status

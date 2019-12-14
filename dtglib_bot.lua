@@ -19,10 +19,10 @@ function dtgbot_initialise()
 
     -- Initialize stuff from Domoticz
     g_DomoticzVariableIdxPerNameList  = domoticz_getVariableIdxPerNameList()
-    g_DomoticzVariableTypePerIdxList = domoticz_getVariableTypePerIdxList()
-    g_DomoticzDeviceList    = domoticz_getDeviceAndPropertiesListByType("devices")
+    g_DomoticzVariableTypePerIdxList  = domoticz_getVariableTypePerIdxList()
+    g_DomoticzDeviceList              = domoticz_getDeviceAndPropertiesListByType("devices")
     g_DomoticzSceneList, g_DomoticzSceneProperties = domoticz_getDeviceAndPropertiesListByType("scenes")
-    g_DomoticzRoomList      = domoticz_getDeviceAndPropertiesListByType("plans")
+    g_DomoticzRoomList                = domoticz_getDeviceAndPropertiesListByType("plans")
 
     -- Get language from Domoticz
     g_DomoticzLanguage      = domoticz_language()

@@ -92,7 +92,7 @@ function ssh_module.handler(parsed_cli)
             elseif ( ends_with(this_command,"_bot_upgrade") ) then
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             elseif ( ends_with(this_command,"_restart_domoticz") ) then
-                ssh_command = '"sudo service domoticz restart"'
+                ssh_command = 'sudo service domoticz restart'
             else
                 ssh_command = "zob"
             end
