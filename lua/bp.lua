@@ -62,7 +62,7 @@ function bp_module.handler(parsed_cli)
 
                 local file = io.open(bp_file, "a")
                 if ( createHeader ) then
-                    file:write("file"..sep.."bank"..sep.."branch"..sep.."account"..sep.. "date" .. sep .. "tier" .. sep .. "description" .. ",-" .. "amount" .. "\n")
+                    file:write("file"..sep.."bank"..sep.."branch"..sep.."account"..sep.. "date" .. sep .. "tier" .. sep .. "description" .. "," .. "amount" .. "\n")
                 end
                 file:write("bot"..sep.."88888"..sep.."77777"..sep.."22222222222"..sep.. date .. sep .. tier .. sep .. commentaire .. ",-" .. montant .. "\n")
                 file:close()

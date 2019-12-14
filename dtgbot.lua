@@ -57,6 +57,7 @@ g_BotHomePath           = environmentVariableDomoticz("BotHomePath")
 g_BotLuaScriptPath      = environmentVariableDomoticz("BotLuaScriptPath")
 g_BotBashScriptPath     = environmentVariableDomoticz("BotBashScriptPath")
 g_TBotOffsetName        = environmentVariableDomoticz("TelegramBotOffset")
+g_currentUserName       = "toi"
 
 -- Constants derived from environment variables
 g_DomoticzServeUrl      = "http://" .. DomoticzIP .. ":" .. DomoticzPort
