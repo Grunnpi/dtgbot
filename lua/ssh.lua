@@ -65,7 +65,7 @@ function ssh_module.handler(parsed_cli)
             elseif ( starts_with(this_command,"ssh_bob") ) then
                 ssh_host_parameter = 'bob'
             else
-                ssh_host_parameter = 'nop'
+                ssh_host_parameter = 'local'
             end
 
 
@@ -91,28 +91,38 @@ function ssh_module.handler(parsed_cli)
                 ssh_command = '"sudo tail -5 /var/tmp/dtgloop.txt;sudo tail -30 /var/tmp/dtb.log;sudo tail -30 /var/tmp/dtb.log.errors;sudo tail -30 /var/tmp/ssh_cmd.log"'
             elseif ( ends_with(this_command,"_bot_upgrade") ) then
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
+            elseif ( ends_with(this_command,"_restart_domoticz") ) then
+                ssh_command = '"sudo service domoticz restart"'
             else
                 ssh_command = "zob"
             end
         end
 
         if (status == 0) then
-            -- find setup regarding host
-            local ssh_host_ip
-            local ssh_host_user
-            local ssh_host_pwd
+            if ( ssh_host_parameter ~= 'local') then
+                -- find setup regarding host
+                local ssh_host_ip
+                local ssh_host_user
+                local ssh_host_pwd
 
-            status, response, ssh_host_user = fetchDomoticzParameter("TelegromBotSshUser"..ssh_host_parameter)
-            if ( status == 0 ) then
-                status, response, ssh_host_pwd = fetchDomoticzParameter("TelegromBotSshPwd"..ssh_host_parameter)
+                status, response, ssh_host_user = fetchDomoticzParameter("TelegromBotSshUser"..ssh_host_parameter)
+                if ( status == 0 ) then
+                    status, response, ssh_host_pwd = fetchDomoticzParameter("TelegromBotSshPwd"..ssh_host_parameter)
+                end
+                if ( status == 0 ) then
+                    status, response, ssh_host_ip = fetchDomoticzParameter("TelegromBotSshIp"..ssh_host_parameter)
+                end
             end
-            if ( status == 0 ) then
-                status, response, ssh_host_ip = fetchDomoticzParameter("TelegromBotSshIp"..ssh_host_parameter)
-            end
+
 
             if ( status == 0 ) then
                 local os_ssh_logfile = g_BotTempFileDir..'/ssh_cmd.log'
-                local os_ssh_command = "sshpass -p "..ssh_host_pwd.." ssh -o StrictHostKeyChecking=no "..ssh_host_user.."@"..ssh_host_ip..' '..ssh_command..' > '..os_ssh_logfile..' 2>&1'
+                local os_ssh_command
+                if ( ssh_host_parameter ~= 'local') then
+                    os_ssh_command = ssh_command ..' > '..os_ssh_logfile..' 2>&1'
+                else
+                    os_ssh_command = "sshpass -p "..ssh_host_pwd.." ssh -o StrictHostKeyChecking=no "..ssh_host_user.."@"..ssh_host_ip..' '..ssh_command..' > '..os_ssh_logfile..' 2>&1'
+                end
                 print_info_to_log(0,"os.execute('"..os_ssh_command.."') > ")
                 if ( g_TelegramBotIsOnWindows ) then
                     status = 1
@@ -166,7 +176,9 @@ local ssh_commands = {
     ["ssh_bob_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull_reset - fetch and reset last git master" },
     ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
     ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" },
-    ["ssh_bob_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_rmlogs - empty log/error" }
+    ["ssh_bob_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_rmlogs - empty log/error" },
+
+    ["ssh_restart_domoticz"] = { handler = ssh_module.handler, description = "ssh_restart_domoticz - restart service" }
 }
 
 function ssh_module.get_commands()
