@@ -30,6 +30,11 @@ function fetchDomoticzParameter(parameter_name)
         response = "‼️ Cannot find parameter Domoticz variable for ["..parameter_name.."]"
     end
 
+    print_info_to_log(0,"get var ! ("..parameter_name..")")
+    print_info_to_log(0,parameter_value)
+    print_info_to_log(0,response)
+    print_info_to_log(0,status)
+
     return status, response, parameter_value
 end
 
