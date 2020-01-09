@@ -64,6 +64,10 @@ function ssh_module.handler(parsed_cli)
                 ssh_host_parameter = 'bil'
             elseif ( starts_with(this_command,"ssh_bob") ) then
                 ssh_host_parameter = 'bob'
+            elseif ( starts_with(this_command,"ssh_eve") ) then
+                ssh_host_parameter = 'eve'
+            elseif ( starts_with(this_command,"ssh_hal") ) then
+                ssh_host_parameter = 'hal'
             else
                 ssh_host_parameter = 'local'
             end
