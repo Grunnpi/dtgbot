@@ -93,6 +93,8 @@ function ssh_module.handler(parsed_cli)
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             elseif ( ends_with(this_command,"_restart_domoticz") ) then
                 ssh_command = 'sudo service domoticz restart'
+            elseif ( ends_with(this_command,"_crotte_purge") ) then
+                ssh_command = 'sudo rm -rf /var/lib/motioneye/Camera1/*'
             else
                 ssh_command = "zob"
             end
@@ -168,6 +170,8 @@ local ssh_commands = {
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
     ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
     ["ssh_bil_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_rmlogs - empty log/error" },
+
+    ["ssh_eve_crotte_purge"] = { handler = ssh_module.handler, description = "ssh_eve_crotte_purge - supprimer les photos de la CamCrotte" },
 
     ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
     ["ssh_bob_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bob_bot_checkout - checkout + optional tag parameter (master default)" },
