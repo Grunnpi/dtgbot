@@ -120,6 +120,11 @@ function ssh_module.handler(parsed_cli)
                 end
             end
 
+            print_info_to_log(2,"ssh parsed")
+            print_info_to_log(2,ssh_host_ip)
+            print_info_to_log(2,ssh_host_user)
+            print_info_to_log(2,ssh_host_pwd)
+            print_info_to_log(2,ssh_command)
 
             if ( status == 0 ) then
                 local os_ssh_logfile = g_BotTempFileDir..'/ssh_cmd.log'
