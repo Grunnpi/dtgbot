@@ -110,18 +110,31 @@ function ssh_module.handler(parsed_cli)
         end
 
         if (status == 0) then
+            local ssh_host_ip
+            local ssh_host_user
+            local ssh_host_pwd
+
             if ( ssh_host_parameter ~= 'local') then
                 -- find setup regarding host
-                local ssh_host_ip
-                local ssh_host_user
-                local ssh_host_pwd
 
                 ssh_host_user, response, status  = fetchDomoticzParameter("TelegromBotSshUser"..ssh_host_parameter)
+                print_info_to_log(0,"get ssh_host_user")
+                print_info_to_log(0,ssh_host_user)
+                print_info_to_log(0,response)
+                print_info_to_log(0,status)
                 if ( status == 0 ) then
                     ssh_host_pwd, response, status = fetchDomoticzParameter("TelegromBotSshPwd"..ssh_host_parameter)
+                    print_info_to_log(0,"get ssh_host_pwd")
+                    print_info_to_log(0,ssh_host_pwd)
+                    print_info_to_log(0,response)
+                    print_info_to_log(0,status)
                 end
                 if ( status == 0 ) then
                     ssh_host_ip, response, status = fetchDomoticzParameter("TelegromBotSshIp"..ssh_host_parameter)
+                    print_info_to_log(0,"get ssh_host_ip")
+                    print_info_to_log(0,ssh_host_ip)
+                    print_info_to_log(0,response)
+                    print_info_to_log(0,status)
                 end
             end
 
