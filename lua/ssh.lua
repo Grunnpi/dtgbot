@@ -116,12 +116,12 @@ function ssh_module.handler(parsed_cli)
                 local ssh_host_user
                 local ssh_host_pwd
 
-                status, response, ssh_host_user = fetchDomoticzParameter("TelegromBotSshUser"..ssh_host_parameter)
+                ssh_host_user, response, status  = fetchDomoticzParameter("TelegromBotSshUser"..ssh_host_parameter)
                 if ( status == 0 ) then
-                    status, response, ssh_host_pwd = fetchDomoticzParameter("TelegromBotSshPwd"..ssh_host_parameter)
+                    ssh_host_pwd, response, status = fetchDomoticzParameter("TelegromBotSshPwd"..ssh_host_parameter)
                 end
                 if ( status == 0 ) then
-                    status, response, ssh_host_ip = fetchDomoticzParameter("TelegromBotSshIp"..ssh_host_parameter)
+                    ssh_host_ip, response, status = fetchDomoticzParameter("TelegromBotSshIp"..ssh_host_parameter)
                 end
             end
 
