@@ -92,13 +92,18 @@ ACTION_LIST = {
       { "OUVRIR", "OUVRE", "FERME", "FERMER", "ACTION" }
     , { "ECRIRE", "ECRIT", "AFFICHE", "LCD" }
     , { "DONNE" }
+    , { "RASOIR" }
+    , { "COMMENT", "QUEL", "QUELLE", "C'EST" }
 }
 
 OBJECT_LIST = {
       { "GARAGE", "PORTE" }
     , { "LCD", "ECRAN", "" }
     , { "VARIABLE" }
+    , { "VARIABLE" }
     , { "VARIABLES" }
+    , { "COMBIEN", "ETAT", "STATUT" }
+    , { "HUMEUR", "VA", "SENS", "FORME", "ETAT", "VAS" }
 }
 
 PARAMETER_LIST = {
@@ -137,6 +142,28 @@ rafMessage = {
     , "#USER_NAME# : je ne comprend pas..."
 }
 
+myNameIsMessage = {
+    "Je m'appel #BOT_NAME#"
+    , "mon nom c'est #BOT_NAME#"
+    , "#BOT_NAME#"
+    , "Tu peux m'appeler #BOT_NAME#"
+    , "Je suis #BOT_NAME#"
+    , "#BOT_NAME#, pour vous servir"
+    , "Tout puissant, mais tu peux m'appeler #BOT_NAME#"
+    , "#BOT_NAME#zore ou #BOT_NAME#ovscky, mais on m'appel plutôt #BOT_NAME# tout court"
+}
+
+myMoodMessage = {
+    "Ca flotte"
+    , "Plutôt bien"
+    , "Cool"
+    , "Ca farte"
+    , "J'ai la forme"
+    , "Super cool"
+    , "Au top de moi même"
+    , "Je suis bien et ça se voit"
+}
+
 function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords, allWords )
 
     if ( MY_ACTION_FOUND and MY_OBJECT_FOUND and MY_PARAM_FOUND ) then
@@ -162,7 +189,22 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords
             end
         end
         telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire sur le LCD : [" .. message .. "]", telegramMsg_MsgId)
-        return "/bob lcd " .. message, true
+        return "/" .. g_TelegramBotName .. " lcd " .. message, true
+    end
+
+    if ( MY_ACTION == "RASOIR" and MY_OBJECT == "COMBIEN" ) then
+        telegram_SendMsg(telegramMsg_ReplyToId,"alors, on en est où avec le rasoir ?", telegramMsg_MsgId)
+        return "/bob rasoir status", true
+    end
+
+    if ( MY_ACTION == "COMMENT" and MY_OBJECT == "APPEL" ) then
+        telegram_SendMsg(telegramMsg_ReplyToId,randomMyNameIs(), telegramMsg_MsgId)
+        return nil, true
+    end
+
+    if ( MY_ACTION == "COMMENT" and MY_OBJECT == "HUMEUR" ) then
+        telegram_SendMsg(telegramMsg_ReplyToId,randomMoodMessage(), telegramMsg_MsgId)
+        return nil, true
     end
 
     return nil, false
@@ -173,6 +215,7 @@ function randomMessage(tableMessage)
 
     local returnMessage = tableMessage[randomIdx]
     returnMessage = string.gsub (returnMessage, "#USER_NAME#", g_currentUserName)
+    returnMessage = string.gsub (returnMessage, "#BOT_NAME#", g_TelegramBotName)
 
     return returnMessage
 end
@@ -185,6 +228,13 @@ function randomRAFMessage()
     return randomMessage(rafMessage)
 end
 
+function randomMyNameIs()
+    return randomMessage(myNameIsMessage)
+end
+
+function randomMoodMessage()
+    return randomMessage(myMoodMessage)
+end
 function stripChars(str)
     local tableAccents = {}
     tableAccents["À"] = "A"
