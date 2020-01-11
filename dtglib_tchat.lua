@@ -14,7 +14,9 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     -- split all word in sentence
     local idx_oneWord = 0
     for oneWord in string.gmatch(ReceivedText, "%S+") do
-        print_info_to_log(0, 'word[' .. tostring(idx_oneWord) .. '] : [' .. string.upper(oneWord) .. ']')
+        local oneWordNormalized = stripChars(oneWord)
+        oneWordNormalized = string.upper(oneWordNormalized)
+        print_info_to_log(0, 'word[' .. tostring(idx_oneWord) .. '] : [' .. oneWord .. '][' .. oneWordNormalized ..']')
         idx_oneWord = idx_oneWord + 1
     end
 
@@ -58,4 +60,73 @@ end
 
 function randomRAFMessage()
     return randomMessage(rafMessage)
+end
+
+function stripChars(str)
+    local tableAccents = {}
+    tableAccents["À"] = "A"
+    tableAccents["Á"] = "A"
+    tableAccents["Â"] = "A"
+    tableAccents["Ã"] = "A"
+    tableAccents["Ä"] = "A"
+    tableAccents["Å"] = "A"
+    tableAccents["Æ"] = "AE"
+    tableAccents["Ç"] = "C"
+    tableAccents["È"] = "E"
+    tableAccents["É"] = "E"
+    tableAccents["Ê"] = "E"
+    tableAccents["Ë"] = "E"
+    tableAccents["Ì"] = "I"
+    tableAccents["Í"] = "I"
+    tableAccents["Î"] = "I"
+    tableAccents["Ï"] = "I"
+    tableAccents["Ð"] = "D"
+    tableAccents["Ñ"] = "N"
+    tableAccents["Ò"] = "O"
+    tableAccents["Ó"] = "O"
+    tableAccents["Ô"] = "O"
+    tableAccents["Õ"] = "O"
+    tableAccents["Ö"] = "O"
+    tableAccents["Ø"] = "O"
+    tableAccents["Ù"] = "U"
+    tableAccents["Ú"] = "U"
+    tableAccents["Û"] = "U"
+    tableAccents["Ü"] = "U"
+    tableAccents["Ý"] = "Y"
+    tableAccents["Þ"] = "P"
+    tableAccents["ß"] = "s"
+    tableAccents["à"] = "a"
+    tableAccents["á"] = "a"
+    tableAccents["â"] = "a"
+    tableAccents["ã"] = "a"
+    tableAccents["ä"] = "a"
+    tableAccents["å"] = "a"
+    tableAccents["æ"] = "ae"
+    tableAccents["ç"] = "c"
+    tableAccents["è"] = "e"
+    tableAccents["é"] = "e"
+    tableAccents["ê"] = "e"
+    tableAccents["ë"] = "e"
+    tableAccents["ì"] = "i"
+    tableAccents["í"] = "i"
+    tableAccents["î"] = "i"
+    tableAccents["ï"] = "i"
+    tableAccents["ð"] = "eth"
+    tableAccents["ñ"] = "n"
+    tableAccents["ò"] = "o"
+    tableAccents["ó"] = "o"
+    tableAccents["ô"] = "o"
+    tableAccents["õ"] = "o"
+    tableAccents["ö"] = "o"
+    tableAccents["ø"] = "o"
+    tableAccents["ù"] = "u"
+    tableAccents["ú"] = "u"
+    tableAccents["û"] = "u"
+    tableAccents["ü"] = "u"
+    tableAccents["ý"] = "y"
+    tableAccents["þ"] = "p"
+    tableAccents["ÿ"] = "y"
+    local normalisedString = ''
+    local normalisedString = str: gsub("[%z\1-\127\194-\244][\128-\191]*", tableAccents)
+    return normalisedString
 end
