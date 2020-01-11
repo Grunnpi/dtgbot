@@ -12,7 +12,7 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     print_info_to_log(0, 'Tchat mode activated : [' .. ReceivedText .. ']')
 
     -- split all word in sentence
-    for idx, oneWord in string.gmatch(example, "%S+") do
+    for idx, oneWord in string.gmatch(ReceivedText, "%S+") do
         print_info_to_log(0, 'word[' .. tostring(idx) .. '] : [' .. string.upper(oneWord) .. ']')
     end
 
