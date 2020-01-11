@@ -12,8 +12,10 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     print_info_to_log(0, 'Tchat mode activated : [' .. ReceivedText .. ']')
 
     -- split all word in sentence
-    for idx, oneWord in string.gmatch(ReceivedText, "%S+") do
-        print_info_to_log(0, 'word[' .. tostring(idx) .. '] : [' .. string.upper(oneWord) .. ']')
+    local idx_oneWord = 0
+    for oneWord in string.gmatch(ReceivedText, "%S+") do
+        print_info_to_log(0, 'word[' .. tostring(idx_oneWord) .. '] : [' .. string.upper(oneWord) .. ']')
+        idx_oneWord = idx_oneWord + 1
     end
 
     telegram_SendMsg(telegramMsg_ReplyToId, "Ok " .. g_currentUserName .. ", j'ai compris que tu as dit : '" .. ReceivedText .. "'", telegramMsg_MsgId)

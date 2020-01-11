@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="tchat mode">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtglib_bot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_bot.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtglib_tchat.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_tchat.lua" afterDir="false" />
-    </list>
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="tchat mode" />
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -20,28 +16,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/.idea/workspace.xml">
-      <ranges>
-        <range start1="22" end1="22" start2="22" end2="45" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="23" end1="158" start2="46" end2="47" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="159" end1="159" start2="48" end2="49" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="162" end1="162" start2="52" end2="53" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="163" end1="165" start2="54" end2="54" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="171" end1="171" start2="60" end2="62" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="189" end1="190" start2="80" end2="81" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="204" end1="204" start2="95" end2="96" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="210" end1="211" start2="102" end2="104" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="255" end1="256" start2="148" end2="149" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="259" end1="260" start2="152" end2="153" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="510" end1="511" start2="403" end2="411" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="521" end1="555" start2="421" end2="421" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="562" end1="576" start2="428" end2="429" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="581" end1="584" start2="434" end2="434" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="610" end1="919" start2="460" end2="460" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-      </ranges>
-    </file>
   </component>
   <component name="ProjectId" id="1TNnzqn3KSU89lVsF3mrLtIfJHX" />
   <component name="PropertiesComponent">
@@ -403,7 +377,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578738457241</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="tchat mode">
+      <created>1578750303472</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1578750303472</updated>
+    </task>
+    <task id="LOCAL-00035" summary="tchat mode">
+      <created>1578750416896</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1578750416896</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TodoView">
