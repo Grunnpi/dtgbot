@@ -7,6 +7,17 @@ function isTchat()
     return isTchatBool
 end
 
+-- search ACTION
+local MY_ACTION
+local MY_ACTION_FOUND = false
+local MY_ACTION_POSITION = -1
+local MY_OBJECT
+local MY_OBJECT_FOUND = false
+local MY_OBJECT_POSITION = -1
+local MY_PARAM
+local MY_PARAM_FOUND = false
+local MY_PARAM_POSITION = -1
+
 -- main handle function
 function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     print_info_to_log(0, 'Tchat mode activated : [' .. ReceivedText .. ']')
@@ -14,32 +25,26 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     -- split all word in sentence
     local idx_oneWord = 0
     local normalizedWords = {}
+    local allWords = {}
     for oneWord in string.gmatch(ReceivedText, "%S+") do
         local oneWordNormalized = stripChars(oneWord)
         oneWordNormalized = string.upper(oneWordNormalized)
         idx_oneWord = idx_oneWord + 1
 
         normalizedWords[#normalizedWords + 1] = oneWordNormalized
+        allWords[#allWords + 1] = oneWord
         print_info_to_log(0, 'word[' .. tostring(idx_oneWord) .. '] : [' .. oneWord .. '][' .. oneWordNormalized ..']')
     end
 
-    -- search ACTION
-    local MY_ACTION
-    local MY_ACTION_FOUND = false
-    local MY_OBJECT
-    local MY_OBJECT_FOUND = false
-    local MY_PARAM
-    local MY_PARAM_FOUND = false
-
-    MY_ACTION, MY_ACTION_FOUND = searchInVector( "ACTION", ACTION_LIST, normalizedWords)
+    MY_ACTION, MY_ACTION_FOUND, MY_ACTION_POSITION = searchInVector( "ACTION", ACTION_LIST, normalizedWords)
     print_info_to_log(0, 'MY_ACTION[' .. MY_ACTION .. '] : [' .. tostring(MY_ACTION_FOUND) .. ']')
-    MY_OBJECT, MY_OBJECT_FOUND = searchInVector( "OBJECT", OBJECT_LIST, normalizedWords)
+    MY_OBJECT, MY_OBJECT_FOUND, MY_OBJECT_POSITION = searchInVector( "OBJECT", OBJECT_LIST, normalizedWords)
     print_info_to_log(0, 'MY_OBJECT[' .. MY_OBJECT .. '] : [' .. tostring(MY_OBJECT_FOUND) .. ']')
-    MY_PARAM, MY_PARAM_FOUND = searchInVector( "PARAMETER", PARAMETER_LIST, normalizedWords)
+    MY_PARAM, MY_PARAM_FOUND, MY_PARAM_POSITION = searchInVector( "PARAMETER", PARAMETER_LIST, normalizedWords)
     print_info_to_log(0, 'MY_PARAM[' .. MY_PARAM .. '] : [' .. tostring(MY_PARAM_FOUND) .. ']')
 
     local feedbackMessage = ""
-    if (not isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_ACTION_FOUND, MY_OBJECT, MY_OBJECT_FOUND, MY_PARAM, MY_PARAM_FOUND )) then
+    if (not isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords, allWords )) then
         -- RAF message
         feedbackMessage = randomRAFMessage()
         telegram_SendMsg(telegramMsg_ReplyToId,feedbackMessage, telegramMsg_MsgId)
@@ -50,7 +55,8 @@ end
 function searchInVector( VECTOR_TYPE, VECTOR_LIST, normalizedWords )
     local MY_STUFF = ''
     local MY_STUFF_FOUND = false
-    for idx, oneWordNormalized in pairs(normalizedWords) do
+    local MY_POSITION = -1
+    for idxNormalized, oneWordNormalized in pairs(normalizedWords) do
         for vIdx, oneVectorList in pairs(VECTOR_LIST) do
             local vectorKeyWord = ''
             for vectorIndex, oneStuff in pairs(oneVectorList) do
@@ -62,6 +68,7 @@ function searchInVector( VECTOR_TYPE, VECTOR_LIST, normalizedWords )
                     print_info_to_log(0, 'Trouve[' .. oneWordNormalized ..'][' .. tostring(vectorIndex) .. '] dans [' .. VECTOR_TYPE .. ']')
                     MY_STUFF = vectorKeyWord
                     MY_STUFF_FOUND = true
+                    MY_POSITION = idxNormalized
                     break
                 end
                 if ( MY_STUFF_FOUND ) then
@@ -73,7 +80,7 @@ function searchInVector( VECTOR_TYPE, VECTOR_LIST, normalizedWords )
             break
         end
     end
-    return MY_STUFF, MY_STUFF_FOUND
+    return MY_STUFF, MY_STUFF_FOUND, MY_POSITION
 end
 
 ACTION_LIST = {
@@ -125,7 +132,7 @@ rafMessage = {
     , "#USER_NAME# : je ne comprend pas..."
 }
 
-function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_ACTION_FOUND, MY_OBJECT, MY_OBJECT_FOUND, MY_PARAM, MY_PARAM_FOUND )
+function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords, allWords )
 
     if ( MY_ACTION_FOUND and MY_OBJECT_FOUND and MY_PARAM_FOUND ) then
         if ( MY_ACTION == "OUVRIR" and MY_OBJECT == "GARAGE" ) then
@@ -141,8 +148,14 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_A
         end
     end
 
-    if ( MY_ACTION == "ECRIRE" ) then
-        telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire un truc sur le LCD", telegramMsg_MsgId)
+    if ( MY_ACTION_FOUND and MY_ACTION == "ECRIRE" ) then
+        local message = ""
+        for idx, oneWord in allWords do
+            if (idx > MY_ACTION_POSITION ) then
+                message = message + " " + oneWord
+            end
+        end
+        telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire sur le LCD : [" .. message .. "]", telegramMsg_MsgId)
         return true
     end
 
