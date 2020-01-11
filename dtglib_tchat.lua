@@ -150,7 +150,7 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords
 
     if ( MY_ACTION_FOUND and MY_ACTION == "ECRIRE" ) then
         local message = ""
-        for idx, oneWord in allWords do
+        for idx, oneWord in pairs(allWords) do
             if (idx > MY_ACTION_POSITION ) then
                 message = message + " " + oneWord
             end
