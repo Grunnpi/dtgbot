@@ -321,8 +321,10 @@ function on_msg_receive(msg)
             if (SlashPos ~= 1) then
                 -- check if tchat mode
                 if ( isTchat() ) then
-                    handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
-                    return
+                    ReceivedText = handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
+                    if ( ReceivedText == nil ) then
+                        return
+                    end
                 else
                     return
                 end

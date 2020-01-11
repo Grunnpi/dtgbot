@@ -22,6 +22,8 @@ local MY_PARAM_POSITION = -1
 function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     print_info_to_log(0, 'Tchat mode activated : [' .. ReceivedText .. ']')
 
+    local returnCommandString = nil
+
     -- split all word in sentence
     local idx_oneWord = 0
     local normalizedWords = {}
@@ -43,12 +45,15 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     MY_PARAM, MY_PARAM_FOUND, MY_PARAM_POSITION = searchInVector( "PARAMETER", PARAMETER_LIST, normalizedWords)
     print_info_to_log(0, 'MY_PARAM[' .. MY_PARAM .. '] : [' .. tostring(MY_PARAM_FOUND) .. ']')
 
-    local feedbackMessage = ""
-    if (not isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords, allWords )) then
+    local isUnderstoodFlag = false
+    returnCommandString, isUnderstoodFlag = isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords, allWords )
+    if (not isUnderstoodFlag) then
         -- RAF message
-        feedbackMessage = randomRAFMessage()
+        local feedbackMessage = randomRAFMessage()
         telegram_SendMsg(telegramMsg_ReplyToId,feedbackMessage, telegramMsg_MsgId)
     end
+
+    return returnCommandString
 end
 
 
@@ -138,12 +143,13 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords
         if ( MY_ACTION == "OUVRIR" and MY_OBJECT == "GARAGE" ) then
             if ( MY_PARAM == "UN" ) then
                 telegram_SendMsg(telegramMsg_ReplyToId,"je vais actionner le garage 1", telegramMsg_MsgId)
-                return true
+                return nil, true
             elseif ( MY_PARAM == "DEUX" ) then
                 telegram_SendMsg(telegramMsg_ReplyToId,"je vais actionner le garage 2", telegramMsg_MsgId)
-                return true
+                return nil, true
             else
                 telegram_SendMsg(telegramMsg_ReplyToId,"Je n'ai pas compris quel garage : UN ou DEUX ?", telegramMsg_MsgId)
+                return nil, true
             end
         end
     end
@@ -156,10 +162,10 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords
             end
         end
         telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire sur le LCD : [" .. message .. "]", telegramMsg_MsgId)
-        return true
+        return "/bob lcd " .. message, true
     end
 
-    return false
+    return nil, false
 end
 
 function randomMessage(tableMessage)
