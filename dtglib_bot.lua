@@ -100,7 +100,7 @@ function dtgbot_initialise()
     else
         g_TelegramBotTchat = ""
     end
-    print_info_to_log(1, 'Tchat Mode : ' .. g_TelegramBotTchat)
+    print_info_to_log(0, 'Tchat Mode : ' .. g_TelegramBotTchat)
 
     -- Retrieve id white list
     local WLidx = domoticz_cache_getVariableIdxByName("TelegramBotWhiteListedIDs")
@@ -466,18 +466,4 @@ function id_domoticzName(telegramUserId)
         print_warning_to_log(0, 'id_check: WhiteList[' .. telegramUserId .. '] not allowed')
         return "non autorisé"
     end
-end
-
-function randomOkMessage()
-    okMessage = {
-          "c'est fait"
-        , "ok"
-        , "hop"
-        , "et voilà"
-        , "trop facile"
-        , "à vos ordre"
-        , "yep"
-    }
-    local randomIdx = math.random(1,#okMessage)
-    return okMessage[randomIdx]
 end
