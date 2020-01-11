@@ -308,11 +308,14 @@ function on_msg_receive(msg)
             -- start with a /
             local SlashPos = string.find(ReceivedText, "/")
             if (SlashPos ~= 1) then
+                print_info_to_log(0, 'no slash, no direct command. Maybe tchat mode ?')
                 -- check if tchat mode
                 if ( isTchat() ) then
+                    print_info_to_log(0, 'Tchat mode activated !!')
                     handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
                     return
                 else
+                    print_info_to_log(0, 'Nope, ignore that')
                     return
                 end
             end
