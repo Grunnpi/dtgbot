@@ -139,11 +139,11 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_A
                 telegram_SendMsg(telegramMsg_ReplyToId,"Je n'ai pas compris quel garage : UN ou DEUX ?", telegramMsg_MsgId)
             end
         end
+    end
 
-        if ( MY_ACTION == "ECRIRE" ) then
-            telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire un truc sur le LCD", telegramMsg_MsgId)
-            return true
-        end
+    if ( MY_ACTION == "ECRIRE" ) then
+        telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire un truc sur le LCD", telegramMsg_MsgId)
+        return true
     end
 
     return false

@@ -428,7 +428,21 @@
       <option name="project" value="LOCAL" />
       <updated>1578756943095</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="tchat mode">
+      <created>1578757138451</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1578757138451</updated>
+    </task>
+    <task id="LOCAL-00042" summary="tchat mode">
+      <created>1578757339624</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1578757339624</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TodoView">
