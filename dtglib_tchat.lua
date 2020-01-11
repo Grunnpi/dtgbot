@@ -13,27 +13,100 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
 
     -- split all word in sentence
     local idx_oneWord = 0
+    local normalizedWords = {}
     for oneWord in string.gmatch(ReceivedText, "%S+") do
         local oneWordNormalized = stripChars(oneWord)
         oneWordNormalized = string.upper(oneWordNormalized)
-        print_info_to_log(0, 'word[' .. tostring(idx_oneWord) .. '] : [' .. oneWord .. '][' .. oneWordNormalized ..']')
         idx_oneWord = idx_oneWord + 1
+
+        normalizedWords[#normalizedWords + 1] = oneWordNormalized
+        print_info_to_log(0, 'word[' .. tostring(idx_oneWord) .. '] : [' .. oneWord .. '][' .. oneWordNormalized ..']')
     end
 
-    telegram_SendMsg(telegramMsg_ReplyToId, "Ok " .. g_currentUserName .. ", j'ai compris que tu as dit : '" .. ReceivedText .. "'", telegramMsg_MsgId)
+    -- search ACTION
+    local MY_ACTION
+    local MY_ACTION_FOUND = false
+    local MY_OBJECT
+    local MY_OBJECT_FOUND = false
+    local MY_PARAM
+    local MY_PARAM_FOUND = false
+
+    MY_ACTION, MY_ACTION_FOUND = searchInVector( ACTION_LIST, normalizedWords)
+    MY_OBJECT, MY_OBJECT_FOUND = searchInVector( OBJECT_LIST, normalizedWords)
+    MY_PARAM, MY_PARAM_FOUND = searchInVector( PARAMETER_LIST, normalizedWords)
+
+    local feedbackMessage = ""
+    if (not isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_ACTION_FOUND, MY_OBJECT, MY_OBJECT_FOUND, MY_PARAM, MY_PARAM_FOUND )) then
+        -- RAF message
+        feedbackMessage = randomRAFMessage()
+        telegram_SendMsg(telegramMsg_ReplyToId,feedbackMessage, telegramMsg_MsgId)
+    end
 end
 
 
+function searchInVector( VECTOR_LIST, normalizedWords )
+    local MY_STUFF = ''
+    local MY_STUFF_FOUND = false
+    for oneWordNormalized in normalizedWords do
+        for oneVectorList in VECTOR_LIST do
+            local vectorIndex = 0
+            local vectorKeyWord = ''
+            for oneStuff in oneVectorList do
+                if ( vectorIndex == 0 ) then
+                    vectorKeyWord = oneStuff
+                end
+                if ( oneStuff == oneWordNormalized ) then
+                    -- found it
+                    MY_STUFF = vectorKeyWord
+                    MY_STUFF_FOUND = true
+                    break
+                end
+                vectorIndex = vectorIndex + 1
+                if ( MY_STUFF_FOUND ) then
+                    break
+                end
+            end
+        end
+        if ( MY_STUFF_FOUND ) then
+            break
+        end
+    end
+    return MY_STUFF, MY_STUFF_FOUND
+end
+
+ACTION_LIST = {
+      { "OUVRIR", "OUVRE", "FERME", "FERMER", "ACTION" }
+    , { "ECRIRE", "ECRIT", "AFFICHE", "LCD" }
+    , { "DONNE" }
+}
+
+OBJECT_LIST = {
+      { "GARAGE", "PORTE" }
+    , { "LCD", "ECRAN", "" }
+    , { "VARIABLE" }
+    , { "VARIABLES" }
+}
+
+PARAMETER_LIST = {
+      { "UN", "1" }
+    , { "DEUX", "2" }
+    , { "VARIABLE" }
+}
+
 okMessage = {
-    "c'est fait"
-    , "ok"
+    "c'est fait #USER_NAME#"
+    , "#USER_NAME#, c'est fait"
+    , "#USER_NAME#, oui, #USER_NAME#"
+    , "ok #USER_NAME#"
     , "hop"
-    , "et voilà"
-    , "d'accord"
+    , "et voilà #USER_NAME#"
+    , "d'accord #USER_NAME#"
     , "hmm hmm"
+    , "et paf #USER_NAME# !"
     , "trop facile"
-    , "à vos ordre"
+    , "à vos ordre #USER_NAME#"
     , "yep"
+    , "#USER_NAME#, no problemo"
 }
 
 rafMessage = {
@@ -44,14 +117,43 @@ rafMessage = {
     , "tout à fait"
     , "j'allais le dire"
     , "c'est pas faux"
+    , "qu'est ce que tu racontes #USER_NAME# ?"
     , "rien compris moi"
     , "ah, ok ok ok. Ben pourquoi ?"
+    , "#USER_NAME# : je ne comprend pas..."
 }
 
+function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_ACTION_FOUND, MY_OBJECT, MY_OBJECT_FOUND, MY_PARAM, MY_PARAM_FOUND )
+
+    if ( MY_ACTION_FOUND and MY_OBJECT_FOUND and MY_PARAM_FOUND ) then
+        if ( MY_ACTION == "OUVRIR" and MY_OBJECT == "GARAGE" ) then
+            if ( MY_PARAM == "UN" ) then
+                telegram_SendMsg(telegramMsg_ReplyToId,"je vais actionner le garage 1", telegramMsg_MsgId)
+                return true
+            elseif ( MY_PARAM == "DEUX" ) then
+                telegram_SendMsg(telegramMsg_ReplyToId,"je vais actionner le garage 2", telegramMsg_MsgId)
+                return true
+            else
+                telegram_SendMsg(telegramMsg_ReplyToId,"Je n'ai pas compris quel garage : UN ou DEUX ?", telegramMsg_MsgId)
+            end
+        end
+
+        if ( MY_ACTION == "ECRIRE" ) then
+            telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire un truc sur le LCD", telegramMsg_MsgId)
+            return true
+        end
+    end
+
+    return false
+end
 
 function randomMessage(tableMessage)
     local randomIdx = math.random(1,#tableMessage)
-    return tableMessage[randomIdx]
+
+    local returnMessage = tableMessage[randomIdx]
+    returnMessage = string.gsub (returnMessage, "#USER_NAME#", g_currentUserName)
+
+    return returnMessage
 end
 
 function randomOkMessage()

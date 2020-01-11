@@ -269,8 +269,8 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
             text = string.sub(text, 4000, -1)
         end
     elseif handleCommandReplyMarkup ~= "" then
-        local randomMessage = randomOkMessage()
-        telegram_SendMsg(ReplyTo, randomMessage .. " " .. g_currentUserName, MessageId, handleCommandReplyMarkup)
+        local randomOkMessage = randomOkMessage()
+        telegram_SendMsg(ReplyTo, randomOkMessage, MessageId, handleCommandReplyMarkup)
     end
     return commandFound
 end
