@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="tchat mode">
-      <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dtglib_bot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_bot.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/bp.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/bp.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/utility.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dtglib_tchat.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_tchat.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtgbot.cfg" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.cfg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +20,30 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.idea/workspace.xml">
+      <ranges>
+        <range start1="4" end1="5" start2="4" end2="4" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="6" end1="8" start2="5" end2="6" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="11" end1="12" start2="9" end2="9" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="25" end1="136" start2="22" end2="23" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="137" end1="137" start2="24" end2="25" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="140" end1="140" start2="28" end2="29" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="141" end1="143" start2="30" end2="30" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="149" end1="149" start2="36" end2="38" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="167" end1="168" start2="56" end2="57" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="182" end1="182" start2="71" end2="72" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="188" end1="189" start2="78" end2="80" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="233" end1="234" start2="124" end2="125" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="237" end1="238" start2="128" end2="129" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="481" end1="482" start2="372" end2="380" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="492" end1="526" start2="390" end2="390" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="533" end1="547" start2="397" end2="398" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="552" end1="555" start2="403" end2="403" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="581" end1="890" start2="429" end2="429" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+      </ranges>
+    </file>
   </component>
   <component name="LineStatusTrackerManager">
     <file path="$PROJECT_DIR$/.idea/workspace.xml">
@@ -479,7 +501,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578735085393</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="tchat mode">
+      <created>1578735571443</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1578735571443</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TodoView">
