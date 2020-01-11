@@ -152,7 +152,7 @@ function isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, normalizedWords
         local message = ""
         for idx, oneWord in pairs(allWords) do
             if (idx > MY_ACTION_POSITION ) then
-                message = message + " " + oneWord
+                message = message .. " " .. oneWord
             end
         end
         telegram_SendMsg(telegramMsg_ReplyToId,"je vais écrire sur le LCD : [" .. message .. "]", telegramMsg_MsgId)
