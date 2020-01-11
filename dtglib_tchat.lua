@@ -48,10 +48,9 @@ function searchInVector( VECTOR_LIST, normalizedWords )
     local MY_STUFF = ''
     local MY_STUFF_FOUND = false
     for idx, neWordNormalized in pairs(normalizedWords) do
-        for oneVectorList in VECTOR_LIST do
-            local vectorIndex = 0
+        for vIdx, oneVectorList in pairs(VECTOR_LIST) do
             local vectorKeyWord = ''
-            for oneStuff in oneVectorList do
+            for vectorIndex, oneStuff in pairs(oneVectorList) do
                 if ( vectorIndex == 0 ) then
                     vectorKeyWord = oneStuff
                 end
@@ -61,7 +60,6 @@ function searchInVector( VECTOR_LIST, normalizedWords )
                     MY_STUFF_FOUND = true
                     break
                 end
-                vectorIndex = vectorIndex + 1
                 if ( MY_STUFF_FOUND ) then
                     break
                 end
