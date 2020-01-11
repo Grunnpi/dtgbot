@@ -32,8 +32,11 @@ function handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
     local MY_PARAM_FOUND = false
 
     MY_ACTION, MY_ACTION_FOUND = searchInVector( "ACTION", ACTION_LIST, normalizedWords)
+    print_info_to_log(0, 'MY_ACTION[' .. MY_ACTION .. '] : [' .. tostring(MY_ACTION_FOUND) .. ']')
     MY_OBJECT, MY_OBJECT_FOUND = searchInVector( "OBJECT", OBJECT_LIST, normalizedWords)
+    print_info_to_log(0, 'MY_OBJECT[' .. MY_OBJECT .. '] : [' .. tostring(MY_OBJECT_FOUND) .. ']')
     MY_PARAM, MY_PARAM_FOUND = searchInVector( "PARAMETER", PARAMETER_LIST, normalizedWords)
+    print_info_to_log(0, 'MY_PARAM[' .. MY_PARAM .. '] : [' .. tostring(MY_PARAM_FOUND) .. ']')
 
     local feedbackMessage = ""
     if (not isUnderstood( telegramMsg_ReplyToId, telegramMsg_MsgId, MY_ACTION, MY_ACTION_FOUND, MY_OBJECT, MY_OBJECT_FOUND, MY_PARAM, MY_PARAM_FOUND )) then
@@ -51,12 +54,12 @@ function searchInVector( VECTOR_TYPE, VECTOR_LIST, normalizedWords )
         for vIdx, oneVectorList in pairs(VECTOR_LIST) do
             local vectorKeyWord = ''
             for vectorIndex, oneStuff in pairs(oneVectorList) do
-                if ( vectorIndex == 0 ) then
+                if ( vectorIndex == 1 ) then
                     vectorKeyWord = oneStuff
                 end
                 if ( oneStuff == oneWordNormalized ) then
                     -- found it
-                    print_info_to_log(0, 'Trouve[' .. oneWordNormalized ..'] dans [' .. VECTOR_TYPE .. ']')
+                    print_info_to_log(0, 'Trouve[' .. oneWordNormalized ..'][' .. tostring(vectorIndex) .. '] dans [' .. VECTOR_TYPE .. ']')
                     MY_STUFF = vectorKeyWord
                     MY_STUFF_FOUND = true
                     break
