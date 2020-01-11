@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="rasoir stuff">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="tchat mode">
       <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dtglib_bot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_bot.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lua/bp.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/bp.lua" afterDir="false" />
@@ -382,7 +381,105 @@
       <option name="project" value="LOCAL" />
       <updated>1561627014693</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="photo crotte">
+      <created>1573074367107</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1573074367108</updated>
+    </task>
+    <task id="LOCAL-00019" summary="restart domoticz function">
+      <created>1576344802128</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1576344802128</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix ssh concat">
+      <created>1576345309606</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1576345309606</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add clean camCrotte">
+      <created>1578601323838</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1578601323838</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add clean camCrotte fix ssh">
+      <created>1578601656859</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1578601656859</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add clean camCrotte fix ssh">
+      <created>1578602408328</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1578602408328</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add clean camCrotte fix ssh">
+      <created>1578602671865</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1578602671865</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add clean camCrotte fix ssh">
+      <created>1578603034373</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1578603034373</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add clean camCrotte fix ssh">
+      <created>1578683178098</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1578683178098</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add clean camCrotte fix ssh">
+      <created>1578683433147</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1578683433147</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add clean camCrotte fix ssh">
+      <created>1578684128942</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1578684128942</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add clean camCrotte fix ssh">
+      <created>1578684354372</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1578684354372</updated>
+    </task>
+    <task id="LOCAL-00030" summary="add clean camCrotte fix ssh">
+      <created>1578734767225</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1578734767225</updated>
+    </task>
+    <task id="LOCAL-00031" summary="tchat mode">
+      <created>1578735085393</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1578735085393</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TodoView">
@@ -474,7 +571,13 @@
     <MESSAGE value="desc for stop/start fix" />
     <MESSAGE value="version++" />
     <MESSAGE value="quote ssh commands" />
-    <option name="LAST_COMMIT_MESSAGE" value="quote ssh commands" />
+    <MESSAGE value="photo crotte" />
+    <MESSAGE value="restart domoticz function" />
+    <MESSAGE value="fix ssh concat" />
+    <MESSAGE value="add clean camCrotte" />
+    <MESSAGE value="add clean camCrotte fix ssh" />
+    <MESSAGE value="tchat mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="tchat mode" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="editorHistoryManager">

@@ -91,6 +91,17 @@ function dtgbot_initialise()
         g_TelegramBotBashExclude = ""
     end
 
+    local TelegramBotTchatIdx = domoticz_cache_getVariableIdxByName("TelegramBotTchat")
+    if TelegramBotTchatIdx ~= nil then
+        g_TelegramBotTchat = domoticz_getVariableValueByIdx(TelegramBotTchatIdx)
+        if ( g_TelegramBotBashExclude == nil ) then
+            g_TelegramBotTchat = ""
+        end
+    else
+        g_TelegramBotTchat = ""
+    end
+    print_info_to_log(1, 'Tchat Mode : ' .. g_TelegramBotTchat)
+
     -- Retrieve id white list
     local WLidx = domoticz_cache_getVariableIdxByName("TelegramBotWhiteListedIDs")
     if WLidx == nil then
