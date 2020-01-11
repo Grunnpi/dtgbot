@@ -47,7 +47,7 @@ end
 function searchInVector( VECTOR_LIST, normalizedWords )
     local MY_STUFF = ''
     local MY_STUFF_FOUND = false
-    for oneWordNormalized in normalizedWords do
+    for idx, neWordNormalized in pairs(normalizedWords) do
         for oneVectorList in VECTOR_LIST do
             local vectorIndex = 0
             local vectorKeyWord = ''
