@@ -277,58 +277,6 @@ function on_msg_receive(msg)
         return
     end
 
-    -- filter command for bot only : for now, only text message
-    if msg.text then
-        ReceivedText = msg.text
-
-        -- start with a /
-        local SlashPos = string.find(ReceivedText, "/")
-        if (SlashPos ~= 1) then
-            return
-        end
-
-        -- remove slash
-        ReceivedText = string.sub(ReceivedText, 2, string.len(ReceivedText))
-        local ReceivedTextFull = ReceivedText
-
-        local commandValidated = false
-        -- command with "/bot cmd option" style
-        local SpacePos = string.find(ReceivedText, "% ")
-        if (SpacePos == nil) then
-            print_info_to_log(3, 'Received[' .. ReceivedText .. '] not with [botName<space>]')
-        else
-            local botPrefix = string.sub(ReceivedText, 1, SpacePos - 1)
-            ReceivedText = string.sub(ReceivedText, SpacePos + 1, string.len(ReceivedText))
-            if (botPrefix == 'all' or botPrefix == g_TelegramBotName) then
-                print_info_to_log(3, 'Received[' .. ReceivedText .. '] okay with [' .. botPrefix .. ']')
-                commandValidated = true
-            else
-                print_info_to_log(3, 'Received[' .. ReceivedText .. '] not good bot name [' .. botPrefix .. ']')
-            end
-        end
-
-        if (not commandValidated) then
-            ReceivedText = ReceivedTextFull
-            SpacePos = string.find(ReceivedText, "%_")
-            if (SpacePos == nil) then
-                print_info_to_log(3, 'Received[' .. ReceivedText .. '] not with [botName_]')
-            else
-                local botPrefix = string.sub(ReceivedText, 1, SpacePos - 1)
-                ReceivedText = string.sub(ReceivedText, SpacePos + 1, string.len(ReceivedText))
-                if (botPrefix == 'all' or botPrefix == g_TelegramBotName) then
-                    --ReceivedText = string.gsub(ReceivedText, "_", " ")
-                    print_info_to_log(3, 'Received[' .. ReceivedText .. '] okay with [' .. botPrefix .. ']')
-                    commandValidated = true
-                else
-                    print_info_to_log(3, 'Received[' .. ReceivedText .. '] not good bot name [' .. botPrefix .. ']')
-                end
-            end
-        end
-        if (not commandValidated) then
-            return
-        end
-    end
-
     ---------------------------------------------------------------------------
     -- Reply back preparation to avoid duplicate logic
     ---------------------------------------------------------------------------
@@ -352,6 +300,65 @@ function on_msg_receive(msg)
     --Check to see if id is whitelisted, if not record in log and exit
     if id_check(telegramMsg_FromId) then
         g_currentUserName = id_domoticzName(telegramMsg_FromId)
+
+        -- filter command for bot only : for now, only text message
+        if msg.text then
+            ReceivedText = msg.text
+
+            -- start with a /
+            local SlashPos = string.find(ReceivedText, "/")
+            if (SlashPos ~= 1) then
+                -- check if tchat mode
+                if ( isTchat() ) then
+                    handleTchat(telegramMsg_ReplyToId, telegramMsg_MsgId, ReceivedText)
+                    return
+                else
+                    return
+                end
+            end
+
+            -- remove slash
+            ReceivedText = string.sub(ReceivedText, 2, string.len(ReceivedText))
+            local ReceivedTextFull = ReceivedText
+
+            local commandValidated = false
+            -- command with "/bot cmd option" style
+            local SpacePos = string.find(ReceivedText, "% ")
+            if (SpacePos == nil) then
+                print_info_to_log(3, 'Received[' .. ReceivedText .. '] not with [botName<space>]')
+            else
+                local botPrefix = string.sub(ReceivedText, 1, SpacePos - 1)
+                ReceivedText = string.sub(ReceivedText, SpacePos + 1, string.len(ReceivedText))
+                if (botPrefix == 'all' or botPrefix == g_TelegramBotName) then
+                    print_info_to_log(3, 'Received[' .. ReceivedText .. '] okay with [' .. botPrefix .. ']')
+                    commandValidated = true
+                else
+                    print_info_to_log(3, 'Received[' .. ReceivedText .. '] not good bot name [' .. botPrefix .. ']')
+                end
+            end
+
+            if (not commandValidated) then
+                ReceivedText = ReceivedTextFull
+                SpacePos = string.find(ReceivedText, "%_")
+                if (SpacePos == nil) then
+                    print_info_to_log(3, 'Received[' .. ReceivedText .. '] not with [botName_]')
+                else
+                    local botPrefix = string.sub(ReceivedText, 1, SpacePos - 1)
+                    ReceivedText = string.sub(ReceivedText, SpacePos + 1, string.len(ReceivedText))
+                    if (botPrefix == 'all' or botPrefix == g_TelegramBotName) then
+                        --ReceivedText = string.gsub(ReceivedText, "_", " ")
+                        print_info_to_log(3, 'Received[' .. ReceivedText .. '] okay with [' .. botPrefix .. ']')
+                        commandValidated = true
+                    else
+                        print_info_to_log(3, 'Received[' .. ReceivedText .. '] not good bot name [' .. botPrefix .. ']')
+                    end
+                end
+            end
+            if (not commandValidated) then
+                return
+            end
+        end
+
 
         if msg.text then -- check if message is text
             --ReceivedText = msg.text -- I dont read it again

@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm1.3.0'
+g_dtgbot_version = 'm2.0.0'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -57,6 +57,7 @@ g_BotHomePath           = environmentVariableDomoticz("BotHomePath")
 g_BotLuaScriptPath      = environmentVariableDomoticz("BotLuaScriptPath")
 g_BotBashScriptPath     = environmentVariableDomoticz("BotBashScriptPath")
 g_TBotOffsetName        = environmentVariableDomoticz("TelegramBotOffset")
+g_TelegramBotTchat      = environmentVariableDomoticz("TelegramBotTchat")
 g_currentUserName       = "toi"
 
 -- Constants derived from environment variables
@@ -78,6 +79,8 @@ support = assert(loadfile(g_BotHomePath .. "dtglib_telegram.lua"))();
 support = assert(loadfile(g_BotHomePath .. "dtglib_bot.lua"))();
 -- domoticz api
 support = assert(loadfile(g_BotHomePath .. "dtglib_domoticz.lua"))();
+-- tchat api
+support = assert(loadfile(g_BotHomePath .. "dtglib_tchat.lua"))();
 
 -- -------------------------------------------------------
 
