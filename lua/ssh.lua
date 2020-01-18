@@ -184,6 +184,7 @@ local ssh_commands = {
     ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
     ["ssh_bil_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull_reset - fetch and reset last git master" },
     ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
+    ["ssh_bil_restart_domoticz"] = { handler = ssh_module.handler, description = "ssh_bil_restart_domoticz - restart bil domoticz" },
     ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
     ["ssh_bil_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_rmlogs - empty log/error" },
 
@@ -195,6 +196,7 @@ local ssh_commands = {
     ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
     ["ssh_bob_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull_reset - fetch and reset last git master" },
     ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
+    ["ssh_bob_restart_domoticz"] = { handler = ssh_module.handler, description = "ssh_bob_restart_domoticz - restart bob domoticz" },
     ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" },
     ["ssh_bob_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_rmlogs - empty log/error" },
 

@@ -109,6 +109,12 @@ function domoticz_setVariableValueByIdx(idx, name, Type, value)
     return
 end
 
+-- types :
+--0 = Integer, e.g. -1, 1, 0, 2, 10
+--1 = Float, e.g. -1.1, 1.2, 3.1
+--2 = String
+--3 = Date in format DD/MM/YYYY
+--4 = Time in 24 hr format HH:MM
 function domoticz_createVariable(name, Type, value)
     -- creates user variable
     local t, jresponse, decoded_response, status

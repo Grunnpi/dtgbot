@@ -172,6 +172,65 @@ function utility_module.handler(parsed_cli)
             status = 1
             return status, response
         end
+    elseif command == 'écran' then
+        local v_ecran_compteur_jeremie = 'TempsEcranJeremie'
+        local v_ecran_actif_jeremie = 'TempsEcranJeremie'
+
+        local v_ecran_compteur_matthieu = 'TempsEcranMatthieu'
+        local v_ecran_actif_matthieu = 'TempsEcranMatthieu'
+
+        local v_ecran_compteur_jeremie_idx = domoticz_cache_getVariableIdxByName(v_ecran_compteur_jeremie)
+        if v_ecran_compteur_jeremie_idx == nil then
+            print_error_to_log(0, '"'.. v_ecran_compteur_jeremie..'" n\'exite pas. Creation')
+            domoticz_createVariable(v_ecran_compteur_jeremie,0,0)
+            v_ecran_compteur_jeremie_idx = domoticz_cache_getVariableIdxByName(v_ecran_compteur_jeremie)
+        end
+
+        local v_ecran_compteur_matthieu_idx = domoticz_cache_getVariableIdxByName(v_ecran_compteur_matthieu)
+        if v_ecran_compteur_matthieu_idx == nil then
+            print_error_to_log(0, '"'.. v_ecran_compteur_matthieu..'" n\'exite pas. Creation')
+            domoticz_createVariable(v_ecran_compteur_matthieu,0,0)
+            v_ecran_compteur_matthieu_idx = domoticz_cache_getVariableIdxByName(v_ecran_compteur_matthieu)
+        end
+
+        if v_ecran_compteur_jeremie_idx == nil then
+            status = 1
+            response = "Variable [" .. v_ecran_compteur_jeremie .. "] pas trouvée"
+            return status, response
+        end
+        if v_ecran_compteur_matthieu_idx == nil then
+            status = 1
+            response = "Variable [" .. v_ecran_compteur_matthieu .. "] pas trouvée"
+            return status, response
+        end
+
+        local v_tempsEcranJeremie = tonumber(domoticz_getVariableValueByIdx(v_ecran_compteur_jeremie_idx))
+        local v_tempsEcranMatthieu = tonumber(domoticz_getVariableValueByIdx(v_ecran_compteur_matthieu_idx))
+
+        if ( #parsed_cli >= 3 and parsed_cli[3] == 'status') then
+            response = "Jérémie reste [".. tostring(v_tempsEcranJeremie) .. "]min\nMatthieu reste [" .. tostring(v_tempsEcranMatthieu) .. "]min"
+            return status, response
+        end
+
+--            v_rasoir_compteur = v_rasoir_compteur + 1
+--            if v_rasoir_compteur > 4 then
+--                -- quelle face ? on retourne ou on change la lame !
+--                if ( v_rasoir_face == v_rasoir_endroit ) then
+--                    v_rasoir_face = v_rasoir_envers
+--                    v_rasoir_compteur = 1
+--                    response = "Il faut retourner la lame vers l\'envers et utiliser pour la 1er fois"
+--                else
+--                    v_rasoir_face = v_rasoir_endroit
+--                    v_rasoir_compteur = 1
+--                    response = "Il faut changer la lame et utiliser pour la 1er fois"
+--                end
+--                domoticz_setVariableValueByIdx(v_rasoir_face_name_idx, v_rasoir_face_name, 2, v_rasoir_face)
+--                domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
+--            else
+--                response = "Face [" .. v_rasoir_face .. "], utilisée mainenant pour la " .. tostring(v_rasoir_compteur) .. " fois"
+--                domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
+--            end
+        return status, response
     else
         response = 'Wrong command'
         return status, response
@@ -184,7 +243,9 @@ local utility_commands = {
     ["get_variables"] = { handler = utility_module.handler, description = "get_variables - list all variables name" },
     ["get_variable"] = { handler = utility_module.handler, description = "get_variable - parameter=variableName return variable value" },
     ["set_variable"] = { handler = utility_module.handler, description = "set_variable - parameter=variableName,variableValue set variable value (optional variableType)" },
-    ["rasoir"] = { handler = utility_module.handler, description = "rasoir - incrémente le compteur" }
+    ["rasoir"] = { handler = utility_module.handler, description = "rasoir - incrémente le compteur" },
+
+    ["écran"] = { handler = utility_module.handler, description = "écran - synthese des temps d'écran" }
 }
 
 function utility_module.get_commands()
