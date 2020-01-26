@@ -218,6 +218,9 @@ function utility_module.handler(parsed_cli)
             local action = string.lower(parsed_cli[3])
             local enfant = string.lower(parsed_cli[4])
 
+            action = stripChars(action)
+            enfant = stripChars(enfant)
+
             if ( (enfant == "jeremie") or (enfant == "matthieu") ) then
                 if (action == "debut") then
                     if (enfant == "jeremie") then

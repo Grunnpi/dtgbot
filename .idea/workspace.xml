@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="temps écran draft">
-      <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="temps écran ++">
+      <change beforePath="$PROJECT_DIR$/dtglib_tchat.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_tchat.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dtglib_utils.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_utils.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lua/utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/utility.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="">
@@ -148,13 +149,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
-    </task>
-    <task id="LOCAL-00001" summary="remove wild print">
-      <created>1559741164029</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1559741164029</updated>
     </task>
     <task id="LOCAL-00002" summary="bp prep">
       <created>1559742153070</created>
@@ -443,7 +437,63 @@
       <option name="project" value="LOCAL" />
       <updated>1578757339624</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="tchat mode">
+      <created>1578768788906</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1578768788906</updated>
+    </task>
+    <task id="LOCAL-00044" summary="tchat tchat">
+      <created>1578769084393</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1578769084393</updated>
+    </task>
+    <task id="LOCAL-00045" summary="tchat tchat">
+      <created>1578769205014</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1578769205014</updated>
+    </task>
+    <task id="LOCAL-00046" summary="tchat tchat">
+      <created>1578779012950</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1578779012950</updated>
+    </task>
+    <task id="LOCAL-00047" summary="tchat tchat">
+      <created>1578780160985</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1578780160985</updated>
+    </task>
+    <task id="LOCAL-00048" summary="tchat tchat">
+      <created>1578781112951</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1578781112951</updated>
+    </task>
+    <task id="LOCAL-00049" summary="temps écran draft">
+      <created>1579383518020</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1579383518020</updated>
+    </task>
+    <task id="LOCAL-00050" summary="temps écran ++">
+      <created>1580045164745</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1580045164746</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView">
@@ -541,7 +591,10 @@
     <MESSAGE value="add clean camCrotte" />
     <MESSAGE value="add clean camCrotte fix ssh" />
     <MESSAGE value="tchat mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="tchat mode" />
+    <MESSAGE value="tchat tchat" />
+    <MESSAGE value="temps écran draft" />
+    <MESSAGE value="temps écran ++" />
+    <option name="LAST_COMMIT_MESSAGE" value="temps écran ++" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="editorHistoryManager">
