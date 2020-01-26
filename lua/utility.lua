@@ -204,6 +204,8 @@ function utility_module.handler(parsed_cli)
             return status, response
         end
 
+
+
         local v_tempsEcranJeremie = tonumber(domoticz_getVariableValueByIdx(v_ecran_compteur_jeremie_idx))
         local v_tempsEcranMatthieu = tonumber(domoticz_getVariableValueByIdx(v_ecran_compteur_matthieu_idx))
 
@@ -212,24 +214,44 @@ function utility_module.handler(parsed_cli)
             return status, response
         end
 
---            v_rasoir_compteur = v_rasoir_compteur + 1
---            if v_rasoir_compteur > 4 then
---                -- quelle face ? on retourne ou on change la lame !
---                if ( v_rasoir_face == v_rasoir_endroit ) then
---                    v_rasoir_face = v_rasoir_envers
---                    v_rasoir_compteur = 1
---                    response = "Il faut retourner la lame vers l\'envers et utiliser pour la 1er fois"
---                else
---                    v_rasoir_face = v_rasoir_endroit
---                    v_rasoir_compteur = 1
---                    response = "Il faut changer la lame et utiliser pour la 1er fois"
---                end
---                domoticz_setVariableValueByIdx(v_rasoir_face_name_idx, v_rasoir_face_name, 2, v_rasoir_face)
---                domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
---            else
---                response = "Face [" .. v_rasoir_face .. "], utilisée mainenant pour la " .. tostring(v_rasoir_compteur) .. " fois"
---                domoticz_setVariableValueByIdx(v_rasoir_compteur_name_idx, v_rasoir_compteur_name, 0, v_rasoir_compteur)
---            end
+        if ( #parsed_cli >= 4 ) then
+            local action = string.lower(parsed_cli[3])
+            local enfant = string.lower(parsed_cli[4])
+
+            if ( (enfant == "jeremie") or (enfant == "matthieu") ) then
+                if (action == "debut") then
+                    if (enfant == "jeremie") then
+                        local DeviceID = domoticz_cache_getDeviceIdxByNameByType(v_ecran_actif_jeremie, 'devices')
+                        local switchtype = 'light'
+                        response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "on", SendTo)
+                    else
+                        local DeviceID = domoticz_cache_getDeviceIdxByNameByType(v_ecran_actif_matthieu, 'devices')
+                        local switchtype = 'light'
+                        response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "on", SendTo)
+                    end
+                elseif (action == "fin") then
+                    if (enfant == "jeremie") then
+                        local DeviceID = domoticz_cache_getDeviceIdxByNameByType(v_ecran_actif_jeremie, 'devices')
+                        local switchtype = 'light'
+                        response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "off", SendTo)
+                    else
+                        local DeviceID = domoticz_cache_getDeviceIdxByNameByType(v_ecran_actif_matthieu, 'devices')
+                        local switchtype = 'light'
+                        response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "off", SendTo)
+                    end
+                elseif (action == "plus") then
+                elseif (action == "moins") then
+                else
+                    response = "Commande toute pourrie, action [".. action .."] existe même pas"
+                    status = -1
+                    return status, response
+                end
+            else
+                response = "4eme position doit être 'jeremie' ou 'matthieu' : je ne reconnais pas [".. enfant .. "]"
+                status = -1
+                return status, response
+            end
+        end
         return status, response
     else
         response = 'Wrong command'
