@@ -204,8 +204,6 @@ function utility_module.handler(parsed_cli)
             return status, response
         end
 
-
-
         local v_tempsEcranJeremie = tonumber(domoticz_getVariableValueByIdx(v_ecran_compteur_jeremie_idx))
         local v_tempsEcranMatthieu = tonumber(domoticz_getVariableValueByIdx(v_ecran_compteur_matthieu_idx))
 
@@ -243,7 +241,65 @@ function utility_module.handler(parsed_cli)
                         response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "off", SendTo)
                     end
                 elseif (action == "plus") then
+                    if (enfant == "jeremie") then
+                        if ( #parsed_cli >= 5 ) then
+                            v_tempsEcranJeremie = v_tempsEcranJeremie + tonumber(parsed_cli[5])
+                            domoticz_setVariableValueByIdx(v_ecran_compteur_jeremie_idx, v_ecran_compteur_jeremie, 0, v_tempsEcranJeremie)
+                        else
+                            response = "Il faut un chiffre pour [".. action .."]"
+                            status = -1
+                            return status, response
+                        end
+                    else
+                        if ( #parsed_cli >= 5 ) then
+                            v_tempsEcranMatthieu = v_tempsEcranMatthieu + tonumber(parsed_cli[5])
+                            domoticz_setVariableValueByIdx(v_ecran_compteur_matthieu_idx, v_ecran_compteur_matthieu, 0, v_tempsEcranMatthieu)
+                        else
+                            response = "Il faut un chiffre pour [".. action .."]"
+                            status = -1
+                            return status, response
+                        end
+                    end
                 elseif (action == "moins") then
+                    if (enfant == "jeremie") then
+                        if ( #parsed_cli >= 5 ) then
+                            v_tempsEcranJeremie = v_tempsEcranJeremie - tonumber(parsed_cli[5])
+                            domoticz_setVariableValueByIdx(v_ecran_compteur_jeremie_idx, v_ecran_compteur_jeremie, 0, v_tempsEcranJeremie)
+                        else
+                            response = "Il faut un chiffre pour [".. action .."]"
+                            status = -1
+                            return status, response
+                        end
+                    else
+                        if ( #parsed_cli >= 5 ) then
+                            v_tempsEcranMatthieu = v_tempsEcranMatthieu - tonumber(parsed_cli[5])
+                            domoticz_setVariableValueByIdx(v_ecran_compteur_matthieu_idx, v_ecran_compteur_matthieu, 0, v_tempsEcranMatthieu)
+                        else
+                            response = "Il faut un chiffre pour [".. action .."]"
+                            status = -1
+                            return status, response
+                        end
+                    end
+                elseif (action == "change") then
+                    if (enfant == "jeremie") then
+                        if ( #parsed_cli >= 5 ) then
+                            v_tempsEcranJeremie = tonumber(parsed_cli[5])
+                            domoticz_setVariableValueByIdx(v_ecran_compteur_jeremie_idx, v_ecran_compteur_jeremie, 0, v_tempsEcranJeremie)
+                        else
+                            response = "Il faut un chiffre pour [".. action .."]"
+                            status = -1
+                            return status, response
+                        end
+                    else
+                        if ( #parsed_cli >= 5 ) then
+                            v_tempsEcranMatthieu = tonumber(parsed_cli[5])
+                            domoticz_setVariableValueByIdx(v_ecran_compteur_matthieu_idx, v_ecran_compteur_matthieu, 0, v_tempsEcranMatthieu)
+                        else
+                            response = "Il faut un chiffre pour [".. action .."]"
+                            status = -1
+                            return status, response
+                        end
+                    end
                 else
                     response = "Commande toute pourrie, action [".. action .."] existe même pas"
                     status = -1

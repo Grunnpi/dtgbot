@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="temps écran ++">
-      <change beforePath="$PROJECT_DIR$/dtglib_tchat.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_tchat.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtglib_utils.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_utils.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lua/utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/utility.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="">
@@ -20,6 +20,29 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.idea/workspace.xml">
+      <ranges>
+        <range start1="4" end1="6" start2="4" end2="5" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="22" end1="22" start2="21" end2="43" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="25" end1="25" start2="46" end2="47" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="28" end1="28" start2="50" end2="51" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="29" end1="31" start2="52" end2="52" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="37" end1="37" start2="58" end2="60" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="55" end1="56" start2="78" end2="79" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="70" end1="70" start2="93" end2="94" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="76" end1="77" start2="100" end2="102" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="121" end1="122" start2="146" end2="147" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="125" end1="126" start2="150" end2="151" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="152" end1="159" start2="177" end2="177" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="495" end1="496" start2="513" end2="521" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
+        <range start1="506" end1="540" start2="531" end2="531" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="547" end1="561" start2="538" end2="539" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="567" end1="570" start2="545" end2="545" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+        <range start1="598" end1="907" start2="573" end2="573" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
+      </ranges>
+    </file>
   </component>
   <component name="ProjectId" id="1TNnzqn3KSU89lVsF3mrLtIfJHX" />
   <component name="PropertiesComponent">
@@ -149,13 +172,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
-    </task>
-    <task id="LOCAL-00002" summary="bp prep">
-      <created>1559742153070</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1559742153070</updated>
     </task>
     <task id="LOCAL-00003" summary="draft id_check by command">
       <created>1559915626283</created>
@@ -493,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580045164746</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="temps écran ++">
+      <created>1580045656694</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1580045656694</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TodoView">
