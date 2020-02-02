@@ -1,5 +1,5 @@
 #!/bin/sh
 
-curl -s "http://"$DomoticzIP":"$DomoticzPort"/json.htm?type=command&param=switchlight&idx=3&switchcmd=On"
+curl -s "http://"$DomoticzIP":"$DomoticzPort"/json.htm?type=command&param=switchlight&idx=6&switchcmd=On"
 
 
