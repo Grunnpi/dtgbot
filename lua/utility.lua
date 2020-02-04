@@ -228,7 +228,7 @@ function utility_module.handler(parsed_cli)
                     else
                         local DeviceID = domoticz_cache_getDeviceIdxByNameByType(v_ecran_actif_matthieu, 'devices')
                         local switchtype = 'light'
-                        response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "on", SendTo)
+                        response = SwitchID(v_ecran_actif_matthieu, DeviceID, switchtype, "on", SendTo)
                     end
                 elseif (action == "fin") then
                     if (enfant == "jeremie") then
@@ -238,7 +238,7 @@ function utility_module.handler(parsed_cli)
                     else
                         local DeviceID = domoticz_cache_getDeviceIdxByNameByType(v_ecran_actif_matthieu, 'devices')
                         local switchtype = 'light'
-                        response = SwitchID(v_ecran_actif_jeremie, DeviceID, switchtype, "off", SendTo)
+                        response = SwitchID(v_ecran_actif_matthieu, DeviceID, switchtype, "off", SendTo)
                     end
                 elseif (action == "plus") then
                     if (enfant == "jeremie") then
