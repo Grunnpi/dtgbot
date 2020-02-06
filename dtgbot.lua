@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm3.0.7'
+g_dtgbot_version = 'm3.1.0'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -48,6 +48,7 @@ g_dtgbotLogLevel = 0
 -- All these values are set in /etc/profile.d/DomoticzData.sh
 print("************************************************************************************")
 print("dtgbot ["..g_dtgbot_version.."] start")
+print("> lua [".. _VERSION .."]")
 local DomoticzIP        = environmentVariableDomoticz("DomoticzIP")
 local DomoticzPort      = environmentVariableDomoticz("DomoticzPort")
 local TelegramChatId    = environmentVariableDomoticz("TelegramChatId")
