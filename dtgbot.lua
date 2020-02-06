@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm3.0.4'
+g_dtgbot_version = 'm3.0.5'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -119,18 +119,22 @@ local telegram_connected = false
 os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. g_BotTempFileDir .. "/dtgloop.txt")
 
 -- startup notification
+local nbRetry = 0
+local maxRetry = 10
+local selfDestruction = false
 telegram_SendMsg(TelegramChatId, "🔌 Bot est vivant ! ["..g_dtgbot_version.."]",'')
-while file_exists(dtgbot_pid) do
+while ( file_exists(dtgbot_pid) and not selfDestruction ) do
     local response
     local status
 
     response, status = https.request(g_TelegramApiUrl .. 'getUpdates?timeout=60&offset=' .. g_TelegramBotOffset)
     if status == 200 then
         if not telegram_connected then
-            print_info_to_log(0, '########################################')
-            print_info_to_log(0, '### In contact with Telegram servers ###')
-            print_info_to_log(0, '########################################')
+            print_info_to_log(0, '####################################')
+            print_info_to_log(0, '### Connecté au serveur Telegram ###')
+            print_info_to_log(0, '####################################')
             telegram_connected = true
+            nbRetry = 0
         end
         if response ~= nil then
             print_info_to_log(2, "loop.response=["..response.."]")
@@ -167,8 +171,15 @@ while file_exists(dtgbot_pid) do
         end
     else
         if telegram_connected then
-            print_info_to_log(0, '### Lost contact with Telegram servers, received Non 200 status - returned - ', status)
+            print_info_to_log(0, '### Perdu le contact avec le serveur Telegram, pas de code (200) - mais : ', status)
             telegram_connected = false
+        else
+            nbRetry = nbRetry + 1
+            if ( nbRetry > maxRetry )  then
+                print_info_to_log(0, '### Erreur pas moyen de récupérer la connection après ' .. tostring(nbRetry) .. '/' .. tostring(maxRetry) .. ' essais ', status)
+                selfDestruction = true
+                break
+            end
         end
         -- sleep a little to slow donw the loop
         os.execute("sleep 5")
@@ -176,5 +187,9 @@ while file_exists(dtgbot_pid) do
     --Update monitorfile each loop
     os.execute("echo " .. os.date("%Y-%m-%d %H:%M:%S") .. " >> " .. g_BotTempFileDir .. "/dtgloop.txt")
 end
-print_error_to_log(0, dtgbot_pid .. ' does not exist, so exiting')
+if ( selfDestruction ) then
+    print_error_to_log(0,'Auto destruction !')
+else
+    print_error_to_log(0, dtgbot_pid .. ' non présent, alors stop')
+end
 print("************************************************************************************")
