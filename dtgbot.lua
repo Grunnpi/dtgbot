@@ -20,7 +20,7 @@ mime   = require("mime")
 
 
 -- version
-g_dtgbot_version = 'm3.0.5'
+g_dtgbot_version = 'm3.0.6'
 
 function environmentVariableDomoticz(envvar)
     -- loads get environment variable and prints in log
@@ -126,8 +126,10 @@ telegram_SendMsg(TelegramChatId, "🔌 Bot est vivant ! ["..g_dtgbot_version.."]
 while ( file_exists(dtgbot_pid) and not selfDestruction ) do
     local response
     local status
+    local headers
+    local httpStatus
 
-    response, status = https.request(g_TelegramApiUrl .. 'getUpdates?timeout=60&offset=' .. g_TelegramBotOffset)
+    response, status, headers, httpStatus = https.request(g_TelegramApiUrl .. 'getUpdates?timeout=60&offset=' .. g_TelegramBotOffset)
     if status == 200 then
         if not telegram_connected then
             print_info_to_log(0, '####################################')
@@ -175,6 +177,7 @@ while ( file_exists(dtgbot_pid) and not selfDestruction ) do
             telegram_connected = false
         else
             nbRetry = nbRetry + 1
+            print_info_to_log(0, '### Tentative de connection avec serveur Telegram, pas de code (200) - mais : ' .. status .. ' // ' .. httpStatus,headers )
             if ( nbRetry > maxRetry )  then
                 print_info_to_log(0, '### Erreur pas moyen de récupérer la connection après ' .. tostring(nbRetry) .. '/' .. tostring(maxRetry) .. ' essais ', status)
                 selfDestruction = true
