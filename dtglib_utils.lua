@@ -61,6 +61,18 @@ function ChkInTable(itab, idev)
     return false, 0
 end
 
+function get_names_from_variable(DividedString)
+    local Names = {}
+    for Name in string.gmatch(DividedString, "[^|]+") do
+        Names[#Names + 1] = Name
+        print_info_to_log(1, 'get_names_from_variable: Name =' .. Name)
+    end
+    if Names == {} then
+        Names = nil
+    end
+    return Names
+end
+
 function readFileToString(file)
     local f = assert(io.open(file, "rb"))
     local content = f:read("*all")

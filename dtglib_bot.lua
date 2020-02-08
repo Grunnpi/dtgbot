@@ -126,6 +126,20 @@ function dtgbot_initialise()
         g_TelegramBotWhiteListedNames = get_names_from_variable(WLNamesString)
     end
 
+    -- Retrieve id white list Preference
+    local WLPrefdx = domoticz_cache_getVariableIdxByName("TelegramBotWhiteListedPref")
+    if WLPrefdx == nil then
+        print_warning_to_log(0, 'TelegramBotWhiteListedPref user variable does not exist in Domoticz')
+        print_warning_to_log(0, 'Tout le monde a le setup par défaut')
+    else
+        print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLPrefdx ' .. WLPrefdx)
+        local WLPrefixString = domoticz_getVariableValueByIdx(WLPrefdx)
+        print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLPrefixString: ' .. WLPrefixString)
+        g_TelegramBotWhiteListedPref = get_names_from_variable(WLNamesString)
+    end
+
+
+
     -- Get the updates
     print_info_to_log(0, 'Getting [' .. g_TBotOffsetName .. '] the previous Telegram bot message offset from Domoticz')
     g_TBotOffsetIdx = domoticz_cache_getVariableIdxByName(g_TBotOffsetName)
@@ -269,8 +283,12 @@ function HandleCommand(cmd, ReplyTo, MessageId, channelmsg)
             text = string.sub(text, 4000, -1)
         end
     elseif handleCommandReplyMarkup ~= "" then
-        local randomOkMessage = randomOkMessage()
-        telegram_SendMsg(ReplyTo, randomOkMessage, MessageId, handleCommandReplyMarkup)
+        local typeOkMessage = getWhiteListedSetup("okMessage","random")
+        local message = "Ok"
+        if ( typeOkMessage == "random" ) then
+            message = randomOkMessage()
+        end
+        telegram_SendMsg(ReplyTo, message, MessageId, handleCommandReplyMarkup)
     end
     return commandFound
 end
@@ -309,8 +327,9 @@ function on_msg_receive(msg)
     end
 
     --Check to see if id is whitelisted, if not record in log and exit
-    if id_check(telegramMsg_FromId) then
-        g_currentUserName = id_domoticzName(telegramMsg_FromId)
+    if isWhiteListed(telegramMsg_FromId) then
+        g_currentUserName = getWhiteListedName(telegramMsg_FromId)
+        g_currentUserId   = telegramMsg_FromId
 
         -- filter command for bot only : for now, only text message
         if msg.text then
@@ -429,7 +448,7 @@ function on_msg_receive(msg)
     end
 end
 
-function id_check(telegramUserId)
+function isWhiteListed(telegramUserId)
     --Check if whitelist empty then let any message through
     if g_TelegramBotWhiteListedIDs == nil then
         return true
@@ -437,19 +456,19 @@ function id_check(telegramUserId)
         telegramUserId = tostring(telegramUserId)
         --Check id against whitelist
         for i = 1, #g_TelegramBotWhiteListedIDs do
-            print_info_to_log(2, 'id_check: WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ?')
+            print_info_to_log(2, 'isWhiteListed: WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ?')
             if telegramUserId == g_TelegramBotWhiteListedIDs[i] then
-                print_info_to_log(1, 'id_check: WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ok ')
+                print_info_to_log(1, 'isWhiteListed: WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ok ')
                 return true
             end
         end
         -- Checked WhiteList no match
-        print_warning_to_log(0, 'id_check: WhiteList[' .. telegramUserId .. '] not allowed')
+        print_warning_to_log(0, 'isWhiteListed: WhiteList[' .. telegramUserId .. '] not allowed')
         return false
     end
 end
 
-function id_domoticzName(telegramUserId)
+function getWhiteListedName(telegramUserId)
     --Check if whitelist empty then let any message through
     if g_TelegramBotWhiteListedIDs == nil or g_TelegramBotWhiteListedNames == nil then
         return "inconnu"
@@ -457,15 +476,47 @@ function id_domoticzName(telegramUserId)
         telegramUserId = tostring(telegramUserId)
         --Check id against whitelist
         for i = 1, #g_TelegramBotWhiteListedIDs do
-            print_info_to_log(2, 'id_domoticzName:WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ?')
+            print_info_to_log(2, 'getWhiteListedName:WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. '] ?')
             if telegramUserId == g_TelegramBotWhiteListedIDs[i] then
                 local userName = g_TelegramBotWhiteListedNames[i]
-                print_info_to_log(1, 'id_domoticzName:WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. ']:['..userName..']')
+                print_info_to_log(1, 'getWhiteListedName:WhiteList[' .. g_TelegramBotWhiteListedIDs[i] .. ']:['..userName..']')
                 return userName
             end
         end
         -- Checked WhiteList no match
-        print_warning_to_log(0, 'id_check: WhiteList[' .. telegramUserId .. '] not allowed')
+        print_warning_to_log(0, 'isWhiteListed: WhiteList[' .. telegramUserId .. '] not allowed')
         return "non autorisé"
+    end
+end
+
+function getWhiteListedSetup(setupName, defaultValue)
+    --Check if whitelist empty then let any message through
+    if g_TelegramBotWhiteListedPref == nil then
+        return defaultValue
+    else
+        g_currentUserId = tostring(g_currentUserId)
+        --Check id against whitelist
+        for i = 1, #g_TelegramBotWhiteListedIDs do
+            if g_currentUserId == g_TelegramBotWhiteListedIDs[i] then
+                if ( i <= #g_TelegramBotWhiteListedIDs ) then
+                    local currentUserPref = g_TelegramBotWhiteListedPref[i]
+                    local foundSetup = false
+                    local listKeyValue = split_string(currentUserPref,",")
+                    for j = 1, #listKeyValue do
+                        local oneKeyValue = listKeyValue[j]
+                        local tabKeyValue = split_string(oneKeyValue,"=")
+                        if ( tabKeyValue[1] == setupName ) then
+                            return tabKeyValue[2]
+                        end
+                    end
+                    if ( not foundSetup ) then
+                        return defaultValue
+                    end
+                else
+                    return defaultValue
+                end
+            end
+        end
+        return defaultValue
     end
 end

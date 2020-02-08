@@ -75,7 +75,7 @@ function on_binlog_replay_end()
 end
 
 
-function id_check_for_function(SendTo, FunctionName)
+function isWhiteListed_for_function(SendTo, FunctionName)
     FunctionWhiteList = 'TelegramWhiteListFor' .. FunctionName
 
     -- Retrieve id white list
