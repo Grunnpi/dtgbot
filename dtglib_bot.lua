@@ -135,7 +135,7 @@ function dtgbot_initialise()
         print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLPrefdx ' .. WLPrefdx)
         local WLPrefixString = domoticz_getVariableValueByIdx(WLPrefdx)
         print_info_to_log(1, 'domoticz_cache_getVariableIdxByName: WLPrefixString: ' .. WLPrefixString)
-        g_TelegramBotWhiteListedPref = get_names_from_variable(WLNamesString)
+        g_TelegramBotWhiteListedPref = get_names_from_variable(WLPrefixString)
     end
 
 

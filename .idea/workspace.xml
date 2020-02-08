@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="update idx for garage">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="setup for random msg off">
+      <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dtglib_bot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_bot.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtglib_domoticz.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_domoticz.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtglib_useless.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_useless.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtglib_utils.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_utils.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -22,56 +19,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/.idea/workspace.xml">
-      <ranges>
-        <range start1="3" end1="4" start2="3" end2="4" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="5" end1="7" start2="5" end2="9" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="22" end1="22" start2="24" end2="51" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="23" end1="46" start2="52" end2="52" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="48" end1="48" start2="54" end2="55" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="51" end1="51" start2="58" end2="59" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="52" end1="54" start2="60" end2="60" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="60" end1="60" start2="66" end2="68" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="78" end1="79" start2="86" end2="87" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="93" end1="93" start2="101" end2="102" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="99" end1="100" start2="108" end2="110" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="144" end1="145" start2="154" end2="155" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="148" end1="149" start2="158" end2="159" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="175" end1="231" start2="185" end2="185" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="518" end1="519" start2="472" end2="529" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="530" end1="564" start2="540" end2="540" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="570" end1="584" start2="546" end2="547" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="590" end1="593" start2="553" end2="553" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="594" end1="595" start2="554" end2="554" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="619" end1="620" start2="578" end2="580" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="621" end1="930" start2="581" end2="581" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-      </ranges>
-    </file>
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/.idea/workspace.xml">
-      <ranges>
-        <range start1="4" end1="6" start2="4" end2="5" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="22" end1="22" start2="21" end2="43" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="25" end1="25" start2="46" end2="47" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="28" end1="28" start2="50" end2="51" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="29" end1="31" start2="52" end2="52" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="37" end1="37" start2="58" end2="60" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="55" end1="56" start2="78" end2="79" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="70" end1="70" start2="93" end2="94" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="76" end1="77" start2="100" end2="102" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="121" end1="122" start2="146" end2="147" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="125" end1="126" start2="150" end2="151" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="152" end1="159" start2="177" end2="177" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="495" end1="496" start2="513" end2="521" changelist="fd7300f7-b079-4bd5-9a93-bf702ddd2039" />
-        <range start1="506" end1="540" start2="531" end2="531" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="547" end1="561" start2="538" end2="539" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="567" end1="570" start2="545" end2="545" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-        <range start1="598" end1="907" start2="573" end2="573" changelist="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" />
-      </ranges>
-    </file>
   </component>
   <component name="ProjectId" id="1TNnzqn3KSU89lVsF3mrLtIfJHX" />
   <component name="PropertiesComponent">
@@ -201,69 +148,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
-    </task>
-    <task id="LOCAL-00003" summary="draft id_check by command">
-      <created>1559915626283</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1559915626283</updated>
-    </task>
-    <task id="LOCAL-00004" summary="prep local test stuff">
-      <created>1560956124676</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1560956124676</updated>
-    </task>
-    <task id="LOCAL-00005" summary="error handling intro + review log">
-      <created>1561125313359</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1561125313359</updated>
-    </task>
-    <task id="LOCAL-00006" summary="filter per bot name + build list per bot">
-      <created>1561388325434</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1561388325434</updated>
-    </task>
-    <task id="LOCAL-00007" summary="ignore workspace.xml">
-      <created>1561442149186</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1561442149186</updated>
-    </task>
-    <task id="LOCAL-00008" summary="reformat + add .bat for local test setup">
-      <created>1561444973889</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1561444973889</updated>
-    </task>
-    <task id="LOCAL-00009" summary="lua stuff, reformat">
-      <created>1561469031218</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1561469031218</updated>
-    </task>
-    <task id="LOCAL-00010" summary="local variable and global variable cleanup">
-      <created>1561538974815</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1561538974815</updated>
-    </task>
-    <task id="LOCAL-00011" summary="fix replyTo">
-      <created>1561562000429</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1561562000429</updated>
     </task>
     <task id="LOCAL-00012" summary="version++">
       <created>1561562045035</created>
@@ -545,7 +429,70 @@
       <option name="project" value="LOCAL" />
       <updated>1580045656694</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="temps écran ++">
+      <created>1580046685799</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1580046685799</updated>
+    </task>
+    <task id="LOCAL-00053" summary="update idx for garage">
+      <created>1580664601720</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1580664601721</updated>
+    </task>
+    <task id="LOCAL-00054" summary="update idx for garage">
+      <created>1580665042340</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1580665042340</updated>
+    </task>
+    <task id="LOCAL-00055" summary="update idx for garage">
+      <created>1580845968577</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1580845968578</updated>
+    </task>
+    <task id="LOCAL-00056" summary="update idx for garage">
+      <created>1580973366681</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1580973366681</updated>
+    </task>
+    <task id="LOCAL-00057" summary="update idx for garage">
+      <created>1580974818654</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1580974818654</updated>
+    </task>
+    <task id="LOCAL-00058" summary="update idx for garage">
+      <created>1580975087794</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1580975087795</updated>
+    </task>
+    <task id="LOCAL-00059" summary="update idx for garage">
+      <created>1581018239397</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1581018239397</updated>
+    </task>
+    <task id="LOCAL-00060" summary="setup for random msg off">
+      <created>1581200286079</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1581200286079</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView">
@@ -621,8 +568,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove wild print" />
-    <MESSAGE value="bp prep" />
     <MESSAGE value="draft id_check by command" />
     <MESSAGE value="prep local test stuff" />
     <MESSAGE value="error handling intro + review log" />
@@ -646,7 +591,9 @@
     <MESSAGE value="tchat tchat" />
     <MESSAGE value="temps écran draft" />
     <MESSAGE value="temps écran ++" />
-    <option name="LAST_COMMIT_MESSAGE" value="temps écran ++" />
+    <MESSAGE value="update idx for garage" />
+    <MESSAGE value="setup for random msg off" />
+    <option name="LAST_COMMIT_MESSAGE" value="setup for random msg off" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="editorHistoryManager">
