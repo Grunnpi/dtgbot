@@ -40,7 +40,7 @@ function utility_module.handler(parsed_cli)
         return status, response
     elseif command == 'ping' then
         status = 0
-        response = "pong"
+        response = "pong [" .. g_dtgbot_version .. "]"
         return status, response
     elseif command == 'rasoir' then
         local v_rasoir_compteur_name = 'Rasoir_compteur'
