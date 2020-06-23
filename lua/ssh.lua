@@ -69,6 +69,8 @@ function ssh_module.handler(parsed_cli)
                 ssh_host_parameter = 'bil'
             elseif ( starts_with(this_command,"ssh_bob") ) then
                 ssh_host_parameter = 'bob'
+            elseif ( starts_with(this_command,"ssh_gru") ) then
+                ssh_host_parameter = 'gru'
             elseif ( starts_with(this_command,"ssh_eve") ) then
                 ssh_host_parameter = 'eve'
             elseif ( starts_with(this_command,"ssh_hal") ) then
@@ -102,8 +104,6 @@ function ssh_module.handler(parsed_cli)
                 ssh_command = '"' .. SSH_KILL_BOT .. ';' .. SSH_GIT_PULL .. ';' .. SSH_RM_LOGS .. ';' .. SSH_BOT_START .. '"'
             elseif ( ends_with(this_command,"_restart_domoticz") ) then
                 ssh_command = 'sudo service domoticz restart'
-            elseif ( ends_with(this_command,"_crotte_purge") ) then
-                ssh_command = 'sudo rm -rf /var/lib/motioneye/Camera1/*'
             else
                 ssh_command = "zob"
             end
@@ -178,27 +178,45 @@ end
 local ssh_commands = {
     ["ssh"] = { handler = ssh_module.handler, description = "ssh - remote stuff" },
 
-    ["ssh_bil_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bil_bot_stop - stop bil bot" },
-    ["ssh_bil_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bil_bot_checkout - checkout + optional tag parameter (master default)" },
-    ["ssh_bil_bot_upgrade"] = { handler = ssh_module.handler, description = "ssh_bil_bot_upgrade - upgrade to last version" },
-    ["ssh_bil_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull - pull last git version" },
-    ["ssh_bil_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bil_bot_pull_reset - fetch and reset last git master" },
-    ["ssh_bil_bot_start"] = { handler = ssh_module.handler, description = "ssh_bil_bot_start - start bil bot" },
-    ["ssh_bil_restart_domoticz"] = { handler = ssh_module.handler, description = "ssh_bil_restart_domoticz - restart bil domoticz" },
-    ["ssh_bil_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_logs - cat log/error" },
-    ["ssh_bil_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bil_bot_rmlogs - empty log/error" },
+    ["ssh_bil_bot_stop"] = { handler = ssh_module.handler,          description = "ssh_bil_bot_stop - stop bil bot" },
+    ["ssh_bil_bot_checkout"] = { handler = ssh_module.handler,      description = "ssh_bil_bot_checkout - checkout + optional tag parameter (master default)" },
+    ["ssh_bil_bot_upgrade"] = { handler = ssh_module.handler,       description = "ssh_bil_bot_upgrade - upgrade to last version" },
+    ["ssh_bil_bot_pull"] = { handler = ssh_module.handler,          description = "ssh_bil_bot_pull - pull last git version" },
+    ["ssh_bil_bot_pull_reset"] = { handler = ssh_module.handler,    description = "ssh_bil_bot_pull_reset - fetch and reset last git master" },
+    ["ssh_bil_bot_start"] = { handler = ssh_module.handler,         description = "ssh_bil_bot_start - start bil bot" },
+    ["ssh_bil_restart_domoticz"] = { handler = ssh_module.handler,  description = "ssh_bil_restart_domoticz - restart bil domoticz" },
+    ["ssh_bil_bot_logs"] = { handler = ssh_module.handler,          description = "ssh_bil_bot_logs - cat log/error" },
+    ["ssh_bil_bot_rmlogs"] = { handler = ssh_module.handler,        description = "ssh_bil_bot_rmlogs - empty log/error" },
 
-    ["ssh_eve_crotte_purge"] = { handler = ssh_module.handler, description = "ssh_eve_crotte_purge - supprimer les photos de la CamCrotte" },
+    ["ssh_bob_bot_stop"] = { handler = ssh_module.handler,          description = "ssh_bob_bot_stop - stop bil bot" },
+    ["ssh_bob_bot_checkout"] = { handler = ssh_module.handler,      description = "ssh_bob_bot_checkout - checkout + optional tag parameter (master default)" },
+    ["ssh_bob_bot_upgrade"] = { handler = ssh_module.handler,       description = "ssh_bob_bot_upgrade - upgrade to last version" },
+    ["ssh_bob_bot_pull"] = { handler = ssh_module.handler,          description = "ssh_bob_bot_pull - pull last git version" },
+    ["ssh_bob_bot_pull_reset"] = { handler = ssh_module.handler,    description = "ssh_bob_bot_pull_reset - fetch and reset last git master" },
+    ["ssh_bob_bot_start"] = { handler = ssh_module.handler,         description = "ssh_bob_bot_start - start bil bot" },
+    ["ssh_bob_restart_domoticz"] = { handler = ssh_module.handler,  description = "ssh_bob_restart_domoticz - restart bil domoticz" },
+    ["ssh_bob_bot_logs"] = { handler = ssh_module.handler,          description = "ssh_bob_bot_logs - cat log/error" },
+    ["ssh_bob_bot_rmlogs"] = { handler = ssh_module.handler,        description = "ssh_bob_bot_rmlogs - empty log/error" },
 
-    ["ssh_bob_bot_stop"] = { handler = ssh_module.handler, description = "ssh_bob_bot_stop - start bil bot" },
-    ["ssh_bob_bot_checkout"] = { handler = ssh_module.handler, description = "ssh_bob_bot_checkout - checkout + optional tag parameter (master default)" },
-    ["ssh_bob_bot_upgrade"] = { handler = ssh_module.handler, description = "ssh_bob_bot_upgrade - upgrade to last version" },
-    ["ssh_bob_bot_pull"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull - pull last git version" },
-    ["ssh_bob_bot_pull_reset"] = { handler = ssh_module.handler, description = "ssh_bob_bot_pull_reset - fetch and reset last git master" },
-    ["ssh_bob_bot_start"] = { handler = ssh_module.handler, description = "ssh_bob_bot_start - start bil bot" },
-    ["ssh_bob_restart_domoticz"] = { handler = ssh_module.handler, description = "ssh_bob_restart_domoticz - restart bob domoticz" },
-    ["ssh_bob_bot_logs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_logs - cat log/error" },
-    ["ssh_bob_bot_rmlogs"] = { handler = ssh_module.handler, description = "ssh_bob_bot_rmlogs - empty log/error" },
+    ["ssh_gru_bot_stop"] = { handler = ssh_module.handler,          description = "ssh_gru_bot_stop - stop bil bot" },
+    ["ssh_gru_bot_checkout"] = { handler = ssh_module.handler,      description = "ssh_gru_bot_checkout - checkout + optional tag parameter (master default)" },
+    ["ssh_gru_bot_upgrade"] = { handler = ssh_module.handler,       description = "ssh_gru_bot_upgrade - upgrade to last version" },
+    ["ssh_gru_bot_pull"] = { handler = ssh_module.handler,          description = "ssh_gru_bot_pull - pull last git version" },
+    ["ssh_gru_bot_pull_reset"] = { handler = ssh_module.handler,    description = "ssh_gru_bot_pull_reset - fetch and reset last git master" },
+    ["ssh_gru_bot_start"] = { handler = ssh_module.handler,         description = "ssh_gru_bot_start - start bil bot" },
+    ["ssh_gru_restart_domoticz"] = { handler = ssh_module.handler,  description = "ssh_gru_restart_domoticz - restart bil domoticz" },
+    ["ssh_gru_bot_logs"] = { handler = ssh_module.handler,          description = "ssh_gru_bot_logs - cat log/error" },
+    ["ssh_gru_bot_rmlogs"] = { handler = ssh_module.handler,        description = "ssh_gru_bot_rmlogs - empty log/error" },
+
+    ["ssh_eve_bot_stop"] = { handler = ssh_module.handler,          description = "ssh_eve_bot_stop - stop bil bot" },
+    ["ssh_eve_bot_checkout"] = { handler = ssh_module.handler,      description = "ssh_eve_bot_checkout - checkout + optional tag parameter (master default)" },
+    ["ssh_eve_bot_upgrade"] = { handler = ssh_module.handler,       description = "ssh_eve_bot_upgrade - upgrade to last version" },
+    ["ssh_eve_bot_pull"] = { handler = ssh_module.handler,          description = "ssh_eve_bot_pull - pull last git version" },
+    ["ssh_eve_bot_pull_reset"] = { handler = ssh_module.handler,    description = "ssh_eve_bot_pull_reset - fetch and reset last git master" },
+    ["ssh_eve_bot_start"] = { handler = ssh_module.handler,         description = "ssh_eve_bot_start - start bil bot" },
+    ["ssh_eve_restart_domoticz"] = { handler = ssh_module.handler,  description = "ssh_eve_restart_domoticz - restart bil domoticz" },
+    ["ssh_eve_bot_logs"] = { handler = ssh_module.handler,          description = "ssh_eve_bot_logs - cat log/error" },
+    ["ssh_eve_bot_rmlogs"] = { handler = ssh_module.handler,        description = "ssh_eve_bot_rmlogs - empty log/error" },
 
     ["ssh_restart_domoticz"] = { handler = ssh_module.handler, description = "ssh_restart_domoticz - restart service" }
 }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="setup for random msg off">
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="ping++">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lua/utility.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/utility.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lua/ssh.lua" beforeDir="false" afterPath="$PROJECT_DIR$/lua/ssh.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -135,13 +134,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
-    </task>
-    <task id="LOCAL-00012" summary="version++">
-      <created>1561562045035</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1561562045035</updated>
     </task>
     <task id="LOCAL-00013" summary="add git pull ssh.lua + fix bob stop">
       <created>1561562358496</created>
@@ -479,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581200286079</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="ping++">
+      <created>1592897698596</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1592897698596</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TodoView">
@@ -505,7 +504,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="draft id_check by command" />
     <MESSAGE value="prep local test stuff" />
     <MESSAGE value="error handling intro + review log" />
     <MESSAGE value="filter per bot name + build list per bot" />
@@ -530,8 +528,19 @@
     <MESSAGE value="temps écran ++" />
     <MESSAGE value="update idx for garage" />
     <MESSAGE value="setup for random msg off" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup for random msg off" />
+    <MESSAGE value="ping++" />
+    <option name="LAST_COMMIT_MESSAGE" value="ping++" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592897697922">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592897697922" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592897699875">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592897699875" />
   </component>
   <component name="masterDetails">
     <states>
