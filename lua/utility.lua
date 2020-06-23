@@ -38,6 +38,10 @@ function utility_module.handler(parsed_cli)
             response = "Missing parameter ! (no message)"
         end
         return status, response
+    elseif command == 'ping' then
+        status = 0
+        response = "pong"
+        return status, response
     elseif command == 'rasoir' then
         local v_rasoir_compteur_name = 'Rasoir_compteur'
         local v_rasoir_face_name = 'Rasoir_face'
@@ -172,7 +176,7 @@ function utility_module.handler(parsed_cli)
             status = 1
             return status, response
         end
-    elseif command == 'écran' then
+    elseif command == 'ecran' then
         local v_ecran_compteur_jeremie = 'TempsEcranJeremie'
         local v_ecran_actif_jeremie = 'TempsEcranJeremie'
 
@@ -325,8 +329,9 @@ local utility_commands = {
     ["get_variable"] = { handler = utility_module.handler, description = "get_variable - parameter=variableName return variable value" },
     ["set_variable"] = { handler = utility_module.handler, description = "set_variable - parameter=variableName,variableValue set variable value (optional variableType)" },
     ["rasoir"] = { handler = utility_module.handler, description = "rasoir - incrémente le compteur" },
+    ["ping"] = { handler = utility_module.handler, description = "ping - pour faire un pong" },
 
-    ["écran"] = { handler = utility_module.handler, description = "écran - synthese des temps d'écran" }
+    ["ecran"] = { handler = utility_module.handler, description = "ecran - synthese des temps d'écran" }
 }
 
 function utility_module.get_commands()
