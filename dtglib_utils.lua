@@ -61,6 +61,22 @@ function ChkInTable(itab, idev)
     return false, 0
 end
 
+-- SCAN through provided delimited string for the second parameter
+function ChkInTableMatch(itab, idev)
+    local cnt = 0
+    if itab ~= nil then
+        for dev in string.gmatch(itab, "[^|,]+") do
+            cnt = cnt + 1
+            if string.gmatch(dev, idev) then
+                print_info_to_log(3, "-< ChkInTableMatch found: " .. idev, cnt, itab)
+                return true, cnt
+            end
+        end
+    end
+    print_info_to_log(3, "-< ChkInTable not found: " .. idev, cnt, itab)
+    return false, 0
+end
+
 function get_names_from_variable(DividedString)
     local Names = {}
     for Name in string.gmatch(DividedString, "[^|]+") do

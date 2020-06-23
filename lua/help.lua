@@ -27,7 +27,7 @@ function help_module.handler(parsed_cli)
     for i, help in pairs(g_commandsLua) do
         local newCommand = string.gmatch(help.description, "%S+") [[1]] .. ''
         -- filter g_TelegramBotBashExclude
-        if (ChkInTable(g_TelegramBotLuaExclude, newCommand)) then
+        if (ChkInTableMatch(g_TelegramBotLuaExclude, newCommand)) then
             print_info_to_log(2, 'WARN help::list lua command:' .. newCommand .. ' filtered')
         else
             table.insert(commandLuaOrdered, newCommand)
@@ -59,7 +59,7 @@ function help_module.handler(parsed_cli)
         local DotPos = string.find(line, "%.")
         local newCommand = string.sub(line, 0, DotPos - 1)
         -- filter g_TelegramBotBashExclude
-        if (ChkInTable(g_TelegramBotBashExclude, newCommand)) then
+        if (ChkInTableMatch(g_TelegramBotBashExclude, newCommand)) then
             print_info_to_log(2, 'WARN help::list bash command:' .. newCommand .. ' filtered')
         else
             local newCommandHelper = g_TelegramBotName .. '_' .. newCommand
