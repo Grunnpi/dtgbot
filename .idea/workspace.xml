@@ -136,20 +136,6 @@
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
     </task>
-    <task id="LOCAL-00018" summary="photo crotte">
-      <created>1573074367107</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1573074367108</updated>
-    </task>
-    <task id="LOCAL-00019" summary="restart domoticz function">
-      <created>1576344802128</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1576344802128</updated>
-    </task>
     <task id="LOCAL-00020" summary="fix ssh concat">
       <created>1576345309606</created>
       <option name="number" value="00020" />
@@ -479,7 +465,21 @@
       <option name="project" value="LOCAL" />
       <updated>1592920838421</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="match for filter">
+      <created>1592921980655</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1592921980655</updated>
+    </task>
+    <task id="LOCAL-00068" summary="match for filter">
+      <created>1592922149331</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1592922149331</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TodoView">
@@ -534,14 +534,14 @@
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592921980038">
+    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592922148750">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592921980038" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592921984794">
+    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592922148750" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592922150452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592921984794" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592922150452" />
     <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1592920423725">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
