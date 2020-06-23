@@ -67,8 +67,8 @@ function ChkInTableMatch(itab, idev)
     if itab ~= nil then
         for dev in string.gmatch(itab, "[^|,]+") do
             cnt = cnt + 1
-            if string.gmatch(dev, idev) then
-                print_info_to_log(3, "-< ChkInTableMatch found: " .. idev, cnt, itab)
+            if string.gmatch(idev,dev) then
+                print_info_to_log(3, "-< ChkInTableMatch found: " .. idev, dev, cnt, itab)
                 return true, cnt
             end
         end

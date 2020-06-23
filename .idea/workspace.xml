@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="gru++ for ssh">
+    <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="match for filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="" />
@@ -133,13 +133,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
-    </task>
-    <task id="LOCAL-00015" summary="desc for stop/start fix">
-      <created>1561562825792</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1561562825792</updated>
     </task>
     <task id="LOCAL-00016" summary="version++">
       <created>1561562917701</created>
@@ -477,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592899809318</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="match for filter">
+      <created>1592920190913</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1592920190914</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TodoView">
@@ -503,7 +503,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="error handling intro + review log" />
     <MESSAGE value="filter per bot name + build list per bot" />
     <MESSAGE value="ignore workspace.xml" />
     <MESSAGE value="reformat + add .bat for local test setup" />
@@ -528,22 +527,23 @@
     <MESSAGE value="setup for random msg off" />
     <MESSAGE value="ping++" />
     <MESSAGE value="gru++ for ssh" />
-    <option name="LAST_COMMIT_MESSAGE" value="gru++ for ssh" />
+    <MESSAGE value="match for filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="match for filter" />
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592899808700">
+    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592920190207">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592899808700" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592899810896">
+    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592920190207" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592920192228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592899810896" />
-    <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1592920083988">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592920192228" />
+    <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1592920423725">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592920083988" />
+    <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592920423725" />
   </component>
   <component name="masterDetails">
     <states>
