@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fd7300f7-b079-4bd5-9a93-bf702ddd2039" name="Default" comment="match for filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dtgbot.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtgbot.lua" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dtglib_utils.lua" beforeDir="false" afterPath="$PROJECT_DIR$/dtglib_utils.lua" afterDir="false" />
     </list>
     <list id="2d50d2fd-b229-4ec8-9a7c-0a03ecd51aa7" name="z_local" comment="" />
@@ -135,13 +134,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1559713382384</updated>
-    </task>
-    <task id="LOCAL-00021" summary="add clean camCrotte">
-      <created>1578601323838</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1578601323838</updated>
     </task>
     <task id="LOCAL-00022" summary="add clean camCrotte fix ssh">
       <created>1578601656859</created>
@@ -479,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592922234718</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="match for filter">
+      <created>1592922594294</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1592922594294</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TodoView">
@@ -534,14 +533,14 @@
     <option name="UPDATE_GROUP_BY_PACKAGES" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592922234083">
+    <state x="644" y="114" key="CommitChangelistDialog2" timestamp="1592922593654">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592922234083" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592922239649">
+    <state x="644" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592922593654" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1592922596572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592922239649" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.984@0.0.1920.1040" timestamp="1592922596572" />
     <state x="656" y="252" width="607" height="536" key="find.popup" timestamp="1592920423725">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
